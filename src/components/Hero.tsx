@@ -57,7 +57,7 @@ export default function Hero() {
         </div>
       </motion.div>
 
-      {/* Hero Graphic / Characters Placeholder */}
+      {/* Hero Graphic / Characters */}
       <motion.div
         initial={{ y: 100, opacity: 0 }}
         animate={{ y: 0, opacity: 1 }}
@@ -80,7 +80,9 @@ export default function Hero() {
               <div className="bg-black text-white px-4 py-2 font-mono text-xs rounded shadow-lg pointer-events-auto">
                 PLACEHOLDER: Add your character graphic here
               </div>
-              <code className="bg-white text-black border border-black/20 px-2 py-1 text-[10px] rounded shadow pointer-events-auto">public/hero-characters.png</code>
+              <code className="bg-white text-black border border-black/20 px-2 py-1 text-[10px] rounded shadow pointer-events-auto">
+                public/hero-characters.png
+              </code>
             </div>
           )}
         </div>

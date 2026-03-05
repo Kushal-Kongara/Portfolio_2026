@@ -209,19 +209,32 @@ export default function About() {
       <div className="w-full bg-[#F2B50B]">
         <SectionWrapper id="events" className="min-h-screen flex flex-col justify-center">
           {/* Events & Hackathons */}
-          <motion.h2
+          <motion.div
             initial={{ opacity: 0, x: -12 }}
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true }}
-            className="text-[12vw] md:text-[5rem] lg:text-[6.5rem] font-black text-[#DE1A58] uppercase tracking-tighter leading-none mb-8 md:mb-12 mt-16 text-left origin-left"
-            style={{
-              fontFamily: "Impact, system-ui, sans-serif",
-              transform: "scaleY(1.2)",
-              WebkitTextStroke: "2px #DE1A58"
-            }}
+            className="flex items-center justify-between gap-4 mb-8 md:mb-12 mt-16"
           >
-            EVENTS & HACKATHONS
-          </motion.h2>
+            <h2
+              className="text-[12vw] md:text-[5rem] lg:text-[6.5rem] font-black text-[#DE1A58] uppercase tracking-tighter leading-none text-left origin-left"
+              style={{
+                fontFamily: "Impact, system-ui, sans-serif",
+                transform: "scaleY(1.2)",
+                WebkitTextStroke: "2px #DE1A58"
+              }}
+            >
+              EVENTS & HACKATHONS
+            </h2>
+            <div className="hidden md:block relative w-[160px] h-[120px] lg:w-[220px] lg:h-[160px]">
+              <Image
+                src="/hackathon-character.png"
+                alt="Developer illustration"
+                fill
+                className="object-contain drop-shadow-[0_14px_35px_rgba(0,0,0,0.35)]"
+                priority
+              />
+            </div>
+          </motion.div>
 
           <div className="flex flex-col md:flex-row gap-2 md:gap-4 w-full md:h-[400px] lg:h-[500px]">
             {/* Left Half */}

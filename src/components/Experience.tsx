@@ -116,81 +116,56 @@ const Factory = ({ className }: { className?: string }) => (
   </svg>
 );
 
-// Helper for placing standard or custom decorations based on experience name/index
-const getDecor = (company: string, isEven: boolean) => {
-  // If isEven, the content is on the LEFT side, so the empty space we decorate is on the RIGHT.
-  // The center road is to the LEFT of this empty space.
-  // We position items relative to the empty 1/2 screen.
-
-  const nearRoad = 'left-4 md:left-12';
-  const midSpace = 'left-1/2 -translate-x-1/2';
-  const farEdge = 'right-4 md:right-16';
-
+// Helper for placing custom decorations above each card
+const getDecor = (company: string) => {
   const c = company.toLowerCase();
 
-  // Hyderabad models
   if (c.includes("dispatchtrack")) {
     return (
       <>
-        <Charminar className={`absolute w-32 md:w-48 bottom-12 ${nearRoad}`} />
-        <Bush className={`absolute w-16 md:w-20 bottom-8 ${midSpace}`} color="#1abc9c" />
-        <House className={`absolute w-20 md:w-24 bottom-16 ${farEdge}`} color="#e74c3c" />
+        <Charminar className="absolute w-28 -right-4 -top-20 z-0 drop-shadow-xl" />
+        <Bush className="absolute w-12 -right-8 top-10" color="#1abc9c" />
       </>
-    )
+    );
   }
-  // US / San Francisco models
   if (c.includes("university")) {
     return (
-      <>
-        <GoldenGate className={`absolute w-48 md:w-64 bottom-24 ${nearRoad}`} />
-        <PineTree className={`absolute w-12 md:w-16 bottom-16 ${midSpace}`} />
-        <PineTree className={`absolute w-10 md:w-12 bottom-12 ${farEdge}`} />
-      </>
-    )
+      <GoldenGate className="absolute w-40 -right-12 -top-16 z-0 drop-shadow-xl" />
+    );
   }
-  // Transition Models
   if (c.includes("moved")) {
     return (
-      <>
-        <Cloud className="absolute w-20 md:w-28 left-4 md:left-16 top-10 opacity-80" />
-        <Cloud className="absolute w-24 md:w-32 right-10 top-24 opacity-60" />
-        <motion.div
-          animate={{ x: [0, 40, 0], y: [0, -10, 0] }}
-          transition={{ duration: 8, repeat: Infinity, ease: "easeInOut" }}
-          className={`absolute text-5xl md:text-6xl ${midSpace} top-1/2 -translate-y-1/2`}
-        >
-          ✈️
-        </motion.div>
-      </>
-    )
+      <motion.div
+        animate={{ x: [0, 40, 0], y: [0, -10, 0] }}
+        transition={{ duration: 8, repeat: Infinity, ease: "easeInOut" }}
+        className="absolute text-5xl right-4 -top-12 z-0"
+      >
+        ✈️
+      </motion.div>
+    );
   }
-  // Mumbai models
   if (c.includes("l&t")) {
     return (
       <>
-        <CitySkyline className={`absolute w-40 md:w-56 bottom-16 ${nearRoad}`} />
-        <Bush className={`absolute w-16 md:w-24 bottom-10 ${farEdge}`} color="#2ecc71" />
+        <CitySkyline className="absolute w-36 -right-6 -top-16 z-0 drop-shadow-lg" />
+        <Bush className="absolute w-16 -left-6 -top-4 z-0" color="#2ecc71" />
       </>
-    )
+    );
   }
-  // San Jose (Modern tech hub)
   if (c.includes("cyber")) {
     return (
       <>
-        <House className={`absolute w-24 md:w-32 bottom-20 ${nearRoad}`} color="#3498db" />
-        <PineTree className={`absolute w-16 md:w-20 bottom-12 ${midSpace}`} />
-        <PineTree className={`absolute w-12 md:w-16 bottom-8 right-24`} />
+        <House className="absolute w-20 right-8 -top-16 z-0 drop-shadow-xl" color="#3498db" />
+        <PineTree className="absolute w-12 -right-4 -top-8 z-0" />
       </>
-    )
+    );
   }
-  // Medford / Remote Tech Setup
   return (
     <>
-      <Factory className={`absolute w-24 md:w-32 bottom-16 ${nearRoad}`} />
-      <Bush className={`absolute w-12 md:w-16 bottom-10 ${midSpace}`} color="#27ae60" />
-      <Cloud className={`absolute w-20 md:w-28 right-10 top-16 opacity-70`} />
+      <Factory className="absolute w-24 right-4 -top-16 z-0 drop-shadow-xl" />
+      <Cloud className="absolute w-16 left-8 -top-12 opacity-70" />
     </>
-  )
+  );
 };
 
 export default function Experience() {
@@ -207,124 +182,108 @@ export default function Experience() {
       <div className="max-w-7xl mx-auto px-6 md:px-12 relative z-10">
 
         {/* Title */}
-        <div className="text-center mb-32">
+        <div className="text-center mb-16 md:mb-24">
           <motion.h2
             initial={{ opacity: 0, y: -20 }}
             whileInView={{ opacity: 1, y: 0 }}
-            className="text-5xl md:text-7xl font-black text-[#2d3436] tracking-tighter uppercase inline-block relative"
+            className="text-4xl md:text-6xl font-black text-[#2d3436] tracking-tighter uppercase inline-block relative"
           >
             My Journey
-            <span className="absolute -bottom-4 left-1/2 -translate-x-1/2 w-32 h-2 bg-[#e74c3c] rounded-full" />
+            <span className="absolute -bottom-3 left-1/2 -translate-x-1/2 w-24 h-2 bg-[#e74c3c] rounded-full" />
           </motion.h2>
-          <p className="mt-8 text-xl text-slate-500 font-medium italic">{"A timeline of growth, miles traveled, and code shipped."}</p>
+          <p className="mt-6 text-lg text-slate-500 font-medium italic">{"A timeline of growth, miles traveled, and code shipped."}</p>
         </div>
 
-        {/* The Roadmap */}
-        <div className="relative">
+        {/* The Grid Roadmap */}
+        <div className="relative max-w-6xl mx-auto pb-20">
 
-          {/* Mobile Straight Road */}
-          <div className="absolute left-[36px] md:hidden top-0 bottom-0 w-[8px] bg-[#1e272e] rounded-full overflow-hidden">
-            {/* Dashed line inside */}
-            <div className="absolute left-1/2 w-0 h-full border-l-[2px] border-dashed border-white opacity-80" />
+          {/* ROAD BACKGROUND (Desktop) - winds through the two rows */}
+          <div className="hidden lg:block absolute inset-0 pointer-events-none z-0">
+            {/* Top row straight road */}
+            <div className="absolute top-[20%] left-0 right-[15%] h-[40px] bg-[#1e272e] rounded-l-full shadow-lg border-y-4 border-[#1e272e]">
+              <div className="w-full h-full border-b-[4px] border-dashed border-white opacity-80 -translate-y-[2px]" />
+            </div>
+            {/* Right Curve */}
+            <div className="absolute top-[20%] right-[5%] w-[20%] h-[55%] border-[40px] border-l-0 border-[#1e272e] rounded-r-[100px] shadow-lg">
+              <div className="absolute inset-0 border-[4px] border-l-0 border-dashed border-white opacity-80 left-[18px] top-[16px] bottom-[16px] right-[16px] rounded-r-[80px]" />
+            </div>
+            {/* Bottom row straight road */}
+            <div className="absolute top-[65%] right-[15%] left-0 h-[40px] bg-[#1e272e] shadow-lg border-y-4 border-[#1e272e]">
+              <div className="w-full h-full border-b-[4px] border-dashed border-white opacity-80 -translate-y-[2px]" />
+            </div>
+            {/* Left Curve to NOW terminal */}
+            <div className="absolute top-[65%] left-0 w-[15%] h-[35%] border-[40px] border-r-0 border-b-0 border-[#1e272e] rounded-tl-[100px] shadow-lg">
+              <div className="absolute inset-0 border-[4px] border-r-0 border-b-0 border-dashed border-white opacity-80 right-[18px] top-[16px] bottom-[16px] left-[16px] rounded-tl-[80px]" />
+            </div>
           </div>
 
-          <div className="flex flex-col">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-x-8 gap-y-12 lg:gap-y-32">
             {journey.map((exp, idx) => {
-              const isEven = idx % 2 === 0; // Curve on Right or Left
-              const isLast = idx === journey.length - 1;
               const theme = CARD_THEMES[idx % CARD_THEMES.length];
 
+              // Only take first bullet and limit to ~20 words so blocks are small
+              const rawText = exp.bullets[0] || exp.role;
+              const shortText = rawText.split(' ').slice(0, 20).join(' ') + (rawText.split(' ').length > 20 ? '...' : '');
+
               return (
-                <div key={idx} className="relative flex flex-col md:flex-row items-center min-h-[450px]">
+                <div key={idx} className="relative flex flex-col z-10 w-[90%] mx-auto lg:w-full">
+                  {/* Decorative Elements Peeking from top */}
+                  <div className="absolute inset-0 pointer-events-none z-0">
+                    {getDecor(exp.company)}
+                  </div>
 
-                  {/* Desktop Winding Road Segment */}
-                  {!isLast && (
-                    <div className={`hidden md:block absolute w-[50%] h-full top-[50%] z-0 ${isEven ? 'right-[50%]' : 'left-[50%]'}`}>
-                      {/* Black asphalt road */}
-                      <div
-                        className={`absolute w-full h-full border-[60px] border-[#1e272e] shadow-lg ${isEven ? "border-l-0 rounded-r-[150px] left-0" : "border-r-0 rounded-l-[150px] right-0"
-                          }`}
-                      />
-                      {/* White dashed centerline */}
-                      <div
-                        className={`absolute border-[4px] border-dashed border-white opacity-80 ${isEven
-                          ? "border-l-0 rounded-r-[120px] left-0 top-[30px] bottom-[30px] right-[30px]"
-                          : "border-r-0 rounded-l-[120px] right-0 top-[30px] bottom-[30px] left-[30px]"
-                          }`}
-                      />
+                  <motion.div
+                    initial={{ opacity: 0, y: 30 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    viewport={{ once: true, margin: "-50px" }}
+                    className={`h-full min-h-[280px] ${theme.bg} p-5 md:p-6 rounded-[1.5rem] shadow-xl relative z-10 group transition-transform duration-300 hover:-translate-y-2 border-2 border-black/10 flex flex-col`}
+                  >
+                    {/* Node Icon on top left */}
+                    <div className="absolute -top-6 -left-4 w-12 h-12 bg-[#1e272e] rounded-full border-[3px] border-[#FAF7F2] shadow-lg flex items-center justify-center text-xl text-white">
+                      {getIcon(exp.company)}
                     </div>
-                  )}
 
-                  {/* Node icon for Mobile */}
-                  <div className="md:hidden absolute left-[20px] top-8 w-[40px] h-[40px] rounded-full bg-[#1e272e] text-white flex items-center justify-center text-xl z-20 shadow-xl border-2 border-[#FAF7F2]">
-                    {getIcon(exp.company)}
-                  </div>
+                    {/* Date Tag */}
+                    <div className={`mt-2 self-start px-3 py-1 rounded-full ${theme.tag} font-black text-[10px] tracking-[0.1em] uppercase shadow-sm mb-3`}>
+                      {exp.period.split("·")[0].trim()}
+                    </div>
 
-                  {/* Content Container (Card) */}
-                  <div className={`w-full md:w-1/2 flex relative z-10 py-12 md:py-0 ${isEven ? 'md:justify-end md:pr-16' : 'md:order-2 md:justify-start md:pl-16'}`}>
+                    <h3 className="text-xl md:text-2xl font-black text-white leading-tight mb-1 uppercase tracking-tight">
+                      {exp.company}
+                    </h3>
+                    <h4 className="text-sm font-bold text-white/95 mb-4 uppercase tracking-wide">
+                      {exp.role}
+                    </h4>
 
-                    <motion.div
-                      initial={{ opacity: 0, y: 50 }}
-                      whileInView={{ opacity: 1, y: 0 }}
-                      viewport={{ once: true, margin: "-100px" }}
-                      className={`ml-20 md:ml-0 ${theme.bg} p-6 md:p-8 rounded-[2xl] shadow-2xl w-full max-w-lg relative group transition-transform duration-300 hover:-translate-y-2 border-2 border-black/10`}
-                    >
-                      {/* Node icon for Desktop */}
-                      <div className={`hidden md:flex absolute top-1/2 -translate-y-1/2 w-16 h-16 bg-[#1e272e] rounded-full border-[4px] border-[#FAF7F2] shadow-xl items-center justify-center text-2xl text-white ${isEven ? '-right-[88px]' : '-left-[88px]'}`}>
-                        {getIcon(exp.company)}
-                      </div>
+                    <div className="text-white font-medium space-y-3 mb-6 text-[13px] leading-relaxed opacity-95 flex-grow">
+                      <p>{shortText}</p>
+                    </div>
 
-                      {/* Date Tag */}
-                      <div className={`inline-block px-4 py-1.5 rounded-full ${theme.tag} font-black text-[13px] tracking-[0.1em] uppercase shadow-sm mb-5`}>
-                        {exp.period.split("·")[0].trim()}
-                      </div>
-
-                      <h3 className="text-3xl md:text-4xl font-black text-white leading-tight mb-2 uppercase tracking-tight">
-                        {exp.company}
-                      </h3>
-                      <h4 className={`text-xl font-bold text-white/95 mb-5 uppercase tracking-wide`}>
-                        {exp.role}
-                      </h4>
-
-                      <div className="text-white font-bold space-y-3 mb-8 text-[15px] leading-relaxed opacity-95">
-                        {exp.bullets.slice(0, 2).map((bullet, i) => (
-                          <p key={i}>{bullet}</p>
+                    {/* Skills / Tech */}
+                    {exp.skills.length > 0 && (
+                      <div className="flex flex-wrap gap-1.5 mt-auto">
+                        {exp.skills.slice(0, 3).map(skill => (
+                          <span key={skill} className="bg-black/20 text-white border border-white/10 px-2.5 py-1 rounded-full text-[9px] font-black uppercase tracking-wider backdrop-blur-sm shadow-inner truncate">
+                            {skill}
+                          </span>
                         ))}
+                        {exp.skills.length > 3 && (
+                          <span className="bg-black/20 text-white border border-white/10 px-2 py-1 rounded-full text-[9px] font-black backdrop-blur-sm shadow-inner">
+                            +{exp.skills.length - 3}
+                          </span>
+                        )}
                       </div>
-
-                      {/* Skills / Tech */}
-                      {exp.skills.length > 0 && (
-                        <div className="flex flex-wrap gap-2">
-                          {exp.skills.slice(0, 4).map(skill => (
-                            <span key={skill} className="bg-black/20 text-white border border-white/10 px-3 py-1.5 rounded-full text-xs font-black uppercase tracking-wider backdrop-blur-sm shadow-inner">
-                              {skill}
-                            </span>
-                          ))}
-                          {exp.skills.length > 4 && (
-                            <span className="bg-black/20 text-white border border-white/10 px-3 py-1.5 rounded-full text-xs font-black backdrop-blur-sm shadow-inner">
-                              +{exp.skills.length - 4}
-                            </span>
-                          )}
-                        </div>
-                      )}
-                    </motion.div>
-                  </div>
-
-                  {/* Landscape Decor space (Desktop) */}
-                  <div className={`hidden md:block w-1/2 relative h-full min-h-[450px] pointer-events-none ${isEven ? 'md:order-2' : ''}`}>
-                    {getDecor(exp.company, isEven)}
-                  </div>
-
+                    )}
+                  </motion.div>
                 </div>
               );
             })}
           </div>
 
-          {/* Start/End Terminals below the last item (desktop) */}
-          <div className="hidden md:flex absolute bottom-0 left-1/2 -translate-x-1/2 translate-y-1/2 w-20 h-20 bg-[#e74c3c] rounded-full shadow-2xl items-center justify-center text-white text-xl font-black uppercase tracking-widest border-[8px] border-[#FAF7F2] z-20">
+          {/* Terminal NOW marker */}
+          <div className="absolute -bottom-8 left-0 hidden lg:flex w-16 h-16 bg-[#e74c3c] rounded-full shadow-2xl items-center justify-center text-white text-sm font-black uppercase tracking-widest border-[6px] border-[#FAF7F2] z-20">
             NOW
-          </div>
-        </div>
+          </div>        </div>
 
       </div>
     </section>

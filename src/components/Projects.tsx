@@ -20,7 +20,7 @@ function ProjectFolder({ project, index }: { project: any; index: number }) {
       whileInView={{ opacity: 1, scale: 1 }}
       viewport={{ once: true, amount: 0.2 }}
       transition={{ delay: index * 0.1, duration: 0.5, ease: "easeOut" }}
-      className="relative w-full max-w-[320px] mx-auto aspect-square rounded-[2.5rem] overflow-hidden bg-[#1c1c1e] shadow-[0_20px_50px_rgba(0,0,0,0.2)] group border-[8px] border-[#18181a] cursor-pointer"
+      className="relative w-full max-w-[400px] mx-auto aspect-[4/3] rounded-[2.5rem] overflow-hidden bg-[#1c1c1e] shadow-[0_20px_50px_rgba(0,0,0,0.2)] group border-[8px] border-[#18181a] cursor-pointer"
     >
       {/* Background colored gradient */}
       <div className={`absolute inset-x-0 top-0 h-[65%] bg-gradient-to-br ${gradient} opacity-90 transition-transform duration-700 ease-out group-hover:scale-110`} />
@@ -48,7 +48,7 @@ function ProjectFolder({ project, index }: { project: any; index: number }) {
         }}
       >
         {/* Folder Content */}
-        <div className="pt-[52%] px-8">
+        <div className="pt-[50%] px-6 pb-4">
           <div className="flex justify-between items-start gap-4">
             <div className="flex-1">
               <h3 className="text-white text-2xl font-semibold tracking-tight mb-1.5">{project.title}</h3>
@@ -104,7 +104,7 @@ export default function Projects() {
         initial={{ opacity: 0, x: -12 }}
         whileInView={{ opacity: 1, x: 0 }}
         viewport={{ once: true }}
-        className="text-[14vw] md:text-[8rem] lg:text-[10rem] font-black text-black uppercase tracking-tighter leading-none mb-16 lg:mb-20 mt-8 text-left origin-left"
+        className="text-[12vw] md:text-[5rem] lg:text-[6.5rem] font-black text-black uppercase tracking-tighter leading-none mb-8 md:mb-12 mt-8 text-left origin-left"
         style={{
           fontFamily: "Impact, system-ui, sans-serif",
           transform: "scaleY(1.2)",
@@ -114,7 +114,7 @@ export default function Projects() {
         WORK
       </motion.h2>
 
-      <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8 justify-items-center">
+      <div className="grid md:grid-cols-2 gap-8 lg:gap-16 max-w-4xl mx-auto justify-items-center">
         {projects.map((project, i) => (
           <ProjectFolder key={project.title} project={project} index={i} />
         ))}

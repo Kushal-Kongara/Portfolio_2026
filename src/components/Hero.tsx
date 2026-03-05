@@ -12,20 +12,20 @@ export default function Hero() {
       id="hero"
       className="relative w-full h-[100svh] min-h-[600px] bg-white overflow-hidden flex flex-col justify-between pt-10 pb-16 px-6 lg:px-12 selection:bg-[#ff5500] selection:text-white"
     >
-      {/* Top Labels */}
-      <motion.div
-        initial={{ opacity: 0, y: -20 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.6, delay: 0.2 }}
-        className="flex justify-between w-full max-w-7xl mx-auto z-20 relative text-[#ff5500] font-black tracking-widest text-xs md:text-sm lg:text-base uppercase"
-      >
-        <span>Fresh</span>
-        <span>Health</span>
-        <span>Have Leisure</span>
-      </motion.div>
 
-      {/* Giant Background Text */}
-      <div className="absolute inset-0 flex items-center justify-center z-0 pointer-events-none select-none overflow-hidden pb-12">
+      {/* Giant Background Text & Sub Titles */}
+      <div className="absolute inset-0 flex flex-col items-center justify-center z-0 pointer-events-none select-none overflow-hidden pb-12">
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6, delay: 0.2 }}
+          className="flex justify-between w-full max-w-[85%] md:max-w-[75%] lg:max-w-[65%] z-20 relative text-[#ff5500] font-black tracking-widest text-[10px] sm:text-xs md:text-sm lg:text-base uppercase mb-2 md:mb-6"
+        >
+          <span>Software Engineer</span>
+          <span>Full Stack Developer</span>
+          <span>AI Engineer</span>
+        </motion.div>
+
         <motion.h1
           initial={{ scale: 0.8, opacity: 0 }}
           animate={{ scale: 1, opacity: 1 }}
@@ -62,7 +62,7 @@ export default function Hero() {
         initial={{ y: 100, opacity: 0 }}
         animate={{ y: 0, opacity: 1 }}
         transition={{ duration: 0.8, delay: 0.5, ease: "easeOut" }}
-        className="absolute bottom-0 right-0 z-20 w-[95%] md:w-[70%] lg:w-[50%] h-[80%] pointer-events-none flex items-end justify-end md:pr-10 lg:pr-12"
+        className="absolute bottom-0 right-0 z-20 w-full md:w-[80%] lg:w-[60%] h-[80%] pointer-events-none flex items-end justify-end md:pr-4 lg:pr-8"
       >
         <div className="relative w-full h-full">
           {!imgError && (

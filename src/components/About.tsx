@@ -82,9 +82,8 @@ function IDBadge() {
         </svg>
       </div>
 
-      {/* The Card */}
       <motion.div
-        className="w-full bg-[#111] rounded-2xl shadow-[0_20px_50px_rgba(0,0,0,0.3)] p-6 pb-8 flex flex-col items-center border border-gray-800 z-20 relative overflow-hidden mt-20"
+        className="w-full aspect-[1/1.58] bg-[#111] rounded-2xl shadow-[0_20px_50px_rgba(0,0,0,0.3)] p-6 pb-8 flex flex-col items-center border border-gray-800 z-20 relative overflow-hidden mt-20"
         initial={{ rotate: -5, y: 50, opacity: 0 }}
         whileInView={{ rotate: [-5, 3, -1, 0, -2], y: 0, opacity: 1 }}
         transition={{ duration: 1.5, type: "spring", bounce: 0.4 }}
@@ -101,8 +100,7 @@ function IDBadge() {
           <h3 className="text-[#ff5500] font-serif italic text-3xl md:text-3xl leading-none">Creative<br /><span className="text-4xl md:text-4xl ml-4">Studio</span></h3>
         </div>
 
-        {/* Photo container */}
-        <div className="w-[140px] h-[160px] md:w-[160px] md:h-[180px] bg-[#222] rounded-xl overflow-hidden relative mb-6 shadow-inner border-[3px] border-[#333] z-10 group">
+        <div className="w-[60%] aspect-[3/4] bg-[#222] rounded-xl overflow-hidden relative mb-6 shadow-inner border-[3px] border-[#333] z-10 group">
           {!imgError && (
             <Image
               src="/profile.jpg"
@@ -130,98 +128,127 @@ function IDBadge() {
           }}
         />
       </motion.div>
-    </motion.div>
+    </motion.div >
   );
 }
 
+
 export default function About() {
   return (
-    <SectionWrapper id="about">
-      {/* Intro */}
-      <motion.h2
-        initial={{ opacity: 0, x: -12 }}
-        whileInView={{ opacity: 1, x: 0 }}
-        viewport={{ once: true }}
-        className="text-[14vw] md:text-[8rem] lg:text-[10rem] font-black text-black uppercase tracking-tighter leading-none mb-12 mt-8 text-left origin-left"
+    <>
+      <div
+        className="w-full relative"
         style={{
-          fontFamily: "Impact, system-ui, sans-serif",
-          transform: "scaleY(1.2)",
-          WebkitTextStroke: "2px black"
+          backgroundColor: "#3A9AFF",
+          backgroundImage: "url('/about-pattern.png')",
+          backgroundRepeat: "repeat",
+          backgroundSize: "220px 220px"
         }}
       >
-        ABOUT ME
-      </motion.h2>
+        <SectionWrapper id="about" className="py-8 lg:py-10 flex flex-col justify-center">
+          {/* Intro */}
+          <motion.h2
+            initial={{ opacity: 0, x: -12 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            viewport={{ once: true }}
+            className="text-[12vw] md:text-[5rem] lg:text-[6.5rem] font-black text-black uppercase tracking-tighter leading-none mb-4 md:mb-6 mt-4 text-left origin-left"
+            style={{
+              fontFamily: "Impact, system-ui, sans-serif",
+              transform: "scaleY(1.2)",
+              WebkitTextStroke: "2px black"
+            }}
+          >
+            ABOUT ME
+          </motion.h2>
 
-      <div className="flex flex-col lg:flex-row gap-12 lg:gap-20 items-center justify-between mb-24">
-        {/* Left: ID Badge container */}
-        <div className="w-full lg:w-[45%] flex justify-center lg:justify-center">
-          <IDBadge />
-        </div>
+          <div className="flex flex-col lg:flex-row gap-10 lg:gap-16 items-center justify-between mb-4">
+            {/* Left: ID Badge container */}
+            <div className="w-full lg:w-[45%] flex justify-center lg:justify-center">
+              <IDBadge />
+            </div>
 
-        {/* Right: Intro Text */}
-        <div className="w-full lg:w-[55%] space-y-6">
-          {about.intro.map((paragraph, i) => (
-            <motion.p
-              key={i}
-              initial={{ opacity: 0, y: 12 }}
-              whileInView={{ opacity: 1, y: 0 }}
+            {/* Right: Intro Text inside Retro Window */}
+            <motion.div
+              initial={{ opacity: 0, rotate: -2, y: 20 }}
+              whileInView={{ opacity: 1, rotate: 0, y: 0 }}
               viewport={{ once: true }}
-              transition={{ delay: i * 0.08 }}
-              className="text-gray-700 text-lg md:text-xl leading-relaxed"
+              transition={{ type: "spring", bounce: 0.4, duration: 0.8 }}
+              className="w-full lg:w-[55%] bg-white border-[3px] border-black shadow-[8px_8px_0px_0px_rgba(0,0,0,1)] hover:shadow-[12px_12px_0px_0px_rgba(0,0,0,1)] hover:-translate-y-1 hover:-translate-x-1 transition-all duration-300 flex flex-col"
             >
-              {paragraph.split(/(\*\*[^*]+\*\*)/g).map((part, j) =>
-                part.startsWith("**") && part.endsWith("**") ? (
-                  <span key={j} className="text-orange-base font-semibold">
-                    {part.slice(2, -2)}
-                  </span>
-                ) : (
-                  part
-                )
+              {/* Window Top Bar */}
+              <div className="w-full bg-[#0cae67] border-b-[3px] border-black px-3 py-2 flex justify-end items-center gap-2">
+                <div className="w-6 h-6 bg-white border-[2px] border-black flex items-center justify-center font-bold text-black text-xs leading-none pt-1 cursor-default hover:bg-gray-100 transition-colors">_</div>
+                <div className="w-6 h-6 bg-white border-[2px] border-black flex items-center justify-center font-bold text-black text-[10px] cursor-default hover:bg-gray-100 transition-colors">□</div>
+                <div className="w-6 h-6 bg-white border-[2px] border-black flex items-center justify-center font-bold text-black text-sm leading-none cursor-default hover:bg-gray-100 transition-colors">×</div>
+              </div>
+
+              {/* Window Content */}
+              <div className="p-6 md:p-8 space-y-6">
+                {about.intro.map((paragraph, i) => (
+                  <p
+                    key={i}
+                    className="text-black text-lg md:text-xl leading-relaxed font-medium"
+                  >
+                    {paragraph.split(/(\*\*[^*]+\*\*)/g).map((part, j) =>
+                      part.startsWith("**") && part.endsWith("**") ? (
+                        <span key={j} className="text-[#ff5500] font-black">
+                          {part.slice(2, -2)}
+                        </span>
+                      ) : (
+                        part
+                      )
+                    )}
+                  </p>
+                ))}
+              </div>
+            </motion.div>
+          </div>
+        </SectionWrapper>
+      </div>
+
+      <div className="w-full bg-[#F2B50B]">
+        <SectionWrapper id="events" className="min-h-screen flex flex-col justify-center">
+          {/* Events & Hackathons */}
+          <motion.h2
+            initial={{ opacity: 0, x: -12 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            viewport={{ once: true }}
+            className="text-[12vw] md:text-[5rem] lg:text-[6.5rem] font-black text-[#DE1A58] uppercase tracking-tighter leading-none mb-8 md:mb-12 mt-16 text-left origin-left"
+            style={{
+              fontFamily: "Impact, system-ui, sans-serif",
+              transform: "scaleY(1.2)",
+              WebkitTextStroke: "2px #DE1A58"
+            }}
+          >
+            EVENTS & HACKATHONS
+          </motion.h2>
+
+          <div className="flex flex-col md:flex-row gap-2 md:gap-4 w-full md:h-[400px] lg:h-[500px]">
+            {/* Left Half */}
+            <div className="flex-1 flex flex-col gap-2 md:gap-4">
+              {photoStories[0] && (
+                <MomentCard story={photoStories[0]} className="h-[300px] md:h-auto md:flex-[55] rounded-xl" />
               )}
-            </motion.p>
-          ))}
-        </div>
+              <div className="h-[150px] md:h-auto md:flex-[45] flex flex-row gap-2 md:gap-4">
+                {photoStories[1] && <MomentCard story={photoStories[1]} className="flex-1 rounded-xl" />}
+                {photoStories[2] && <MomentCard story={photoStories[2]} className="flex-1 rounded-xl" />}
+              </div>
+            </div>
+
+            {/* Right Half */}
+            <div className="flex-1 flex flex-col gap-2 md:gap-4">
+              <div className="h-[150px] md:h-auto md:flex-[35] flex flex-row gap-2 md:gap-4">
+                {photoStories[3] && <MomentCard story={photoStories[3]} className="flex-1 rounded-xl" />}
+                {photoStories[4] && <MomentCard story={photoStories[4]} className="flex-1 rounded-xl" />}
+              </div>
+              <div className="h-[300px] md:h-auto md:flex-[65] flex flex-row gap-2 md:gap-4">
+                {photoStories[5] && <MomentCard story={photoStories[5]} className="flex-1 rounded-xl" />}
+                {photoStories[6] && <MomentCard story={photoStories[6]} className="flex-1 rounded-xl" />}
+              </div>
+            </div>
+          </div>
+        </SectionWrapper>
       </div>
-
-      {/* Events & Hackathons */}
-      <motion.h3
-        initial={{ opacity: 0, x: -12 }}
-        whileInView={{ opacity: 1, x: 0 }}
-        viewport={{ once: true }}
-        className="text-[12vw] md:text-[6rem] lg:text-[8rem] font-black text-black uppercase tracking-tighter leading-none mb-10 pb-4 text-left origin-left"
-        style={{
-          fontFamily: "Impact, system-ui, sans-serif",
-          transform: "scaleY(1.2)",
-          WebkitTextStroke: "2px black"
-        }}
-      >
-        EVENTS <br />& HACKATHONS
-      </motion.h3>
-
-      <div className="flex flex-col md:flex-row gap-2 md:gap-4 w-full md:h-[600px] lg:h-[800px]">
-        {/* Left Half */}
-        <div className="flex-1 flex flex-col gap-2 md:gap-4">
-          {photoStories[0] && (
-            <MomentCard story={photoStories[0]} className="h-[300px] md:h-auto md:flex-[55] rounded-xl" />
-          )}
-          <div className="h-[150px] md:h-auto md:flex-[45] flex flex-row gap-2 md:gap-4">
-            {photoStories[1] && <MomentCard story={photoStories[1]} className="flex-1 rounded-xl" />}
-            {photoStories[2] && <MomentCard story={photoStories[2]} className="flex-1 rounded-xl" />}
-          </div>
-        </div>
-
-        {/* Right Half */}
-        <div className="flex-1 flex flex-col gap-2 md:gap-4">
-          <div className="h-[150px] md:h-auto md:flex-[35] flex flex-row gap-2 md:gap-4">
-            {photoStories[3] && <MomentCard story={photoStories[3]} className="flex-1 rounded-xl" />}
-            {photoStories[4] && <MomentCard story={photoStories[4]} className="flex-1 rounded-xl" />}
-          </div>
-          <div className="h-[300px] md:h-auto md:flex-[65] flex flex-row gap-2 md:gap-4">
-            {photoStories[5] && <MomentCard story={photoStories[5]} className="flex-1 rounded-xl" />}
-            {photoStories[6] && <MomentCard story={photoStories[6]} className="flex-1 rounded-xl" />}
-          </div>
-        </div>
-      </div>
-    </SectionWrapper>
+    </>
   );
 }

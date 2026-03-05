@@ -122,14 +122,14 @@ function ExperienceCard({
 
 export default function Experience() {
   return (
-    <section id="experience" className="scroll-mt-0 relative overflow-hidden bg-white pt-20">
+    <section id="experience" className="scroll-mt-0 relative overflow-hidden bg-white pt-10 md:pt-16">
       {/* Optional Top Heading - could just visually rely on the numbers, but keeping an anchor for semantic reasons */}
-      <div className="max-w-7xl mx-auto px-6 pb-10">
+      <div className="max-w-7xl mx-auto px-6 pb-4">
         <motion.h2
           initial={{ opacity: 0, x: -12 }}
           whileInView={{ opacity: 1, x: 0 }}
           viewport={{ once: true }}
-          className="text-[14vw] md:text-[8rem] lg:text-[10rem] font-black text-black uppercase tracking-tighter leading-none mb-12 mt-8 text-left origin-left"
+          className="text-[12vw] md:text-[5rem] lg:text-[6.5rem] font-black text-black uppercase tracking-tighter leading-none mb-8 md:mb-12 mt-8 text-left origin-left"
           style={{
             fontFamily: "Impact, system-ui, sans-serif",
             transform: "scaleY(1.2)",

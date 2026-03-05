@@ -20,10 +20,10 @@ function ProjectFolder({ project, index }: { project: any; index: number }) {
       whileInView={{ opacity: 1, scale: 1 }}
       viewport={{ once: true, amount: 0.2 }}
       transition={{ delay: index * 0.1, duration: 0.5, ease: "easeOut" }}
-      className="relative w-full max-w-[400px] mx-auto aspect-[4/3] rounded-[2.5rem] overflow-hidden bg-[#1c1c1e] shadow-[0_20px_50px_rgba(0,0,0,0.2)] group border-[8px] border-[#18181a] cursor-pointer"
+      className="relative w-full max-w-[320px] mx-auto aspect-[4/3] rounded-[2rem] overflow-hidden bg-[#1c1c1e] shadow-[0_15px_40px_rgba(0,0,0,0.2)] group border-[6px] border-[#18181a] cursor-pointer"
     >
       {/* Background colored gradient */}
-      <div className={`absolute inset-x-0 top-0 h-[65%] bg-gradient-to-br ${gradient} opacity-90 transition-transform duration-700 ease-out group-hover:scale-110`} />
+      <div className={`absolute inset-x-0 top-0 h-[65%] bg-gradient-to-br ${gradient} opacity-90 transition-transform duration-700 ease-out group-hover:scale-105`} />
 
       {/* Dynamic Papers Sticking Out */}
       <div className="absolute top-[28%] left-[10%] w-[80%] h-[35%] flex justify-center z-10 transition-transform duration-500 ease-out group-hover:-translate-y-4">
@@ -48,11 +48,11 @@ function ProjectFolder({ project, index }: { project: any; index: number }) {
         }}
       >
         {/* Folder Content */}
-        <div className="pt-[50%] px-6 pb-4">
+        <div className="pt-[50%] px-5 pb-3">
           <div className="flex justify-between items-start gap-4">
             <div className="flex-1">
-              <h3 className="text-white text-2xl font-semibold tracking-tight mb-1.5">{project.title}</h3>
-              <p className="text-[#98989f] text-sm leading-relaxed line-clamp-2">{project.description}</p>
+              <h3 className="text-white text-xl font-semibold tracking-tight mb-1.5">{project.title}</h3>
+              <p className="text-[#98989f] text-xs leading-relaxed line-clamp-2">{project.description}</p>
             </div>
 
             {/* Quick Action Links */}
@@ -88,7 +88,7 @@ function ProjectFolder({ project, index }: { project: any; index: number }) {
         </div>
 
         {/* Footer info showing "files" */}
-        <div className="px-8 pb-8 flex items-center gap-2 text-[#98989f] text-sm">
+        <div className="px-5 pb-5 flex items-center gap-2 text-[#98989f] text-xs">
           <svg className="w-4 h-4 opacity-70" fill="none" stroke="currentColor" viewBox="0 0 24 24" strokeWidth="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line><polyline points="10 9 9 9 8 9"></polyline></svg>
           <span className="opacity-90 tracking-wide font-medium">1 Project</span>
         </div>
@@ -111,10 +111,10 @@ export default function Projects() {
           WebkitTextStroke: "2px black"
         }}
       >
-        WORK
+        PROJECTS
       </motion.h2>
 
-      <div className="grid md:grid-cols-2 gap-8 lg:gap-16 max-w-4xl mx-auto justify-items-center">
+      <div className="grid md:grid-cols-2 gap-6 lg:gap-10 max-w-3xl mx-auto justify-items-center">
         {projects.map((project, i) => (
           <ProjectFolder key={project.title} project={project} index={i} />
         ))}

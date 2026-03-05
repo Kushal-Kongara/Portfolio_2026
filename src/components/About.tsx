@@ -137,7 +137,7 @@ export default function About() {
   return (
     <>
       <div
-        className="w-full relative"
+        className="w-full min-h-screen flex flex-col"
         style={{
           backgroundColor: "#3A9AFF",
           backgroundImage: "url('/about-pattern.png')",
@@ -145,7 +145,7 @@ export default function About() {
           backgroundSize: "220px 220px"
         }}
       >
-        <SectionWrapper id="about" className="py-8 lg:py-10 flex flex-col justify-center">
+        <SectionWrapper id="about" className="flex-1 flex flex-col justify-center py-20">
           {/* Intro */}
           <motion.h2
             initial={{ opacity: 0, x: -12 }}
@@ -206,14 +206,14 @@ export default function About() {
         </SectionWrapper>
       </div>
 
-      <div className="w-full bg-[#F2B50B]">
-        <SectionWrapper id="events" className="min-h-screen flex flex-col justify-center">
+      <div className="w-full bg-[#F2B50B] min-h-screen flex flex-col">
+        <SectionWrapper id="events" className="flex-1 flex flex-col justify-center py-20">
           {/* Events & Hackathons */}
           <motion.div
             initial={{ opacity: 0, x: -12 }}
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true }}
-            className="flex items-center justify-between gap-4 mb-8 md:mb-12 mt-16"
+            className="mb-8 md:mb-12 mt-16"
           >
             <h2
               className="text-[12vw] md:text-[5rem] lg:text-[6.5rem] font-black text-[#DE1A58] uppercase tracking-tighter leading-none text-left origin-left"
@@ -225,15 +225,6 @@ export default function About() {
             >
               EVENTS & HACKATHONS
             </h2>
-            <div className="hidden md:block relative w-[160px] h-[120px] lg:w-[220px] lg:h-[160px]">
-              <Image
-                src="/hackathon-character.png"
-                alt="Developer illustration"
-                fill
-                className="object-contain drop-shadow-[0_14px_35px_rgba(0,0,0,0.35)]"
-                priority
-              />
-            </div>
           </motion.div>
 
           <div className="flex flex-col md:flex-row gap-2 md:gap-4 w-full md:h-[400px] lg:h-[500px]">

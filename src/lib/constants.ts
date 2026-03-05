@@ -58,6 +58,27 @@ export const experiences: ExperienceItem[] = [
     skills: ["React.js", "React Native", "Node.js", "Express.js", "MongoDB", "AWS", "Stripe", "GitLab CI/CD", "JWT", "Microservices"],
   },
   {
+    company: "San Francisco Bay University",
+    role: "Master of Science in Computer Science",
+    period: "Jan 2023 - Dec 2024",
+    location: "Fremont, California, United States",
+    bullets: [
+      "Pursued advanced coursework in software engineering, distributed systems, and artificial intelligence.",
+      "Collaborated on multiple academic projects focusing on scalable web applications and machine learning models.",
+    ],
+    skills: ["Software Engineering", "Algorithms", "Distributed Systems", "Artificial Intelligence"],
+  },
+  {
+    company: "Moved to US",
+    role: "Relocation & Higher Education",
+    period: "Jan 2023",
+    location: "United States",
+    bullets: [
+      "Relocated to the United States to pursue a Master's degree and explore advanced opportunities in the tech industry.",
+    ],
+    skills: [],
+  },
+  {
     company: "DispatchTrack",
     role: "Software Engineer",
     period: "Dec 2021 - Dec 2022 · 1 yr 1 mo",

@@ -158,7 +158,7 @@ export default function Hero() {
       >
         <div className="flex flex-col sm:flex-row sm:items-center items-start gap-12 lg:gap-32 pointer-events-auto w-full">
           <p className="max-w-[280px] md:max-w-md text-[#ff5500] text-[10px] md:text-xs leading-relaxed font-bold tracking-wide">
-            The founder has always believed that &quot;everyone should learn to be happy and happy&quot;. There are many disappointments in life, but living in the present should enjoy the present instead of being overwhelmed by pessimism.
+            I believe technology should make life easier and more enjoyable. As a Full Stack Developer, I enjoy building products that solve real problems, experimenting with new technologies, and continuously improving my skills while turning ideas into meaningful digital experiences.
           </p>
 
           {/* Bold Colorful Pencil Art Social Icons */}

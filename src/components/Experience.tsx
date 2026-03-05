@@ -4,11 +4,11 @@ import { motion } from "framer-motion";
 import { experiences } from "@/lib/constants";
 import { FaGraduationCap, FaPlaneDeparture, FaBriefcase, FaCode, FaBuilding } from "react-icons/fa";
 
-const CARD_THEMES = [
-  { bg: "bg-[#839705]", tag: "bg-white text-[#839705]" },
-  { bg: "bg-[#008BFF]", tag: "bg-white text-[#008BFF]" },
-  { bg: "bg-[#DA4848]", tag: "bg-white text-[#DA4848]" },
-  { bg: "bg-[#6CA651]", tag: "bg-white text-[#6CA651]" },
+const FOLDER_THEMES = [
+  { bg: "#fef3c7", line: "rgba(0,0,0,0.08)" }, // Amber
+  { bg: "#dbeafe", line: "rgba(0,0,0,0.08)" }, // Blue
+  { bg: "#fee2e2", line: "rgba(0,0,0,0.08)" }, // Red
+  { bg: "#dcfce7", line: "rgba(0,0,0,0.08)" }, // Green
 ];
 
 const getIcon = (company: string) => {
@@ -219,14 +219,14 @@ export default function Experience() {
 
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-x-8 gap-y-12 lg:gap-y-32">
             {journey.map((exp, idx) => {
-              const theme = CARD_THEMES[idx % CARD_THEMES.length];
+              const theme = FOLDER_THEMES[idx % FOLDER_THEMES.length];
 
-              // Only take first bullet and limit to ~20 words so blocks are small
+              // Limit wording
               const rawText = exp.bullets[0] || exp.role;
               const shortText = rawText.split(' ').slice(0, 20).join(' ') + (rawText.split(' ').length > 20 ? '...' : '');
 
               return (
-                <div key={idx} className="relative flex flex-col z-10 w-[90%] mx-auto lg:w-full">
+                <div key={idx} className="relative flex flex-col z-10 w-[90%] mx-auto lg:w-full mt-10">
                   {/* Decorative Elements Peeking from top */}
                   <div className="absolute inset-0 pointer-events-none z-0">
                     {getDecor(exp.company)}
@@ -236,44 +236,61 @@ export default function Experience() {
                     initial={{ opacity: 0, y: 30 }}
                     whileInView={{ opacity: 1, y: 0 }}
                     viewport={{ once: true, margin: "-50px" }}
-                    className={`h-full min-h-[280px] ${theme.bg} p-5 md:p-6 rounded-[1.5rem] shadow-xl relative z-10 group transition-transform duration-300 hover:-translate-y-2 border-2 border-black/10 flex flex-col`}
+                    className="relative w-full group transition-transform duration-300 hover:-translate-y-2 pt-6"
                   >
-                    {/* Node Icon on top left */}
-                    <div className="absolute -top-6 -left-4 w-12 h-12 bg-[#1e272e] rounded-full border-[3px] border-[#FAF7F2] shadow-lg flex items-center justify-center text-xl text-white">
-                      {getIcon(exp.company)}
-                    </div>
+                    {/* Folder Tab (right side) */}
+                    <div
+                      className="absolute top-0 right-0 w-[50%] h-10 rounded-t-2xl shadow-[inset_0_2px_4px_rgba(0,0,0,0.05)] border-t border-r border-l border-black/5"
+                      style={{ backgroundColor: theme.bg }}
+                    />
 
-                    {/* Date Tag */}
-                    <div className={`mt-2 self-start px-3 py-1 rounded-full ${theme.tag} font-black text-[10px] tracking-[0.1em] uppercase shadow-sm mb-3`}>
-                      {exp.period.split("·")[0].trim()}
-                    </div>
-
-                    <h3 className="text-xl md:text-2xl font-black text-white leading-tight mb-1 uppercase tracking-tight">
-                      {exp.company}
-                    </h3>
-                    <h4 className="text-sm font-bold text-white/95 mb-4 uppercase tracking-wide">
-                      {exp.role}
-                    </h4>
-
-                    <div className="text-white font-medium space-y-3 mb-6 text-[13px] leading-relaxed opacity-95 flex-grow">
-                      <p>{shortText}</p>
-                    </div>
-
-                    {/* Skills / Tech */}
-                    {exp.skills.length > 0 && (
-                      <div className="flex flex-wrap gap-1.5 mt-auto">
-                        {exp.skills.slice(0, 3).map(skill => (
-                          <span key={skill} className="bg-black/20 text-white border border-white/10 px-2.5 py-1 rounded-full text-[9px] font-black uppercase tracking-wider backdrop-blur-sm shadow-inner truncate">
-                            {skill}
+                    {/* Folder Body (lined paper texture) */}
+                    <div
+                      className="relative w-full min-h-[320px] rounded-tl-3xl rounded-b-3xl shadow-xl z-10 p-6 pt-10 border border-black/5"
+                      style={{
+                        backgroundColor: theme.bg,
+                        backgroundImage: `repeating-linear-gradient(transparent, transparent 27px, ${theme.line} 27px, ${theme.line} 28px)`,
+                        backgroundSize: '100% 28px',
+                        backgroundPosition: '0 10px'
+                      }}
+                    >
+                      {/* Polaroid Component on the left */}
+                      <div className="absolute -top-12 -left-2 md:-left-6 w-28 md:w-32 bg-white p-2 pb-8 shadow-2xl rotate-[-4deg] z-20 border border-gray-100 flex flex-col items-center">
+                        <div className="w-full aspect-[4/5] bg-gray-100 flex justify-center items-center shadow-inner relative overflow-hidden">
+                          <div className="text-5xl text-gray-300 mix-blend-multiply">
+                            {getIcon(exp.company)}
+                          </div>
+                        </div>
+                        <div className="absolute bottom-2 left-0 w-full text-center">
+                          <span className="text-black text-[12px] md:text-sm tracking-tight" style={{ fontFamily: "Georgia, serif", fontStyle: "italic" }}>
+                            {exp.period.split("·")[0].trim()}
                           </span>
-                        ))}
-                        {exp.skills.length > 3 && (
-                          <span className="bg-black/20 text-white border border-white/10 px-2 py-1 rounded-full text-[9px] font-black backdrop-blur-sm shadow-inner">
-                            +{exp.skills.length - 3}
-                          </span>
-                        )}
+                        </div>
+
+                        {/* Paperclip */}
+                        <div className="absolute -top-6 right-2 w-8 h-14 rotate-[15deg]">
+                          <svg viewBox="0 0 24 64" className="drop-shadow-md" fill="none" stroke="#95a5a6" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round">
+                            <path d="M14 48 V16 A6 6 0 0 0 2 16 V50 A10 10 0 0 0 22 50 V10" />
+                          </svg>
+                        </div>
                       </div>
-                    )}
+
+                      {/* Header info */}
+                      <div className="w-full pl-24 md:pl-28 flex flex-col items-end border-b-2 border-black/10 pb-4 mb-4">
+                        <h3 className="text-3xl md:text-4xl lg:text-5xl font-black uppercase tracking-tighter text-right leading-[0.85] text-[#111] break-words">
+                          {exp.company}
+                        </h3>
+                        <h4 className="text-sm md:text-lg font-bold uppercase tracking-tight text-right text-[#111] opacity-70 leading-none mt-2">
+                          {exp.role}
+                        </h4>
+                      </div>
+
+                      {/* Description fitting on lines */}
+                      <p className="font-bold text-[#111] opacity-80 uppercase text-[11px] md:text-xs leading-[28px] tracking-wide relative z-10 pr-2 pb-6">
+                        {shortText}
+                      </p>
+
+                    </div>
                   </motion.div>
                 </div>
               );

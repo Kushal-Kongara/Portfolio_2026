@@ -112,8 +112,9 @@ export const projects = [
   {
     title: "Project One",
     description: "Short description of the project and what you built.",
-    link: "#",
-    code: "#",
+    link: "https://your-live-site-url.com", // Add your Live Site URL here!
+    code: "https://github.com/your-username/your-repo", // Add your GitHub URL here!
+    image: "/your-project-image.jpg", // Add your image to the /public folder and put the filename here (e.g. "/screenshot1.png")
   },
   {
     title: "Project Two",
@@ -130,6 +131,30 @@ export const projects = [
   {
     title: "Project Four",
     description: "An innovative real-time solution displaying your skills.",
+    link: "#",
+    code: "#",
+  },
+  {
+    title: "Project Five",
+    description: "Building scalable cloud-native architectures.",
+    link: "#",
+    code: "#",
+  },
+  {
+    title: "Project Six",
+    description: "Creating engaging and interactive user experiences.",
+    link: "#",
+    code: "#",
+  },
+  {
+    title: "Project Seven",
+    description: "Integrating intelligent AI models into web workflows.",
+    link: "#",
+    code: "#",
+  },
+  {
+    title: "Project Eight",
+    description: "Designing simple solutions for complex data pipelines.",
     link: "#",
     code: "#",
   },

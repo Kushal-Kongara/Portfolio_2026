@@ -110,11 +110,11 @@ export const experiences: ExperienceItem[] = [
 
 export const projects = [
   {
-    title: "Project One",
+    title: "Game Intro",
     description: "Short description of the project and what you built.",
-    link: "https://your-live-site-url.com", // Add your Live Site URL here!
-    code: "https://github.com/your-username/your-repo", // Add your GitHub URL here!
-    image: "/your-project-image.jpg", // Add your image to the /public folder and put the filename here (e.g. "/screenshot1.png")
+    link: "https://your-live-site-url.com",
+    code: "https://github.com/your-username/your-repo",
+    // image: "/your-project-image.jpg", 
   },
   {
     title: "Project Two",
@@ -203,44 +203,44 @@ export const photoStories: PhotoStory[] = [
   {
     image: "/about/photo1.jpg",
     imageAlt: "Description of the photo for accessibility",
-    title: "Speaking at TechConf 2024",
-    context: "Presented my findings on scalable microservices to a crowd of over 500 developers. An incredible experience sharing knowledge and networking with industry leaders.",
+    title: "GitHub Hackathon winners",
+    context: "We got 1st place for our AI voice agent project",
   },
   {
     image: "/about/photo2.jpg",
     imageAlt: "Second photo description",
-    title: "Hackathon Winners",
-    context: "Our team took 1st place after a grueling 48-hour caffeine-fueled coding sprint. We built an AI accessibility tool for visually impaired users.",
+    title: "AWS Hackathon winners",
+    context: "We got 1st place for our AI voice agent project",
   },
   {
     image: "/about/photo3.jpg",
     imageAlt: "Workspace setup",
-    title: "My Creative Space",
-    context: "Where the magic happens. I recently upgraded my dual-monitor setup to improve focus and productivity during those late-night debugging sessions.",
+    title: "Weighted baises Hackathon",
+    context: "",
   },
   {
     image: "/about/photo4.jpg",
     imageAlt: "Team offsite",
-    title: "Team Retreat in Tahoe",
-    context: "Escaped the screens for a weekend of hiking, team bonding, and planning our roadmap for Q3. Nature is the ultimate reset button.",
+    title: "Met Harnoor Singh",
+    context: "Been following his content  ",
   },
   {
     image: "/about/photo5.jpg",
     imageAlt: "Notebook sketches",
-    title: "Early Stage Brainstorming",
-    context: "Every great project starts with messy scribbles. I always prefer mapping out database schemas and user flows on paper before writing a single line of code.",
+    title: "Amazon Hackathon",
+    context: "",
   },
   {
     image: "/about/photo6.jpg",
     imageAlt: "Coffee mug",
-    title: "Fueling the Code",
-    context: "Exploring local coffee shops while working remotely. A good pour-over coffee is the secret ingredient to writing clean, maintainable code.",
+    title: "HackDay event",
+    context: "Built AI powered sales agent for small businesses",
   },
   {
     image: "/about/photo7.jpg",
     imageAlt: "Group picture",
-    title: "Community Meetup",
-    context: "Organized our local tech community's quarterly networking event. So inspiring to see so many aspiring developers connecting and finding mentorship.",
+    title: "Product demo at VAPI",
+    context: "Git invited to VAPI for our product demo",
   },
   {
     image: "/about/photo8.jpg",

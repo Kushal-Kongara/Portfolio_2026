@@ -220,9 +220,14 @@ export default function Experience() {
                   </div>
 
                   <motion.div
-                    initial={{ opacity: 0, y: 30 }}
-                    whileInView={{ opacity: 1, y: 0 }}
+                    initial={{ opacity: 0, y: 30, scale: 0.95 }}
+                    whileInView={{ opacity: 1, y: 0, scale: 1 }}
                     viewport={{ once: true, margin: "-50px" }}
+                    transition={{
+                      duration: 0.8,
+                      ease: [0.16, 1, 0.3, 1],
+                      delay: idx * 0.15
+                    }}
                     className="relative w-full group transition-transform duration-300 hover:-translate-y-2 pt-6"
                   >
                     {/* Folder Tab (right side) */}

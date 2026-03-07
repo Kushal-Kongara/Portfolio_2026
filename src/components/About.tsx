@@ -6,15 +6,16 @@ import Image from "next/image";
 import SectionWrapper from "./SectionWrapper";
 import { about, events, photoStories, type PhotoStory } from "@/lib/constants";
 
-function MomentCard({ story, className = "" }: { story: PhotoStory; className?: string }) {
+function MomentCard({ story, className = "", delay = 0 }: { story: PhotoStory; className?: string; delay?: number }) {
   const [imgError, setImgError] = useState(false);
 
   return (
     <motion.div
       className={`group relative overflow-hidden bg-gray-200 cursor-pointer shadow-sm hover:shadow-xl transition-all w-full h-full ${className}`}
-      initial={{ opacity: 0, y: 20 }}
-      whileInView={{ opacity: 1, y: 0 }}
+      initial={{ opacity: 0, y: 30, scale: 0.98 }}
+      whileInView={{ opacity: 1, y: 0, scale: 1 }}
       viewport={{ once: true, amount: 0.1 }}
+      transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1], delay }}
     >
       {!imgError && (
         <Image
@@ -231,23 +232,23 @@ export default function About() {
             {/* Left Half */}
             <div className="flex-1 flex flex-col gap-2 md:gap-4">
               {photoStories[0] && (
-                <MomentCard story={photoStories[0]} className="h-[300px] md:h-auto md:flex-[55] rounded-xl" />
+                <MomentCard story={photoStories[0]} delay={0.1} className="h-[300px] md:h-auto md:flex-[55] rounded-xl" />
               )}
               <div className="h-[150px] md:h-auto md:flex-[45] flex flex-row gap-2 md:gap-4">
-                {photoStories[1] && <MomentCard story={photoStories[1]} className="flex-1 rounded-xl" />}
-                {photoStories[2] && <MomentCard story={photoStories[2]} className="flex-1 rounded-xl" />}
+                {photoStories[1] && <MomentCard story={photoStories[1]} delay={0.2} className="flex-1 rounded-xl" />}
+                {photoStories[2] && <MomentCard story={photoStories[2]} delay={0.3} className="flex-1 rounded-xl" />}
               </div>
             </div>
 
             {/* Right Half */}
             <div className="flex-1 flex flex-col gap-2 md:gap-4">
               <div className="h-[150px] md:h-auto md:flex-[35] flex flex-row gap-2 md:gap-4">
-                {photoStories[3] && <MomentCard story={photoStories[3]} className="flex-1 rounded-xl" />}
-                {photoStories[4] && <MomentCard story={photoStories[4]} className="flex-1 rounded-xl" />}
+                {photoStories[3] && <MomentCard story={photoStories[3]} delay={0.4} className="flex-1 rounded-xl" />}
+                {photoStories[4] && <MomentCard story={photoStories[4]} delay={0.5} className="flex-1 rounded-xl" />}
               </div>
               <div className="h-[300px] md:h-auto md:flex-[65] flex flex-row gap-2 md:gap-4">
-                {photoStories[5] && <MomentCard story={photoStories[5]} className="flex-1 rounded-xl" />}
-                {photoStories[6] && <MomentCard story={photoStories[6]} className="flex-1 rounded-xl" />}
+                {photoStories[5] && <MomentCard story={photoStories[5]} delay={0.6} className="flex-1 rounded-xl" />}
+                {photoStories[6] && <MomentCard story={photoStories[6]} delay={0.7} className="flex-1 rounded-xl" />}
               </div>
             </div>
           </div>

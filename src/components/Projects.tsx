@@ -16,10 +16,14 @@ function ProjectFolder({ project, index }: { project: any; index: number }) {
 
   return (
     <motion.article
-      initial={{ opacity: 0, scale: 0.95 }}
-      whileInView={{ opacity: 1, scale: 1 }}
+      initial={{ opacity: 0, y: 30, scale: 0.95 }}
+      whileInView={{ opacity: 1, y: 0, scale: 1 }}
       viewport={{ once: true, amount: 0.2 }}
-      transition={{ delay: index * 0.1, duration: 0.5, ease: "easeOut" }}
+      transition={{
+        duration: 0.8,
+        ease: [0.16, 1, 0.3, 1], // Expo-like smooth easing
+        delay: index * 0.1
+      }}
       className="relative w-full max-w-[320px] mx-auto aspect-square rounded-[2rem] overflow-hidden bg-[#1c1c1e] shadow-[0_15px_40px_rgba(0,0,0,0.2)] group border-[6px] border-[#18181a] cursor-pointer"
     >
       {/* Background colored gradient or Image */}
@@ -31,19 +35,6 @@ function ProjectFolder({ project, index }: { project: any; index: number }) {
         <div className={`absolute inset-x-0 top-0 h-[65%] bg-gradient-to-br ${gradient} opacity-90 transition-transform duration-700 ease-out group-hover:scale-105`} />
       )}
 
-      {/* Dynamic Papers Sticking Out */}
-      <div className="absolute top-[28%] left-[10%] w-[80%] h-[35%] flex justify-center z-10 transition-transform duration-500 ease-out group-hover:-translate-y-4">
-        {/* Paper 1 (Background left) */}
-        <div className="absolute w-[45%] h-[120%] bg-white rounded-xl shadow-[0_4px_10px_rgba(0,0,0,0.1)] transform -rotate-12 -translate-x-12 translate-y-6 opacity-95" />
-        {/* Paper 2 (Middle) */}
-        <div className="absolute w-[45%] h-[120%] bg-white rounded-xl shadow-[0_4px_10px_rgba(0,0,0,0.15)] transform -rotate-6 -translate-x-4 translate-y-3 z-10" />
-        {/* Paper 3 (Front right with text lines) */}
-        <div className="absolute w-[45%] h-[120%] bg-[#fdfdfd] rounded-xl shadow-[0_4px_15px_rgba(0,0,0,0.2)] transform rotate-6 translate-x-10 z-20">
-          <div className="w-[60%] h-1.5 bg-gray-200 mt-5 ml-4 rounded-full" />
-          <div className="w-[80%] h-1.5 bg-gray-200 mt-2 ml-4 rounded-full" />
-          <div className="w-[70%] h-1.5 bg-gray-100 mt-2 ml-4 rounded-full" />
-        </div>
-      </div>
 
       {/* Dark Folder Flap */}
       <div

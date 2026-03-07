@@ -108,13 +108,14 @@ export default function TechStack() {
                         {tools.map((tool, idx) => (
                             <motion.div
                                 key={tool.name}
-                                initial={{ opacity: 0, scale: 0.8 }}
-                                whileInView={{ opacity: 1, scale: 1 }}
+                                initial={{ opacity: 0, scale: 0.8, y: 20 }}
+                                whileInView={{ opacity: 1, scale: 1, y: 0 }}
                                 transition={{
                                     type: "spring",
-                                    stiffness: 260,
-                                    damping: 20,
-                                    delay: idx * 0.04
+                                    stiffness: 150,
+                                    damping: 15,
+                                    delay: idx * 0.08,
+                                    duration: 0.8
                                 }}
                                 whileHover={{ scale: 1.1, y: -5 }}
                                 className="relative flex flex-col items-center group cursor-pointer"

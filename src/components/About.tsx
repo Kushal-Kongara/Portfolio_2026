@@ -255,6 +255,70 @@ function BadgeHeronPreston() {
   );
 }
 
+function GlitchLayers() {
+  return (
+    <div className="absolute inset-0 pointer-events-none z-[100] overflow-hidden rounded-2xl">
+      {/* Dense colorful blocks */}
+      {[...Array(24)].map((_, i) => (
+        <div
+          key={`block-${i}`}
+          className="absolute bg-current opacity-80 glitch-block"
+          style={{
+            top: `${Math.random() * 100}%`,
+            left: `${Math.random() * 100}%`,
+            width: `${5 + Math.random() * 60}px`,
+            height: `${2 + Math.random() * 30}px`,
+            color: ['#00F2FF', '#FF00EA', '#F6FF00', '#00FF41', '#FFFFFF', '#000000'][Math.floor(Math.random() * 6)],
+            animationDelay: `${Math.random() * 0.2}s`,
+            animationDuration: `${0.05 + Math.random() * 0.15}s`,
+          } as any}
+        />
+      ))}
+
+      {/* Horizontal shifting pixel strips */}
+      {[...Array(10)].map((_, i) => (
+        <div
+          key={`h-strip-${i}`}
+          className="absolute left-0 w-full h-[1px] bg-white mix-blend-difference opacity-40 glitch-strip-h"
+          style={{
+            top: `${Math.random() * 100}%`,
+            animationDelay: `${Math.random() * 0.2}s`,
+            animationDuration: `${0.05 + Math.random() * 0.1}s`,
+          }}
+        />
+      ))}
+
+      {/* Vertical shifting noise lines */}
+      {[...Array(8)].map((_, i) => (
+        <div
+          key={`v-strip-${i}`}
+          className="absolute top-0 h-full w-[1px] bg-white mix-blend-difference opacity-30 glitch-strip-v"
+          style={{
+            left: `${Math.random() * 100}%`,
+            animationDelay: `${Math.random() * 0.3}s`,
+            animationDuration: `${0.1 + Math.random() * 0.2}s`,
+          }}
+        />
+      ))}
+
+      {/* Large random noise patches */}
+      {[...Array(4)].map((_, i) => (
+        <div
+          key={`patch-${i}`}
+          className="absolute bg-white/10 backdrop-invert opacity-20 glitch-patch"
+          style={{
+            top: `${Math.random() * 80}%`,
+            left: `${Math.random() * 80}%`,
+            width: `${40 + Math.random() * 80}px`,
+            height: `${20 + Math.random() * 40}px`,
+            animationDelay: `${Math.random() * 0.5}s`,
+          }}
+        />
+      ))}
+    </div>
+  );
+}
+
 function IDBadge() {
   const [imgError, setImgError] = useState(false);
   const badgeRef = useRef<HTMLDivElement>(null);
@@ -270,21 +334,20 @@ function IDBadge() {
   const y = useTransform(scrollYProgress, [0, 1], [60, -60]);
 
   useEffect(() => {
-    let timeout: NodeJS.Timeout;
     const glitchSequence = async () => {
       setIsGlitching(true);
-      // Fast random switches hitting all multiverse cards
-      for (let i = 0; i < 20; i++) {
-        setVariant(Math.floor(Math.random() * 5)); // Increased to 5 variants
-        await new Promise(r => setTimeout(r, 50 + Math.random() * 100));
+      // Faster, more aggressive multiverse cycle
+      for (let i = 0; i < 24; i++) {
+        setVariant(Math.floor(Math.random() * 5));
+        await new Promise(r => setTimeout(r, 30 + Math.random() * 60));
       }
-      setVariant(0); // Return to baseline
+      setVariant(0);
       setIsGlitching(false);
     };
 
     const unsubscribe = scrollYProgress.on("change", (v) => {
       // Trigger glitch near the start of the section view
-      if (v > 0.1 && v < 0.2 && !isGlitching && variant === 0) {
+      if (v > 0.12 && v < 0.25 && !isGlitching && variant === 0) {
         glitchSequence();
       }
     });
@@ -311,17 +374,68 @@ function IDBadge() {
     >
       <style jsx global>{`
         @keyframes glitch-skew {
-          0% { transform: skew(0deg); }
-          20% { transform: skew(-2deg); }
-          40% { transform: skew(3deg); }
-          60% { transform: skew(-3deg); }
-          80% { transform: skew(1deg); }
-          100% { transform: skew(0deg); }
+          0% { transform: skew(0deg) translate(0,0); }
+          10% { transform: skew(-8deg) translate(-2px, 1px); }
+          20% { transform: skew(12deg) translate(2px, -1px); }
+          30% { transform: translate(-4px, 2px) scale(1.02); }
+          40% { transform: skew(-10deg) translate(4px, -2px); }
+          50% { transform: translate(-2px, 2px) scale(0.98); }
+          60% { transform: skew(8deg) translate(-4px, 1px); }
+          70% { transform: skew(-4deg) translate(2px, 2px); }
+          80% { transform: skew(10deg) translate(-2px, -2px); }
+          90% { transform: translate(4px, -1px) scale(1.01); }
+          100% { transform: skew(0deg) translate(0,0); }
         }
+        
+        @keyframes glitch-block-anim {
+          0%, 100% { opacity: 0; transform: translate(0,0) scale(1); }
+          10% { opacity: 1; transform: translate(15px, -15px) scaleY(2); }
+          30% { transform: translate(-25px, 10px) scaleX(1.5); }
+          50% { transform: translate(20px, 20px) scale(0.5); }
+          70% { transform: translate(-10px, -10px) rotate(5deg); }
+          90% { opacity: 1; transform: translate(5px, 5px); }
+        }
+
+        @keyframes glitch-strip-h-anim {
+          0% { transform: translateX(-100%) scaleY(1); opacity: 0; }
+          50% { opacity: 0.8; transform: translateX(0) scaleY(2); }
+          100% { transform: translateX(100%) scaleY(1); opacity: 0; }
+        }
+
+        @keyframes glitch-strip-v-anim {
+          0% { transform: translateY(-100%) scaleX(1); opacity: 0; }
+          50% { opacity: 0.6; transform: translateY(0) scaleX(3); }
+          100% { transform: translateY(100%) scaleX(1); opacity: 0; }
+        }
+
+        @keyframes glitch-patch-anim {
+          0%, 100% { opacity: 0; transform: scale(1); }
+          20% { opacity: 0.3; transform: scale(1.2) translate(5px, 5px); }
+          40% { opacity: 0; }
+          60% { opacity: 0.2; transform: scale(0.8) translate(-5px, -5px); }
+        }
+
+        .glitch-block {
+          animation: glitch-block-anim 0.1s infinite steps(2);
+        }
+
+        .glitch-strip-h {
+          animation: glitch-strip-h-anim 0.08s infinite linear;
+        }
+
+        .glitch-strip-v {
+          animation: glitch-strip-v-anim 0.12s infinite linear;
+        }
+
+        .glitch-patch {
+          animation: glitch-patch-anim 0.4s infinite steps(1);
+        }
+
         .filter-glitch {
-          animation: glitch-skew 0.2s infinite linear alternate-reverse;
+          animation: glitch-skew 0.1s infinite linear;
           position: relative;
         }
+        
         .filter-glitch::before,
         .filter-glitch::after {
           content: "";
@@ -329,39 +443,43 @@ function IDBadge() {
           inset: 0;
           background: inherit;
           z-index: 50;
-          opacity: 0.5;
-          mix-blend-mode: color-dodge;
+          opacity: 0.6;
+          mix-blend-mode: hard-light;
           pointer-events: none;
         }
+        
         .filter-glitch::before {
-          color: red;
-          left: 2px;
-          text-shadow: 2px 0 red;
+          color: #ff00ff;
+          left: 4px;
+          text-shadow: 3px 0 #ff00ff;
           clip-path: rect(10px, 9999px, 50px, 0);
-          animation: glitch-anim-1 0.4s infinite linear alternate-reverse;
+          animation: glitch-anim-1 0.2s infinite linear alternate-reverse;
         }
+        
         .filter-glitch::after {
-          color: blue;
-          left: -2px;
-          text-shadow: -2px 0 blue;
+          color: #00ffff;
+          left: -4px;
+          text-shadow: -3px 0 #00ffff;
           clip-path: rect(80px, 9999px, 120px, 0);
-          animation: glitch-anim-2 0.3s infinite linear alternate-reverse;
+          animation: glitch-anim-2 0.25s infinite linear alternate-reverse;
         }
+        
         @keyframes glitch-anim-1 {
-          0% { clip-path: inset(10% 0 80% 0); transform: translate(-5px); }
-          20% { clip-path: inset(40% 0 20% 0); transform: translate(5px); }
-          40% { clip-path: inset(60% 0 10% 0); transform: translate(-5px); }
-          60% { clip-path: inset(10% 0 10% 0); transform: translate(5px); }
-          80% { clip-path: inset(80% 0 10% 0); transform: translate(-5px); }
-          100% { clip-path: inset(10% 0 40% 0); transform: translate(5px); }
+          0% { clip-path: inset(20% 0 50% 0); transform: translate(-10px); }
+          20% { clip-path: inset(80% 0 10% 0); transform: translate(10px); }
+          40% { clip-path: inset(10% 0 80% 0); transform: translate(-15px); }
+          60% { clip-path: inset(50% 0 30% 0); transform: translate(15px); }
+          80% { clip-path: inset(30% 0 60% 0); transform: translate(-5px); }
+          100% { clip-path: inset(10% 0 10% 0); transform: translate(5px); }
         }
+        
         @keyframes glitch-anim-2 {
-          0% { clip-path: inset(30% 0 20% 0); transform: translate(5px); }
-          20% { clip-path: inset(10% 0 60% 0); transform: translate(-5px); }
-          40% { clip-path: inset(50% 0 30% 0); transform: translate(5px); }
-          60% { clip-path: inset(80% 0 10% 0); transform: translate(-5px); }
-          80% { clip-path: inset(20% 0 50% 0); transform: translate(5px); }
-          100% { clip-path: inset(60% 0 20% 0); transform: translate(-5px); }
+          0% { clip-path: inset(10% 0 80% 0); transform: translate(10px); }
+          20% { clip-path: inset(40% 0 20% 0); transform: translate(-10px); }
+          40% { clip-path: inset(60% 0 10% 0); transform: translate(15px); }
+          60% { clip-path: inset(10% 0 10% 0); transform: translate(-15px); }
+          80% { clip-path: inset(80% 0 10% 0); transform: translate(5px); }
+          100% { clip-path: inset(10% 0 40% 0); transform: translate(-5px); }
         }
       `}</style>
 
@@ -389,6 +507,7 @@ function IDBadge() {
         transition={{ duration: 1.5, type: "spring", bounce: 0.4 }}
         viewport={{ once: true }}
       >
+        {isGlitching && <GlitchLayers />}
         {renderVariant()}
       </motion.div>
     </motion.div >

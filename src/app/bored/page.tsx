@@ -2,6 +2,7 @@ import Link from "next/link";
 import SectionWrapper from "@/components/SectionWrapper";
 import fs from 'fs';
 import path from 'path';
+import LifeWeeks from "@/components/LifeWeeks";
 
 export default function BoredPage() {
     // Dynamically read uploaded images from public/movies
@@ -26,20 +27,16 @@ export default function BoredPage() {
                 </Link>
             </nav>
 
-            <SectionWrapper className="flex-1 flex flex-col pt-20 pb-10 text-center">
+            <SectionWrapper className="flex-1 flex flex-col pt-10 pb-10 text-center">
                 <h1
                     className="text-6xl md:text-8xl font-black uppercase tracking-tighter mb-6 text-black"
                     style={{ fontFamily: 'Impact, sans-serif' }}
                 >
                     GAME ZONE
                 </h1>
-                <p className="text-xl md:text-2xl text-gray-600 max-w-2xl mx-auto mb-12">
-                    This is where we&apos;ll add interactive mini-games and fun sections. Let me know what you want to build next!
-                </p>
 
-                {/* Game Zone Placeholder */}
-                <div className="w-full max-w-4xl mx-auto h-[400px] border-4 border-dashed border-gray-300 rounded-3xl flex items-center justify-center bg-gray-50 mb-32">
-                    <span className="text-gray-400 font-bold uppercase tracking-widest text-lg">Mini-Game Coming Soon</span>
+                <div className="w-full max-w-5xl mx-auto py-12">
+                    <LifeWeeks />
                 </div>
             </SectionWrapper>
 

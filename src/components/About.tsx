@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useRef, useEffect } from "react";
+import { useState, useRef, useEffect, useMemo } from "react";
 import { motion, useScroll, useTransform } from "framer-motion";
 import Image from "next/image";
 import SectionWrapper from "./SectionWrapper";
@@ -256,62 +256,72 @@ function BadgeHeronPreston() {
 }
 
 function GlitchLayers() {
+  // Memoize random values to prevent re-calculating on every variant change render
+  const glitchElements = useMemo(() => {
+    return {
+      blocks: [...Array(12)].map((_, i) => ({
+        top: `${Math.random() * 100}%`,
+        left: `${Math.random() * 100}%`,
+        width: `${10 + Math.random() * 50}px`,
+        height: `${2 + Math.random() * 20}px`,
+        color: ['#00F2FF', '#FF00EA', '#F6FF00', '#00FF41', '#FFFFFF', '#000000'][Math.floor(Math.random() * 6)],
+        delay: `${Math.random() * 0.2}s`,
+        duration: `${0.1 + Math.random() * 0.2}s`,
+      })),
+      hStrips: [...Array(6)].map((_, i) => ({
+        top: `${Math.random() * 100}%`,
+        delay: `${Math.random() * 0.2}s`,
+        duration: `${0.1 + Math.random() * 0.2}s`,
+      })),
+      vStrips: [...Array(6)].map((_, i) => ({
+        left: `${Math.random() * 100}%`,
+        delay: `${Math.random() * 0.2}s`,
+        duration: `${0.1 + Math.random() * 0.2}s`,
+      })),
+    };
+  }, []);
+
   return (
-    <div className="absolute inset-0 pointer-events-none z-[100] overflow-hidden rounded-2xl">
-      {/* Dense colorful blocks */}
-      {[...Array(24)].map((_, i) => (
+    <div className="absolute inset-0 pointer-events-none z-[100] overflow-hidden rounded-2xl will-change-transform">
+      {/* Colorful blocks */}
+      {glitchElements.blocks.map((b: any, i: number) => (
         <div
           key={`block-${i}`}
-          className="absolute bg-current opacity-80 glitch-block"
+          className="absolute bg-current opacity-70 glitch-block"
           style={{
-            top: `${Math.random() * 100}%`,
-            left: `${Math.random() * 100}%`,
-            width: `${5 + Math.random() * 60}px`,
-            height: `${2 + Math.random() * 30}px`,
-            color: ['#00F2FF', '#FF00EA', '#F6FF00', '#00FF41', '#FFFFFF', '#000000'][Math.floor(Math.random() * 6)],
-            animationDelay: `${Math.random() * 0.2}s`,
-            animationDuration: `${0.05 + Math.random() * 0.15}s`,
+            top: b.top,
+            left: b.left,
+            width: b.width,
+            height: b.height,
+            color: b.color,
+            animationDelay: b.delay,
+            animationDuration: b.duration,
           } as any}
         />
       ))}
 
       {/* Horizontal shifting pixel strips */}
-      {[...Array(10)].map((_, i) => (
+      {glitchElements.hStrips.map((s: any, i: number) => (
         <div
           key={`h-strip-${i}`}
-          className="absolute left-0 w-full h-[1px] bg-white mix-blend-difference opacity-40 glitch-strip-h"
+          className="absolute left-0 w-full h-[1px] bg-white mix-blend-difference opacity-30 glitch-strip-h"
           style={{
-            top: `${Math.random() * 100}%`,
-            animationDelay: `${Math.random() * 0.2}s`,
-            animationDuration: `${0.05 + Math.random() * 0.1}s`,
+            top: s.top,
+            animationDelay: s.delay,
+            animationDuration: s.duration,
           }}
         />
       ))}
 
       {/* Vertical shifting noise lines */}
-      {[...Array(8)].map((_, i) => (
+      {glitchElements.vStrips.map((s: any, i: number) => (
         <div
           key={`v-strip-${i}`}
-          className="absolute top-0 h-full w-[1px] bg-white mix-blend-difference opacity-30 glitch-strip-v"
+          className="absolute top-0 h-full w-[1px] bg-white mix-blend-difference opacity-20 glitch-strip-v"
           style={{
-            left: `${Math.random() * 100}%`,
-            animationDelay: `${Math.random() * 0.3}s`,
-            animationDuration: `${0.1 + Math.random() * 0.2}s`,
-          }}
-        />
-      ))}
-
-      {/* Large random noise patches */}
-      {[...Array(4)].map((_, i) => (
-        <div
-          key={`patch-${i}`}
-          className="absolute bg-white/10 backdrop-invert opacity-20 glitch-patch"
-          style={{
-            top: `${Math.random() * 80}%`,
-            left: `${Math.random() * 80}%`,
-            width: `${40 + Math.random() * 80}px`,
-            height: `${20 + Math.random() * 40}px`,
-            animationDelay: `${Math.random() * 0.5}s`,
+            left: s.left,
+            animationDelay: s.delay,
+            animationDuration: s.duration,
           }}
         />
       ))}
@@ -334,25 +344,36 @@ function IDBadge() {
   const y = useTransform(scrollYProgress, [0, 1], [60, -60]);
 
   useEffect(() => {
+    let timeoutId: NodeJS.Timeout;
     const glitchSequence = async () => {
       setIsGlitching(true);
-      // Faster, more aggressive multiverse cycle
-      for (let i = 0; i < 24; i++) {
-        setVariant(Math.floor(Math.random() * 5));
-        await new Promise(r => setTimeout(r, 30 + Math.random() * 60));
+
+      // Phase 1: Rapid unstable cycle through alternative variants
+      const iterations = 12;
+      for (let i = 0; i < iterations; i++) {
+        // Jump between multiverse variants (1-4)
+        setVariant(Math.floor(Math.random() * 4) + 1);
+        await new Promise(r => setTimeout(r, 50));
       }
+
+      // Phase 2: The "Suspense" - Hold on one last random alternate variant
+      setVariant(Math.floor(Math.random() * 4) + 1);
+      await new Promise(r => setTimeout(r, 700));
+
+      // Phase 3: Final reveal/snap back to default
       setVariant(0);
       setIsGlitching(false);
     };
 
     const unsubscribe = scrollYProgress.on("change", (v) => {
-      // Trigger glitch near the start of the section view
-      if (v > 0.12 && v < 0.25 && !isGlitching && variant === 0) {
+      if (v > 0.15 && v < 0.22 && !isGlitching && variant === 0) {
         glitchSequence();
       }
     });
 
-    return () => unsubscribe();
+    return () => {
+      unsubscribe();
+    };
   }, [scrollYProgress, isGlitching, variant]);
 
   // Multiverse render logic
@@ -370,6 +391,16 @@ function IDBadge() {
     <motion.div
       ref={badgeRef}
       style={{ rotate, y }}
+      animate={isGlitching ? {
+        x: [0, -4, 4, -2, 2, 0],
+        filter: [
+          'hue-rotate(0deg) contrast(1)',
+          'hue-rotate(90deg) contrast(1.2)',
+          'hue-rotate(-45deg) contrast(1.1)',
+          'hue-rotate(0deg) contrast(1)'
+        ]
+      } : { x: 0, filter: 'hue-rotate(0deg) contrast(1)' }}
+      transition={isGlitching ? { duration: 0.2, repeat: Infinity } : { duration: 0.3 }}
       className={`relative flex flex-col items-center select-none w-full max-w-[280px] mx-auto lg:mx-0 pt-6 origin-top ${isGlitching ? 'filter-glitch' : ''}`}
     >
       <style jsx global>{`
@@ -432,8 +463,10 @@ function IDBadge() {
         }
 
         .filter-glitch {
-          animation: glitch-skew 0.1s infinite linear;
+          animation: glitch-skew 0.15s infinite linear;
           position: relative;
+          will-change: transform, filter;
+          backface-visibility: hidden;
         }
         
         .filter-glitch::before,

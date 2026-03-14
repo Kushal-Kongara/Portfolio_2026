@@ -170,8 +170,8 @@ export const projects = [
 // About section: intro + events/hackathons + photo stories
 export const about = {
   intro: [
-    "Your opening paragraph about who you are, what you do, and what drives you. You can use multiple paragraphs—each string here becomes a block.",
-    "A second paragraph to share your background, interests, or what you're currently focused on. Use orange for key phrases if you like.",
+    "I’m a software engineer who enjoys turning vague ideas into real products. Most of my time is spent building across the stack shaping interfaces, designing APIs, and figuring out how systems should actually behave once real users start using them.",
+    "I’m especially interested in the space where AI meets practical software, where tools move from demos into things people rely on every day. Outside of writing code, I spend a lot of time experimenting new frameworks, AI models, small side projects, or ideas that may or may not turn into something useful. What keeps me motivated is the process of building, learning, and slowly getting better at solving problems that once looked impossible."
   ],
 };
 

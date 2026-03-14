@@ -157,8 +157,8 @@ export default function Hero() {
         className="relative z-20 w-full max-w-7xl mx-auto flex flex-col justify-end h-full pointer-events-none"
       >
         <div className="flex flex-col sm:flex-row sm:items-center items-start gap-12 lg:gap-32 pointer-events-auto w-full">
-          <p className="max-w-[280px] md:max-w-md text-[#ff5500] text-[10px] md:text-xs leading-relaxed font-bold tracking-wide">
-            I believe technology should make life easier and more enjoyable. As a Full Stack Developer, I enjoy building products that solve real problems, experimenting with new technologies, and continuously improving my skills while turning ideas into meaningful digital experiences.
+          <p className="max-w-[280px] md:max-w-md text-[#ff5500] text-3xl md:text-4xl leading-relaxed font-bold tracking-tight font-caveat">
+            "Nothing in life is truly easy or hard only familiar or unfamiliar.”
           </p>
 
           {/* Bold Colorful Pencil Art Social Icons */}

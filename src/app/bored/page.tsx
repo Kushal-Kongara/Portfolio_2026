@@ -58,24 +58,30 @@ export default function BoredPage() {
                 </SectionWrapper>
             </section>
 
-            {/* PARTITION 2: MORE ABOUT ME (Movies) */}
-            <section id="about" className="w-full bg-[#FDFBF7] py-32 overflow-hidden border-b-[3px] border-black">
-                <div className="flex flex-col w-full"> {/* Bypassing SectionWrapper for true full-width */}
+            <section 
+                id="about" 
+                className="w-full py-32 overflow-hidden border-b-[3px] border-black bg-cover bg-center transition-all duration-1000 relative"
+                style={{ backgroundImage: `url('/movies-bg.jpg')` }}
+            >
+                {/* Darker overlay for better text contrast against the stickers */}
+                <div className="absolute inset-0 bg-black/40 backdrop-blur-[1px]" />
+
+                <div className="flex flex-col w-full relative z-10"> {/* Bypassing SectionWrapper for true full-width */}
                     <h2
-                        className="text-6xl md:text-8xl font-black uppercase tracking-tighter mb-20 text-center text-black px-8 max-w-6xl mx-auto"
+                        className="text-6xl md:text-8xl font-black uppercase tracking-tighter mb-20 text-center text-white px-8 max-w-6xl mx-auto drop-shadow-[0_4px_8px_rgba(0,0,0,0.8)]"
                         style={{ fontFamily: 'Impact, sans-serif' }}
                     >
                         MORE ABOUT ME
                     </h2>
 
                     <div className="flex flex-col w-full text-center">
-                        <h3 className="text-3xl md:text-5xl font-black tracking-tight mb-16 text-black uppercase tracking-[0.2em] px-8 max-w-6xl mx-auto">
+                        <h3 className="text-3xl md:text-5xl font-black tracking-tight mb-16 text-white uppercase tracking-[0.2em] px-8 max-w-6xl mx-auto drop-shadow-[0_4px_8px_rgba(0,0,0,0.8)]">
                             Movies I like
                         </h3>
 
-                        <div className="grid grid-cols-4 md:grid-cols-6 lg:grid-cols-10 xl:grid-cols-10 gap-0 w-full mb-12">
+                        <div className="grid grid-cols-4 md:grid-cols-6 lg:grid-cols-10 xl:grid-cols-10 gap-0 w-full mb-12 border-y-4 border-black/20">
                             {movieImages.slice(0, 40).map((src, i) => (
-                                <div key={i} className="w-full aspect-[2/3] overflow-hidden border-black/10 border-[0.5px] hover:z-50 hover:scale-110 transition-all duration-500 group cursor-pointer shadow-2xl">
+                                <div key={i} className="w-full aspect-[2/3] overflow-hidden border-black/30 border-[0.5px] hover:z-50 hover:scale-110 transition-all duration-500 group cursor-pointer shadow-2xl">
                                     {/* eslint-disable-next-line @next/next/no-img-element */}
                                     <img src={src} alt={`Movie Poster ${i + 1}`} className="w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all duration-700" />
                                 </div>

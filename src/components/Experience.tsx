@@ -200,25 +200,77 @@ export default function Experience() {
             </div>
           </motion.div>
 
-          {/* Full Width Companies / Journey */}
+          {/* Career Timeline Proportional Bar (Contribution Graph Style) */}
           <motion.div
             initial={{ opacity: 0, y: 40 }}
             whileInView={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.5 }}
-            className="md:col-span-3 lg:col-span-4 bg-white rounded-[2rem] p-8 border-2 border-slate-100 flex flex-col md:flex-row items-center justify-between gap-8 h-auto md:h-[150px] mb-12"
+            className="md:col-span-3 lg:col-span-4 bg-white rounded-[2rem] p-8 border-2 border-slate-100 flex flex-col gap-8 mb-12"
           >
-            <div className="flex-shrink-0">
-              <h4 className="text-slate-400 font-black uppercase tracking-widest text-xs mb-1">{"Companies I've Scaled"}</h4>
-              <div className="h-1 w-12 bg-blue-600 rounded-full" />
+            <div className="flex flex-col md:flex-row md:items-end justify-between gap-4">
+              <div className="flex-shrink-0">
+                <h4 className="text-slate-400 font-black uppercase tracking-widest text-xs mb-1">{"Career Timeline"}</h4>
+                <div className="h-1 w-12 bg-blue-600 rounded-full" />
+              </div>
+              <div className="flex items-center gap-1.5 overflow-hidden">
+                <span className="text-[10px] font-black text-slate-300 uppercase tracking-widest">Scale</span>
+                <div className="flex gap-1">
+                  {[...Array(5)].map((_, i) => (
+                    <div key={i} className="w-2.5 h-2.5 rounded-sm bg-slate-100" />
+                  ))}
+                </div>
+              </div>
             </div>
-            
-            <div className="flex flex-wrap items-center justify-center md:justify-end gap-x-12 gap-y-6 grayscale opacity-60 hover:grayscale-0 hover:opacity-100 transition-all duration-500">
-               {experiences.filter(e => e.company !== "Moved to US").map((exp, i) => (
-                 <div key={i} className="flex flex-col items-center">
-                    <span className="text-xl font-black text-slate-800 tracking-tighter uppercase whitespace-nowrap">{exp.company}</span>
-                    <span className="text-[10px] font-bold text-slate-400 uppercase tracking-widest">{exp.period.split("·")[1]?.trim() || "Coursework"}</span>
-                 </div>
-               ))}
+
+            {/* The Proportional Bar */}
+            <div className="relative w-full h-16 bg-slate-50 rounded-2xl border-2 border-slate-100 flex overflow-hidden shadow-inner group">
+              {[
+                { name: "L&T Finance", mos: 25, color: "bg-[#1e3a8a]", period: "2 yrs 1 mo" },
+                { name: "DispatchTrack", mos: 13, color: "bg-[#0ea5e9]", period: "1 yr 1 mo" },
+                { name: "SFBU (Masters)", mos: 24, color: "bg-[#8b5cf6]", period: "2 yrs" },
+                { name: "CIS", mos: 7, color: "bg-[#f59e0b]", period: "7 mos" },
+                { name: "Oatmeal AI", mos: 6, color: "bg-[#10b981]", period: "6 mos" }
+              ].map((comp, i) => (
+                <motion.div
+                  key={i}
+                  initial={{ width: 0 }}
+                  whileInView={{ width: `${(comp.mos / 75) * 100}%` }}
+                  transition={{ duration: 1, delay: 0.6 + i * 0.1, ease: "circOut" }}
+                  className={`${comp.color} h-full relative cursor-help transition-all duration-300 hover:opacity-90 active:scale-x-95 origin-left border-r border-white/10 group/seg`}
+                >
+                  {/* Tooltip on Hover */}
+                  <div className="absolute opacity-0 group-hover/seg:opacity-100 -top-12 left-1/2 -translate-x-1/2 bg-slate-900 text-white px-3 py-1.5 rounded-lg text-[10px] font-black uppercase tracking-widest whitespace-nowrap z-50 pointer-events-none transition-all duration-300 transform translate-y-2 group-hover/seg:translate-y-0 shadow-xl">
+                    {comp.name} · {comp.period}
+                    <div className="absolute -bottom-1 left-1/2 -translate-x-1/2 w-2 h-2 bg-slate-900 rotate-45" />
+                  </div>
+
+                  {/* Proportional Grid Overlay (Dot style like design reference) */}
+                  <div className="absolute inset-0 opacity-[0.15] grid grid-cols-12 gap-[2px] p-2 pointer-events-none">
+                    {[...Array(12)].map((_, j) => (
+                      <div key={j} className="bg-white rounded-full aspect-square" />
+                    ))}
+                  </div>
+                </motion.div>
+              ))}
+            </div>
+
+            {/* Legend / Timeline Labels */}
+            <div className="grid grid-cols-2 md:grid-cols-5 gap-4">
+              {[
+                { name: "L&T Finance", color: "bg-[#1e3a8a]", year: "2019-21" },
+                { name: "DispatchTrack", color: "bg-[#0ea5e9]", year: "2021-22" },
+                { name: "S.F. Bay Univ.", color: "bg-[#8b5cf6]", year: "2023-24" },
+                { name: "Cyber Infra", color: "bg-[#f59e0b]", year: "2025" },
+                { name: "Oatmeal AI", color: "bg-[#10b981]", year: "2025-26" }
+              ].map((item, i) => (
+                <div key={i} className="flex flex-col gap-1.5">
+                  <div className="flex items-center gap-2">
+                    <div className={`w-3 h-3 rounded-full ${item.color}`} />
+                    <span className="text-[10px] font-black text-slate-800 uppercase tracking-tighter whitespace-nowrap">{item.name}</span>
+                  </div>
+                  <span className="text-[9px] font-bold text-slate-400 uppercase tracking-[0.2em] pl-5">{item.year}</span>
+                </div>
+              ))}
             </div>
           </motion.div>
 

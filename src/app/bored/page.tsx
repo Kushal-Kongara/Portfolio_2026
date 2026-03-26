@@ -60,29 +60,29 @@ export default function BoredPage() {
 
             {/* PARTITION 2: MORE ABOUT ME (Movies) */}
             <section id="about" className="w-full bg-[#FDFBF7] py-32 overflow-hidden border-b-[3px] border-black">
-                <SectionWrapper className="flex flex-col px-0"> {/* Neutralize side padding for edge-to-edge movies */}
+                <div className="flex flex-col w-full"> {/* Bypassing SectionWrapper for true full-width */}
                     <h2
-                        className="text-6xl md:text-8xl font-black uppercase tracking-tighter mb-20 text-center text-black px-8"
+                        className="text-6xl md:text-8xl font-black uppercase tracking-tighter mb-20 text-center text-black px-8 max-w-6xl mx-auto"
                         style={{ fontFamily: 'Impact, sans-serif' }}
                     >
                         MORE ABOUT ME
                     </h2>
 
                     <div className="flex flex-col w-full text-center">
-                        <h3 className="text-3xl md:text-5xl font-black tracking-tight mb-16 text-black uppercase tracking-[0.2em] px-8">
+                        <h3 className="text-3xl md:text-5xl font-black tracking-tight mb-16 text-black uppercase tracking-[0.2em] px-8 max-w-6xl mx-auto">
                             Movies I like
                         </h3>
 
-                        <div className="grid grid-cols-4 md:grid-cols-6 lg:grid-cols-10 gap-0 w-full">
+                        <div className="grid grid-cols-4 md:grid-cols-6 lg:grid-cols-10 xl:grid-cols-10 gap-0 w-full mb-12">
                             {movieImages.slice(0, 40).map((src, i) => (
-                                <div key={i} className="w-full aspect-[2/3] overflow-hidden border-black/10 border-[0.5px] hover:z-50 hover:scale-105 transition-all duration-500 group cursor-pointer">
+                                <div key={i} className="w-full aspect-[2/3] overflow-hidden border-black/10 border-[0.5px] hover:z-50 hover:scale-110 transition-all duration-500 group cursor-pointer shadow-2xl">
                                     {/* eslint-disable-next-line @next/next/no-img-element */}
                                     <img src={src} alt={`Movie Poster ${i + 1}`} className="w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all duration-700" />
                                 </div>
                             ))}
                         </div>
                     </div>
-                </SectionWrapper>
+                </div>
             </section>
 
             {/* PARTITION: TRAVEL SOUVENIRS */}

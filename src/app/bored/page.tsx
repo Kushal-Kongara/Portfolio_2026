@@ -35,23 +35,26 @@ export default function BoredPage() {
             {/* PARTITION 1: GAME ZONE */}
             <section 
                 id="gamezone"
-                className="relative min-h-[90vh] flex flex-col justify-center bg-cover bg-center overflow-hidden border-b-[3px] border-black"
+                className="relative min-h-[95vh] flex flex-col justify-center bg-cover bg-center overflow-hidden border-b-[3px] border-black"
                 style={{ backgroundImage: `url('/gamezone-bg.jpg')` }}
             >
-                {/* Glassy Overlay for Partition 1 only */}
-                <div className="absolute inset-0 bg-white/10 backdrop-blur-[1px]" />
+                {/* No overlay, raw photo visibility as requested */}
                 
-                <SectionWrapper className="relative z-10 py-20 text-center">
+                <SectionWrapper className="relative z-10 py-12 md:py-20 text-center flex flex-col items-center">
                     <h1
-                        className="text-7xl md:text-9xl font-black uppercase tracking-tighter mb-8 text-black drop-shadow-[0_4px_12px_rgba(255,255,255,0.4)]"
+                        className="text-7xl md:text-9xl font-black uppercase tracking-tighter mb-4 text-white drop-shadow-[0_4px_12px_rgba(0,0,0,0.5)]"
                         style={{ fontFamily: 'Impact, sans-serif' }}
                     >
                         GAME ZONE
                     </h1>
 
-                    <div className="w-full max-w-5xl mx-auto">
-                        <div className="bg-white/80 backdrop-blur-xl border-[4px] border-black p-4 md:p-10 rounded-[2.5rem] shadow-[12px_12px_0px_#000]">
-                            <LifeWeeks />
+                    <div className="w-full max-w-4xl mx-auto flex justify-center">
+                        {/* THE CLOUD bubble for LifeWeeks */}
+                        <div className="relative group p-4">
+                            <div className="absolute inset-0 bg-[#FDFBF7] rounded-[5rem] rotate-[-2deg] opacity-0 group-hover:opacity-100 group-hover:rotate-0 transition-all duration-500 blur-2xl" />
+                            <div className="relative z-20">
+                                <LifeWeeks />
+                            </div>
                         </div>
                     </div>
                 </SectionWrapper>

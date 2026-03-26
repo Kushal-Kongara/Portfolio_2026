@@ -40,15 +40,29 @@ export default function LifeWeeks() {
                 {step === 'teaser' && (
                     <motion.button
                         key="teaser"
-                        initial={{ opacity: 0, scale: 0.9 }}
+                        initial={{ opacity: 0, scale: 0.8 }}
                         animate={{ opacity: 1, scale: 1 }}
-                        exit={{ opacity: 0, scale: 1.1 }}
+                        exit={{ opacity: 0, scale: 1.1, filter: "blur(10px)" }}
                         onClick={() => setStep('input')}
                         className="group relative cursor-pointer"
                     >
-                        <div className="absolute inset-0 bg-black rounded-2xl translate-x-1 translate-y-1 transition-transform group-hover:translate-x-2 group-hover:translate-y-2" />
-                        <div className="relative bg-[#ff5500] border-[3px] border-black px-8 py-6 rounded-2xl text-white font-black text-xl md:text-3xl uppercase tracking-tighter shadow-xl">
-                            Want to see how many weeks left in your life?
+                        {/* Puffy Cloud Shape via border-radius */}
+                        <div className="absolute inset-0 bg-white/20 blur-xl group-hover:bg-white/40 transition-all rounded-full" />
+                        
+                        <div className="relative bg-[#FDFBF7] text-black px-12 py-10 rounded-[4rem] group-hover:rounded-[3rem] transition-all duration-700 shadow-[0_15px_35px_rgba(0,0,0,0.1)] border-[4px] border-black/5 flex flex-col items-center">
+                            {/* Simple Cloud Circles Decoration */}
+                            <div className="absolute -top-6 -left-4 w-12 h-12 bg-[#FDFBF7] rounded-full" />
+                            <div className="absolute -top-4 -right-2 w-16 h-16 bg-[#FDFBF7] rounded-full" />
+                            
+                            <span className="relative z-10 font-black text-2xl md:text-4xl uppercase tracking-tighter leading-tight">
+                                Want to see<br/>how many weeks<br/>left in life?
+                            </span>
+
+                            <div className="mt-6 flex gap-2">
+                                {[...Array(3)].map((_, i) => (
+                                    <div key={i} className="w-2 h-2 bg-black/10 rounded-full group-hover:bg-[#ff5500]/40 transition-colors" />
+                                ))}
+                            </div>
                         </div>
                     </motion.button>
                 )}
@@ -118,8 +132,8 @@ export default function LifeWeeks() {
                             </div>
                         </div>
 
-                        <div className="bg-white border-2 border-black p-4 md:p-8 rounded-3xl shadow-[10px_10px_0px_rgba(0,0,0,0.05)]">
-                            <div className="grid grid-cols-[repeat(52,minmax(0,1fr))] gap-1 md:gap-1.5 max-h-[60vh] overflow-y-auto pr-2 custom-scrollbar">
+                        <div className="bg-white/95 backdrop-blur-md border-[4px] border-black p-4 md:p-8 rounded-[3rem] shadow-[20px_20px_0px_rgba(0,0,0,0.05)]">
+                            <div className="grid grid-cols-[repeat(52,minmax(0,1fr))] gap-1 md:gap-1.5 max-h-[50vh] overflow-y-auto pr-2 custom-scrollbar">
                                 {grid}
                             </div>
                         </div>

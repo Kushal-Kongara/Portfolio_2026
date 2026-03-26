@@ -156,7 +156,7 @@ function BadgeNoIdeaClub() {
 
       <div className="w-full flex items-end justify-between mt-auto">
         <div className="text-[7px] leading-tight max-w-[120px] font-medium italic">
-          "This document grants full permission to explore ideas, create with purpose, and enjoy the process."
+          {"\"This document grants full permission to explore ideas, create with purpose, and enjoy the process.\""}
         </div>
         <div className="relative">
           <span className="font-serif italic text-xl">No Idea</span>
@@ -249,7 +249,7 @@ function BadgeHeronPreston() {
 
       {/* Decorative vertical text on right */}
       <div className="absolute right-1 top-1/2 -translate-y-1/2 rotate-90 origin-bottom-right uppercase text-[6px] font-black tracking-[0.3em] opacity-20 whitespace-nowrap">
-        /// HYPOTHETICAL VISUAL ADV 00 ///
+        {"/// HYPOTHETICAL VISUAL ADV 00 ///"}
       </div>
     </div>
   );

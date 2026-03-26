@@ -158,7 +158,7 @@ export default function Hero() {
       >
         <div className="flex flex-col sm:flex-row sm:items-center items-start gap-12 lg:gap-32 pointer-events-auto w-full">
           <p className="max-w-[280px] md:max-w-md text-[#ff5500] text-2xl md:text-3xl leading-relaxed font-bold tracking-tight font-caveat">
-            "Nothing in life is truly easy or hard only familiar or unfamiliar.”
+            {"\"Nothing in life is truly easy or hard only familiar or unfamiliar.\""}
           </p>
 
           {/* Bold Colorful Pencil Art Social Icons */}

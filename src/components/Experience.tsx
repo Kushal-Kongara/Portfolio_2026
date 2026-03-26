@@ -234,7 +234,7 @@ export default function Experience() {
                 <motion.div
                   key={i}
                   initial={{ width: 0 }}
-                  animate={{ width: `${(comp.mos / 75) * 100}%` }}
+                  whileInView={{ width: `${(comp.mos / 75) * 100}%` }}
                   transition={{ duration: 1, delay: 0.6 + i * 0.1, ease: "circOut" }}
                   className={`${comp.color} h-full relative cursor-help transition-all duration-300 hover:opacity-90 active:scale-x-95 origin-left border-r border-white/10 group/seg`}
                 >

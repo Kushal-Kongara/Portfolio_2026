@@ -132,7 +132,7 @@ export default function Hero() {
             loop
             muted
             playsInline
-            className="w-full h-full object-contain object-right-bottom drop-shadow-[0_20px_40px_rgba(0,0,0,0.3)]"
+            className="w-full h-full object-contain object-right-bottom drop-shadow-[0_20px_40px_rgba(0,0,0,0.3)] mix-blend-multiply"
           />
         </div>
       </motion.div>

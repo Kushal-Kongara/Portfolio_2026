@@ -224,26 +224,24 @@ export default function Experience() {
 
             {/* The contribution-style grid of squares */}
             <div className="flex flex-col gap-4">
-              <div className="flex flex-wrap gap-2 md:gap-3">
+              <div className="flex flex-wrap gap-1.5 md:gap-2">
                 {[
-                  ...Array(25).fill({ name: "L&T Finance", color: "bg-[#1e3a8a]" }),
-                  ...Array(13).fill({ name: "DispatchTrack", color: "bg-[#0ea5e9]" }),
-                  ...Array(24).fill({ name: "SFBU (Masters)", color: "bg-[#8b5cf6]" }),
-                  ...Array(7).fill({ name: "Cyber Infra", color: "bg-[#f59e0b]" }),
-                  ...Array(6).fill({ name: "Oatmeal AI", color: "bg-[#10b981]" })
+                  ...Array(25).fill({ name: "L&T Finance", color: "#1e3a8a" }),
+                  ...Array(13).fill({ name: "DispatchTrack", color: "#0ea5e9" }),
+                  ...Array(24).fill({ name: "SFBU (Masters)", color: "#8b5cf6" }),
+                  ...Array(7).fill({ name: "Cyber Infra", color: "#f59e0b" }),
+                  ...Array(6).fill({ name: "Oatmeal AI", color: "#10b981" })
                 ].map((month, i) => (
                   <motion.div
                     key={i}
                     initial={{ opacity: 0, scale: 0.5 }}
                     whileInView={{ opacity: 1, scale: 1 }}
                     viewport={{ once: true }}
-                    transition={{ delay: 0.01 * i, duration: 0.3 }}
-                    className={`w-12 h-12 md:w-16 md:h-16 rounded-lg ${month.color} shadow-lg cursor-help hover:brightness-110 active:scale-95 transition-all flex items-center justify-center`}
+                    transition={{ delay: 0.005 * i, duration: 0.2 }}
+                    style={{ backgroundColor: month.color }}
+                    className="w-4 h-4 md:w-5 md:h-5 rounded-sm shadow-sm cursor-help hover:brightness-110 active:scale-95 transition-all"
                     title={month.name}
-                  >
-                    {/* Optional: subtle month dot or indicator if large enough */}
-                    <div className="w-1.5 h-1.5 rounded-full bg-white opacity-20" />
-                  </motion.div>
+                  />
                 ))}
               </div>
               <div className="flex justify-between items-center text-[10px] font-black text-slate-300 uppercase tracking-[0.2em] px-1">
@@ -255,21 +253,21 @@ export default function Experience() {
 
             {/* Legend / Timeline Labels */}
             <div className="grid grid-cols-2 md:grid-cols-5 gap-4">
-              {[
-                { name: "L&T Finance", color: "bg-[#1e3a8a]", year: "2019-21" },
-                { name: "DispatchTrack", color: "bg-[#0ea5e9]", year: "2021-22" },
-                { name: "S.F. Bay Univ.", color: "bg-[#8b5cf6]", year: "2023-24" },
-                { name: "Cyber Infra", color: "bg-[#f59e0b]", year: "2025" },
-                { name: "Oatmeal AI", color: "bg-[#10b981]", year: "2025-26" }
-              ].map((item, i) => (
-                <div key={i} className="flex flex-col gap-1.5">
-                  <div className="flex items-center gap-2">
-                    <div className={`w-3 h-3 rounded-full ${item.color}`} />
-                    <span className="text-[10px] font-black text-slate-800 uppercase tracking-tighter whitespace-nowrap">{item.name}</span>
+                {[
+                  { name: "L&T Finance", color: "#1e3a8a", year: "2019-21" },
+                  { name: "DispatchTrack", color: "#0ea5e9", year: "2021-22" },
+                  { name: "S.F. Bay Univ.", color: "#8b5cf6", year: "2023-24" },
+                  { name: "Cyber Infra", color: "#f59e0b", year: "2025" },
+                  { name: "Oatmeal AI", color: "#10b981", year: "2025-26" }
+                ].map((item, i) => (
+                  <div key={i} className="flex flex-col gap-1.5">
+                    <div className="flex items-center gap-2">
+                      <div className="w-3 h-3 rounded-full" style={{ backgroundColor: item.color }} />
+                      <span className="text-[10px] font-black text-slate-800 uppercase tracking-tighter whitespace-nowrap">{item.name}</span>
+                    </div>
+                    <span className="text-[9px] font-bold text-slate-400 uppercase tracking-[0.2em] pl-5">{item.year}</span>
                   </div>
-                  <span className="text-[9px] font-bold text-slate-400 uppercase tracking-[0.2em] pl-5">{item.year}</span>
-                </div>
-              ))}
+                ))}
             </div>
           </motion.div>
 

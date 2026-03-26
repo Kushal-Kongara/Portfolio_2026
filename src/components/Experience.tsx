@@ -222,36 +222,32 @@ export default function Experience() {
               </div>
             </div>
 
-            {/* The Proportional Bar */}
-            <div className="relative w-full h-16 bg-slate-50 rounded-2xl border-2 border-slate-100 flex overflow-hidden shadow-inner group">
-              {[
-                { name: "L&T Finance", mos: 25, color: "bg-[#1e3a8a]", period: "2 yrs 1 mo" },
-                { name: "DispatchTrack", mos: 13, color: "bg-[#0ea5e9]", period: "1 yr 1 mo" },
-                { name: "SFBU (Masters)", mos: 24, color: "bg-[#8b5cf6]", period: "2 yrs" },
-                { name: "CIS", mos: 7, color: "bg-[#f59e0b]", period: "7 mos" },
-                { name: "Oatmeal AI", mos: 6, color: "bg-[#10b981]", period: "6 mos" }
-              ].map((comp, i) => (
-                <motion.div
-                  key={i}
-                  initial={{ width: 0 }}
-                  whileInView={{ width: `${(comp.mos / 75) * 100}%` }}
-                  transition={{ duration: 1, delay: 0.6 + i * 0.1, ease: "circOut" }}
-                  className={`${comp.color} h-full relative cursor-help transition-all duration-300 hover:opacity-90 active:scale-x-95 origin-left border-r border-white/10 group/seg`}
-                >
-                  {/* Tooltip on Hover */}
-                  <div className="absolute opacity-0 group-hover/seg:opacity-100 -top-12 left-1/2 -translate-x-1/2 bg-slate-900 text-white px-3 py-1.5 rounded-lg text-[10px] font-black uppercase tracking-widest whitespace-nowrap z-50 pointer-events-none transition-all duration-300 transform translate-y-2 group-hover/seg:translate-y-0 shadow-xl">
-                    {comp.name} · {comp.period}
-                    <div className="absolute -bottom-1 left-1/2 -translate-x-1/2 w-2 h-2 bg-slate-900 rotate-45" />
-                  </div>
-
-                  {/* Proportional Grid Overlay (Dot style like design reference) */}
-                  <div className="absolute inset-0 opacity-[0.15] grid grid-cols-12 gap-[2px] p-2 pointer-events-none">
-                    {[...Array(12)].map((_, j) => (
-                      <div key={j} className="bg-white rounded-full aspect-square" />
-                    ))}
-                  </div>
-                </motion.div>
-              ))}
+            {/* The contribution-style grid of squares */}
+            <div className="flex flex-col gap-4">
+              <div className="flex flex-wrap gap-1.5 md:gap-2">
+                {[
+                  ...Array(25).fill({ name: "L&T Finance", color: "bg-[#1e3a8a]" }),
+                  ...Array(13).fill({ name: "DispatchTrack", color: "bg-[#0ea5e9]" }),
+                  ...Array(24).fill({ name: "SFBU (Masters)", color: "bg-[#8b5cf6]" }),
+                  ...Array(7).fill({ name: "Cyber Infra", color: "bg-[#f59e0b]" }),
+                  ...Array(6).fill({ name: "Oatmeal AI", color: "bg-[#10b981]" })
+                ].map((month, i) => (
+                  <motion.div
+                    key={i}
+                    initial={{ opacity: 0, scale: 0.5 }}
+                    whileInView={{ opacity: 1, scale: 1 }}
+                    viewport={{ once: true }}
+                    transition={{ delay: 0.01 * i, duration: 0.3 }}
+                    className={`w-4 h-4 md:w-5 md:h-5 rounded-sm ${month.color} shadow-sm cursor-help hover:brightness-110 active:scale-95 transition-all`}
+                    title={month.name}
+                  />
+                ))}
+              </div>
+              <div className="flex justify-between items-center text-[10px] font-black text-slate-300 uppercase tracking-[0.2em] px-1">
+                <span>Nov 2019</span>
+                <span className="h-px flex-1 mx-4 bg-slate-100" />
+                <span>Present</span>
+              </div>
             </div>
 
             {/* Legend / Timeline Labels */}

@@ -19,17 +19,22 @@ export default function BoredPage() {
     }
 
     return (
-        <main className="min-h-screen bg-[#FDFBF7] flex flex-col pt-24 text-black selection:bg-[#ff5500] selection:text-white">
+        <main 
+            className="min-h-screen flex flex-col pt-24 text-black bg-fixed bg-cover bg-center"
+            style={{ backgroundImage: `url('/gamezone-bg.png')` }}
+        >
+            <div className="fixed inset-0 bg-white/30 backdrop-blur-[2px] pointer-events-none" />
+
             {/* Basic Nav for the new page */}
-            <nav className="fixed top-0 left-0 w-full p-6 z-50 flex justify-between items-center bg-[#FDFBF7]/80 backdrop-blur-md border-b-2 border-black">
-                <Link href="/" className="font-black text-xl tracking-tighter uppercase hover:text-[#ff5500] transition-colors">
+            <nav className="fixed top-0 left-0 w-full p-6 z-50 flex justify-between items-center bg-white/70 backdrop-blur-xl border-b-2 border-black/10">
+                <Link href="/" className="font-black text-xl tracking-tighter uppercase hover:text-[#ff5500] transition-colors drop-shadow-sm">
                     ← Back to Portfolio
                 </Link>
             </nav>
 
-            <SectionWrapper className="flex-1 flex flex-col pt-10 pb-10 text-center">
+            <SectionWrapper className="flex-1 flex flex-col pt-10 pb-10 text-center relative z-10">
                 <h1
-                    className="text-6xl md:text-8xl font-black uppercase tracking-tighter mb-6 text-black"
+                    className="text-7xl md:text-9xl font-black uppercase tracking-tighter mb-6 text-black drop-shadow-[0_4px_12px_rgba(0,0,0,0.1)]"
                     style={{ fontFamily: 'Impact, sans-serif' }}
                 >
                     GAME ZONE
@@ -41,7 +46,7 @@ export default function BoredPage() {
             </SectionWrapper>
 
             {/* MORE ABOUT ME SECTION */}
-            <div className="w-full bg-[#f4f4f0] border-t-[3px] border-black py-24 overflow-hidden">
+            <div className="w-full bg-white/40 backdrop-blur-3xl border-t-[3px] border-black/10 py-24 overflow-hidden relative z-10">
                 <SectionWrapper className="flex flex-col">
                     <h2
                         className="text-5xl md:text-7xl font-black uppercase tracking-tighter mb-16 text-center text-black"

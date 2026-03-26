@@ -17,7 +17,7 @@ function MomentCard({ story, className = "", delay = 0 }: { story: PhotoStory; c
       viewport={{ once: true, amount: 0.1 }}
       transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1], delay }}
     >
-      {!imgError && (
+      {!imgError && story.image && (
         <Image
           src={story.image}
           alt={story.imageAlt}

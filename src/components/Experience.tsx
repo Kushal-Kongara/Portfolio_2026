@@ -222,24 +222,24 @@ export default function Experience() {
               </div>
             </div>
 
-            {/* The contribution-style grid of squares */}
+            {/* The multi-dense contribution-style grid */}
             <div className="flex flex-col gap-4">
-              <div className="flex flex-wrap gap-1.5 md:gap-2">
+              <div className="flex flex-wrap gap-1 md:gap-1.5 justify-center md:justify-start">
                 {[
-                  ...Array(25).fill({ name: "L&T Finance", color: "#1e3a8a" }),
-                  ...Array(13).fill({ name: "DispatchTrack", color: "#0ea5e9" }),
-                  ...Array(24).fill({ name: "SFBU (Masters)", color: "#8b5cf6" }),
-                  ...Array(7).fill({ name: "Cyber Infra", color: "#f59e0b" }),
-                  ...Array(6).fill({ name: "Oatmeal AI", color: "#10b981" })
+                  ...Array(75).fill({ name: "L&T Finance", color: "#1e3a8a" }),
+                  ...Array(39).fill({ name: "DispatchTrack", color: "#0ea5e9" }),
+                  ...Array(72).fill({ name: "SFBU (Masters)", color: "#8b5cf6" }),
+                  ...Array(21).fill({ name: "Cyber Infra", color: "#f59e0b" }),
+                  ...Array(18).fill({ name: "Oatmeal AI", color: "#10b981" })
                 ].map((month, i) => (
                   <motion.div
                     key={i}
                     initial={{ opacity: 0, scale: 0.5 }}
                     whileInView={{ opacity: 1, scale: 1 }}
                     viewport={{ once: true }}
-                    transition={{ delay: 0.005 * i, duration: 0.2 }}
+                    transition={{ delay: 0.002 * i, duration: 0.15 }}
                     style={{ backgroundColor: month.color }}
-                    className="w-4 h-4 md:w-5 md:h-5 rounded-sm shadow-sm cursor-help hover:brightness-110 active:scale-95 transition-all"
+                    className="w-2.5 h-2.5 md:w-3.5 md:h-3.5 rounded-[2px] shadow-sm cursor-help hover:brightness-110 active:scale-95 transition-all"
                     title={month.name}
                   />
                 ))}

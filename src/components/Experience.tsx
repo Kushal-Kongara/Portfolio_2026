@@ -2,15 +2,15 @@
 
 import { motion } from "framer-motion";
 import { experiences } from "@/lib/constants";
-import { 
-  FiArrowUpRight, 
-  FiClock, 
-  FiCode, 
-  FiDatabase, 
-  FiGlobe, 
-  FiLayers, 
-  FiLayout, 
-  FiServer, 
+import {
+  FiArrowUpRight,
+  FiClock,
+  FiCode,
+  FiDatabase,
+  FiGlobe,
+  FiLayers,
+  FiLayout,
+  FiServer,
   FiZap,
   FiTrendingUp
 } from "react-icons/fi";
@@ -22,7 +22,7 @@ export default function Experience() {
   const highlights = [
     {
       title: "Years of Engineering Excellence",
-      value: "6+",
+      value: "5+",
       subvalue: "Professional Experience",
       bgColor: "bg-[#1e3a8a]", // Deep Navy
       textColor: "text-white",
@@ -87,7 +87,7 @@ export default function Experience() {
   return (
     <section id="experience" className="relative w-full bg-[#f8fafc] py-24 overflow-hidden font-sans">
       <div className="max-w-7xl mx-auto px-6 relative z-10">
-        
+
         {/* Title Header - Infographic Style */}
         <div className="mb-16">
           <motion.div
@@ -95,7 +95,7 @@ export default function Experience() {
             whileInView={{ opacity: 1, x: 0 }}
             className="flex flex-col md:flex-row md:items-end gap-4"
           >
-            <h2 className="text-6xl md:text-8xl font-black tracking-tighter text-[#1e3a8a] leading-[0.8] uppercase italic">
+            <h2 className="text-6xl md:text-8xl font-black tracking-tighter text-[#1e3a8a] leading-[0.8] uppercase">
               Experience <br />
               <span className="text-[#0ea5e9]">Highlights</span>
             </h2>
@@ -108,7 +108,7 @@ export default function Experience() {
 
         {/* Bento Grid Layout */}
         <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 gap-6 auto-rows-[200px]">
-          
+
           {/* Main Experience Card */}
           <motion.div
             initial={{ opacity: 0, scale: 0.9 }}
@@ -117,10 +117,10 @@ export default function Experience() {
           >
             <div className="absolute top-0 right-0 w-32 h-32 bg-white/5 rounded-full -mr-16 -mt-16 group-hover:scale-150 transition-transform duration-700" />
             <FiClock className="text-white/10 text-[12rem] absolute -top-10 -right-10 rotate-12" />
-            
+
             <div className="relative z-10">
               <span className="text-white/60 font-bold uppercase tracking-widest text-xs mb-2 block">Career Tenure</span>
-              <h3 className="text-8xl font-black text-white leading-none tracking-tighter mb-2">6+</h3>
+              <h3 className="text-8xl font-black text-white leading-none tracking-tighter mb-2">5+</h3>
               <p className="text-white text-xl font-bold leading-tight">Years of building production-grade software.</p>
             </div>
           </motion.div>
@@ -144,8 +144,8 @@ export default function Experience() {
               <div className="bg-slate-50 px-4 py-2 rounded-full text-xs font-bold text-slate-700 border border-slate-200">System Architecture</div>
             </div>
             {/* Background pattern */}
-            <div className="absolute inset-0 opacity-[0.03] pointer-events-none" 
-              style={{ backgroundImage: `radial-gradient(#000 1px, transparent 1px)`, backgroundSize: '16px 16px' }} 
+            <div className="absolute inset-0 opacity-[0.03] pointer-events-none"
+              style={{ backgroundImage: `radial-gradient(#000 1px, transparent 1px)`, backgroundSize: '16px 16px' }}
             />
           </motion.div>
 
@@ -253,21 +253,21 @@ export default function Experience() {
 
             {/* Legend / Timeline Labels */}
             <div className="grid grid-cols-2 md:grid-cols-5 gap-4">
-                {[
-                  { name: "L&T Finance", color: "#1e3a8a", year: "2019-21" },
-                  { name: "DispatchTrack", color: "#0ea5e9", year: "2021-22" },
-                  { name: "S.F. Bay Univ.", color: "#8b5cf6", year: "2023-24" },
-                  { name: "Cyber Infra", color: "#f59e0b", year: "2025" },
-                  { name: "Oatmeal AI", color: "#10b981", year: "2025-26" }
-                ].map((item, i) => (
-                  <div key={i} className="flex flex-col gap-1.5">
-                    <div className="flex items-center gap-2">
-                      <div className="w-3 h-3 rounded-full" style={{ backgroundColor: item.color }} />
-                      <span className="text-[10px] font-black text-slate-800 uppercase tracking-tighter whitespace-nowrap">{item.name}</span>
-                    </div>
-                    <span className="text-[9px] font-bold text-slate-400 uppercase tracking-[0.2em] pl-5">{item.year}</span>
+              {[
+                { name: "L&T Finance", color: "#1e3a8a", year: "2019-21" },
+                { name: "DispatchTrack", color: "#0ea5e9", year: "2021-22" },
+                { name: "S.F. Bay Univ.", color: "#8b5cf6", year: "2023-24" },
+                { name: "Cyber Infra", color: "#f59e0b", year: "2025" },
+                { name: "Oatmeal AI", color: "#10b981", year: "2025-26" }
+              ].map((item, i) => (
+                <div key={i} className="flex flex-col gap-1.5">
+                  <div className="flex items-center gap-2">
+                    <div className="w-3 h-3 rounded-full" style={{ backgroundColor: item.color }} />
+                    <span className="text-[10px] font-black text-slate-800 uppercase tracking-tighter whitespace-nowrap">{item.name}</span>
                   </div>
-                ))}
+                  <span className="text-[9px] font-bold text-slate-400 uppercase tracking-[0.2em] pl-5">{item.year}</span>
+                </div>
+              ))}
             </div>
           </motion.div>
 
@@ -275,11 +275,8 @@ export default function Experience() {
 
         {/* Footer quote like the bottom text in Image 1 */}
         <div className="mt-12 text-center">
-            <p className="text-slate-400 text-xs font-black uppercase tracking-[0.2em] flex items-center justify-center gap-4">
-                <span className="h-[1px] w-12 bg-slate-200" />
-                Proven Track Record of Shipping Impactful Code
-                <span className="h-[1px] w-12 bg-slate-200" />
-            </p>
+          <p className="text-slate-400 text-xs font-black uppercase tracking-[0.2em] flex items-center justify-center gap-4">
+          </p>
         </div>
       </div>
     </section>

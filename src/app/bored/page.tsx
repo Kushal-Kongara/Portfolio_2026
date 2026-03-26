@@ -19,11 +19,10 @@ const Sticker = ({ children, className }: { children: React.ReactNode; className
 export default function GameZonePage() {
   return (
     <main className="min-h-screen bg-[#111111] text-[#FDFBF7] font-sans selection:bg-[#ff5500] selection:text-white overflow-x-hidden relative">
-      {/* Noise Texture Overlay */}
-      <div className="fixed inset-0 pointer-events-none opacity-[0.03] z-[100] bg-[url('https://grainy-gradients.vercel.app/noise.svg')]" />
+      {/* No Noise Texture for stability */}
 
       {/* Top Header Labels */}
-      <div className="w-full px-8 py-4 flex justify-between items-center border-b border-white/10 uppercase font-black tracking-widest text-[10px] md:text-xs bg-[#111111]/80 backdrop-blur-md sticky top-0 z-[100]">
+      <div className="w-full px-8 py-4 flex justify-between items-center border-b border-white/10 uppercase font-black tracking-widest text-[10px] md:text-xs bg-[#111111] sticky top-0 z-[100]">
         <span>KUSHAL KONGARA</span>
         <span className="hidden md:inline opacity-50">STREET ART X TECHNO</span>
         <Link href="/" className="hover:text-[#ff5500] transition-colors">BACK TO PORTFOLIO</Link>
@@ -35,12 +34,12 @@ export default function GameZonePage() {
           
           {/* 1. MAIN POSTER: LIFE WEEKS ZONE (Tall & Large) */}
           <motion.div 
-            initial={{ opacity: 0, y: 20 }}
+            initial={{ opacity: 0, y: 10 }}
             animate={{ opacity: 1, y: 0 }}
             className="md:col-span-8 lg:col-span-4 lg:row-span-3 bg-[#1e40af] rounded-[2.5rem] p-6 md:p-8 relative overflow-hidden flex flex-col justify-between group shadow-2xl border-2 border-white/5"
           >
             <div className="absolute top-0 right-0 p-8">
-              <FaAsterisk className="text-[#FDFBF7]/20 text-6xl animate-spin-slow" />
+              <FaAsterisk className="text-[#FDFBF7]/20 text-6xl" />
             </div>
             
             <div className="relative z-10 flex flex-col gap-4">

@@ -21,7 +21,7 @@ export default function BoredPage() {
     return (
         <main 
             className="min-h-screen flex flex-col pt-24 text-black bg-fixed bg-cover bg-center"
-            style={{ backgroundImage: `url('/gamezone-bg.png')` }}
+            style={{ backgroundImage: `url('/gamezone-bg.jpg')` }}
         >
             <div className="fixed inset-0 bg-white/30 backdrop-blur-[2px] pointer-events-none" />
 

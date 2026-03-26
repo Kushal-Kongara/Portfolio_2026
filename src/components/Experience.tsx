@@ -224,7 +224,7 @@ export default function Experience() {
 
             {/* The contribution-style grid of squares */}
             <div className="flex flex-col gap-4">
-              <div className="flex flex-wrap gap-1.5 md:gap-2">
+              <div className="flex flex-wrap gap-2 md:gap-3">
                 {[
                   ...Array(25).fill({ name: "L&T Finance", color: "bg-[#1e3a8a]" }),
                   ...Array(13).fill({ name: "DispatchTrack", color: "bg-[#0ea5e9]" }),
@@ -238,9 +238,12 @@ export default function Experience() {
                     whileInView={{ opacity: 1, scale: 1 }}
                     viewport={{ once: true }}
                     transition={{ delay: 0.01 * i, duration: 0.3 }}
-                    className={`w-4 h-4 md:w-5 md:h-5 rounded-sm ${month.color} shadow-sm cursor-help hover:brightness-110 active:scale-95 transition-all`}
+                    className={`w-12 h-12 md:w-16 md:h-16 rounded-lg ${month.color} shadow-lg cursor-help hover:brightness-110 active:scale-95 transition-all flex items-center justify-center`}
                     title={month.name}
-                  />
+                  >
+                    {/* Optional: subtle month dot or indicator if large enough */}
+                    <div className="w-1.5 h-1.5 rounded-full bg-white opacity-20" />
+                  </motion.div>
                 ))}
               </div>
               <div className="flex justify-between items-center text-[10px] font-black text-slate-300 uppercase tracking-[0.2em] px-1">

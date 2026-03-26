@@ -49,9 +49,8 @@ export default function BoredPage() {
                     </h1>
 
                     <div className="w-full max-w-4xl mx-auto flex justify-center">
-                        {/* THE CLOUD bubble for LifeWeeks */}
-                        <div className="relative group p-4">
-                            <div className="absolute inset-0 bg-[#FDFBF7] rounded-[5rem] rotate-[-2deg] opacity-0 group-hover:opacity-100 group-hover:rotate-0 transition-all duration-500 blur-2xl" />
+                        {/* THE CLOUD bubble for LifeWeeks - Hover glow removed */}
+                        <div className="relative p-4">
                             <div className="relative z-20">
                                 <LifeWeeks />
                             </div>

@@ -46,10 +46,7 @@ export default function LifeWeeks() {
                         onClick={() => setStep('input')}
                         className="group relative cursor-pointer"
                     >
-                        {/* Puffy Cloud Shape via border-radius */}
-                        <div className="absolute inset-0 bg-white/20 blur-xl group-hover:bg-white/40 transition-all rounded-full" />
-                        
-                        <div className="relative bg-[#FDFBF7] text-black px-12 py-10 rounded-[4rem] group-hover:rounded-[3rem] transition-all duration-700 shadow-[0_15px_35px_rgba(0,0,0,0.1)] border-[4px] border-black/5 flex flex-col items-center">
+                        <div className="relative bg-[#FDFBF7] text-black px-12 py-10 rounded-[4rem] group-hover:scale-105 transition-all duration-700 shadow-[0_15px_35px_rgba(0,0,0,0.15)] border-[4px] border-black/5 flex flex-col items-center">
                             {/* Simple Cloud Circles Decoration */}
                             <div className="absolute -top-6 -left-4 w-12 h-12 bg-[#FDFBF7] rounded-full" />
                             <div className="absolute -top-4 -right-2 w-16 h-16 bg-[#FDFBF7] rounded-full" />
@@ -60,7 +57,7 @@ export default function LifeWeeks() {
 
                             <div className="mt-6 flex gap-2">
                                 {[...Array(3)].map((_, i) => (
-                                    <div key={i} className="w-2 h-2 bg-black/10 rounded-full group-hover:bg-[#ff5500]/40 transition-colors" />
+                                    <div key={i} className="w-2 h-2 bg-black/10 rounded-full" />
                                 ))}
                             </div>
                         </div>

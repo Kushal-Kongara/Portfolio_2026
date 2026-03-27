@@ -622,8 +622,8 @@ export default function About() {
       </div>
 
         {/* Events & Hackathons - Edge to Edge Photos */}
-        <section id="events" className="w-full bg-[#F2B50B] py-10 overflow-hidden flex flex-col">
-          <SectionWrapper className="mb-2 md:mb-4 mt-8">
+        <section id="events" className="w-full bg-[#F2B50B] pb-10 pt-0 overflow-hidden flex flex-col">
+          <SectionWrapper className="mb-2 md:mb-4 mt-0">
             <motion.h2
               initial={{ opacity: 0, x: -12 }}
               whileInView={{ opacity: 1, x: 0 }}

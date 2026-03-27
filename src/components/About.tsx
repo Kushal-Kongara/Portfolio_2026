@@ -566,7 +566,7 @@ export default function About() {
             initial={{ opacity: 0, x: -12 }}
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true }}
-            className="text-[12vw] md:text-[5rem] lg:text-[6.5rem] font-black text-white uppercase tracking-tighter leading-none mb-4 md:mb-6 mt-4 text-left origin-left drop-shadow-lg"
+            className="text-[10vw] md:text-[4rem] lg:text-[5.5rem] font-black text-white uppercase tracking-tighter leading-none mb-4 md:mb-6 mt-4 text-left origin-left drop-shadow-lg"
             style={{
               fontFamily: "Impact, system-ui, sans-serif",
               transform: "scaleY(1.2)",

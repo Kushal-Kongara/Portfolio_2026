@@ -100,7 +100,7 @@ export default function Projects() {
           initial={{ opacity: 0, x: -12 }}
           whileInView={{ opacity: 1, x: 0 }}
           viewport={{ once: true }}
-          className="text-[12vw] md:text-[5rem] lg:text-[6.5rem] font-black text-black uppercase tracking-tighter leading-none mb-8 md:mb-12 mt-8 text-left origin-left"
+          className="text-[10vw] md:text-[4rem] lg:text-[5.5rem] font-black text-black uppercase tracking-tighter leading-none mb-8 md:mb-12 mt-8 text-left origin-left"
           style={{
             fontFamily: "Impact, system-ui, sans-serif",
             transform: "scaleY(1.2)",

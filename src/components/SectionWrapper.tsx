@@ -24,7 +24,7 @@ export default function SectionWrapper({
         ease: [0.16, 1, 0.3, 1], // Premium easing (Ease Out Expo)
         delay: 0.1
       }}
-      className={`max-w-6xl mx-auto px-6 py-12 md:py-24 ${className}`}
+      className={`max-w-5xl mx-auto px-6 py-12 md:py-20 ${className}`}
     >
       {children}
     </motion.section>

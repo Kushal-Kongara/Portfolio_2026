@@ -401,7 +401,7 @@ function IDBadge() {
         ]
       } : { x: 0, filter: 'hue-rotate(0deg) contrast(1)' }}
       transition={isGlitching ? { duration: 0.2, repeat: Infinity } : { duration: 0.3 }}
-      className={`relative flex flex-col items-center select-none w-full max-w-[280px] mx-auto lg:mx-0 pt-6 origin-top ${isGlitching ? 'filter-glitch' : ''}`}
+      className={`relative flex flex-col items-center select-none w-full max-w-[240px] mx-auto lg:mx-0 pt-6 origin-top ${isGlitching ? 'filter-glitch' : ''}`}
     >
       <style jsx global>{`
         @keyframes glitch-skew {
@@ -552,7 +552,7 @@ export default function About() {
   return (
     <>
       <div
-        className="w-full min-h-screen flex flex-col relative bg-white"
+        className="w-full relative bg-white"
         style={{
           backgroundImage: "url('/about-bg-nature.jpg')",
           backgroundRepeat: "no-repeat",
@@ -566,7 +566,7 @@ export default function About() {
             initial={{ opacity: 0, x: -12 }}
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true }}
-            className="text-[10vw] md:text-[4rem] lg:text-[5.5rem] font-black text-white uppercase tracking-tighter leading-none mb-4 md:mb-6 mt-4 text-left origin-left drop-shadow-lg"
+            className="text-[10vw] md:text-[3.5rem] lg:text-[4.5rem] font-black text-white uppercase tracking-tighter leading-none mb-4 md:mb-6 mt-4 text-left origin-left drop-shadow-lg"
             style={{
               fontFamily: "Impact, system-ui, sans-serif",
               transform: "scaleY(1.2)",
@@ -602,7 +602,7 @@ export default function About() {
                 {about.intro.map((paragraph, i) => (
                   <p
                     key={i}
-                    className="text-black text-base md:text-lg leading-relaxed font-medium"
+                    className="text-black text-sm md:text-base leading-relaxed font-medium"
                   >
                     {paragraph.split(/(\*\*[^*]+\*\*)/g).map((part, j) =>
                       part.startsWith("**") && part.endsWith("**") ? (

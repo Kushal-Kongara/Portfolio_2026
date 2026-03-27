@@ -139,69 +139,70 @@ export default function TechStack() {
                         </div>
                     </div>
 
-                    {/* Categorized Layout */}
-                    <div className="flex flex-col gap-24">
+                    {/* Bento Grid Layout for Categories */}
+                    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-12 lg:gap-16">
                         {techCategories.map((category, catIdx) => (
-                            <div key={category.title} className="flex flex-col">
-                                <motion.div
-                                    initial={{ opacity: 0, x: -20 }}
-                                    whileInView={{ opacity: 1, x: 0 }}
-                                    className="flex items-center gap-4 mb-10"
-                                >
-                                    <h3 className="text-3xl md:text-4xl font-black uppercase tracking-[0.2em] text-slate-400">
+                            <motion.div 
+                                key={category.title}
+                                initial={{ opacity: 0, y: 20 }}
+                                whileInView={{ opacity: 1, y: 0 }}
+                                transition={{ delay: catIdx * 0.1 }}
+                                className={`flex flex-col p-8 rounded-[3rem] bg-white/40 border border-slate-100 shadow-sm relative overflow-hidden ${category.title === "AI & LLM Integration" ? "md:col-span-2" : ""}`}
+                            >
+                                <div className="absolute top-0 right-0 p-4 opacity-[0.03] pointer-events-none">
+                                    <HiCode className="text-9xl rotate-12" />
+                                </div>
+
+                                <div className="flex items-center gap-4 mb-10">
+                                    <h3 className="text-2xl md:text-3xl font-black uppercase tracking-[0.2em] text-slate-400">
                                         {category.title}
                                     </h3>
-                                    <div className="h-[2px] flex-1 bg-slate-100 rounded-full" />
-                                </motion.div>
+                                    <div className="h-[2px] flex-1 bg-slate-100/50 rounded-full" />
+                                </div>
 
-                                <div className="flex flex-wrap justify-center md:justify-start gap-x-12 gap-y-16">
+                                <div className="grid grid-cols-2 sm:grid-cols-3 xl:grid-cols-4 gap-8 md:gap-10">
                                     {category.items.map((tool, idx) => (
                                         <motion.div
                                             key={tool.name}
-                                            initial={{ opacity: 0, scale: 0.8, y: 20 }}
-                                            whileInView={{ opacity: 1, scale: 1, y: 0 }}
+                                            initial={{ opacity: 0, scale: 0.8 }}
+                                            whileInView={{ opacity: 1, scale: 1 }}
                                             transition={{
                                                 type: "spring",
                                                 stiffness: 150,
                                                 damping: 15,
                                                 delay: (catIdx * 0.1) + (idx * 0.05),
                                             }}
-                                            whileHover={{ scale: 1.1, y: -8 }}
+                                            whileHover={{ scale: 1.1, y: -5 }}
                                             className="relative flex flex-col items-center group cursor-pointer"
                                             style={{ rotate: tool.rotate }}
                                         >
                                             <div className="relative">
-                                                {/* Icon Container */}
-                                                <div className="relative z-20 w-24 h-24 md:w-28 md:h-28 bg-white rounded-[2.5rem] flex items-center justify-center text-4xl md:text-5xl
-                                                                border-2 border-slate-100 shadow-[0_15px_35px_-10px_rgba(0,0,0,0.1)]
-                                                                group-hover:shadow-[0_25px_50px_-15px_rgba(0,0,0,0.2)]
-                                                                group-hover:border-slate-200 transition-all duration-300">
+                                                {/* Icon Container (Slightly smaller) */}
+                                                <div className="relative z-20 w-20 h-20 md:w-24 md:h-24 bg-white rounded-[2rem] flex items-center justify-center text-3xl md:text-4xl 
+                                                                border-2 border-slate-50 shadow-[0_10px_25px_-10px_rgba(0,0,0,0.08)] 
+                                                                group-hover:shadow-[0_20px_40px_-15px_rgba(0,0,0,0.15)] 
+                                                                group-hover:border-slate-100 transition-all duration-300">
                                                     <div className="relative z-10 transition-all filter group-hover:drop-shadow-lg">
                                                         {tool.icon}
                                                     </div>
-
-                                                    {/* Label overlay for identity */}
-                                                    <div className="absolute -bottom-2 -right-2 bg-slate-900 text-white text-[10px] font-black px-3 py-1 rounded-full uppercase tracking-widest shadow-lg transform rotate-6 border border-white/20">
+                                                    
+                                                    {/* Label overlay (more compact) */}
+                                                    <div className="absolute -bottom-1 -right-1 bg-slate-900 text-white text-[9px] font-black px-2 py-0.5 rounded-lg uppercase tracking-widest shadow-lg transform rotate-6 border border-white/20">
                                                         {tool.name}
                                                     </div>
                                                 </div>
-
-                                                {/* Sketch Arrow for flair */}
-                                                {(idx === 0) && (
-                                                    <SquigglyArrow className="absolute -left-12 -top-8 w-16 h-12 opacity-5 rotate-45 group-hover:opacity-20 transition-opacity" />
-                                                )}
                                             </div>
 
-                                            {/* Desc Text */}
-                                            <div className="mt-6 text-center">
-                                                <Highlighter color={tool.color} className="text-xl md:text-2xl font-bold tracking-tight text-slate-800">
+                                            {/* Desc Text (more compact) */}
+                                            <div className="mt-4 text-center">
+                                                <Highlighter color={tool.color} className="text-base md:text-lg font-bold tracking-tight text-slate-700">
                                                     {tool.desc}
                                                 </Highlighter>
                                             </div>
                                         </motion.div>
                                     ))}
                                 </div>
-                            </div>
+                            </motion.div>
                         ))}
                     </div>
 

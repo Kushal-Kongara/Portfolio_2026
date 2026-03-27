@@ -639,27 +639,27 @@ export default function About() {
             </motion.h2>
           </SectionWrapper>
 
-          <div className="flex flex-col md:flex-row gap-0.5 md:gap-1 w-full md:h-[600px] lg:h-[800px]">
+          <div className="flex flex-col md:flex-row gap-2 md:gap-4 w-full px-4 md:px-8 lg:px-12 md:h-[800px] lg:h-[1000px]">
             {/* Left Half */}
-            <div className="flex-1 flex flex-col gap-0.5 md:gap-1">
+            <div className="flex-1 flex flex-col gap-2 md:gap-4">
               {photoStories[0] && (
-                <MomentCard story={photoStories[0]} delay={0.1} className="h-[400px] md:h-auto md:flex-[55]" />
+                <MomentCard story={photoStories[0]} delay={0.1} className="h-[500px] md:h-auto md:flex-[55] rounded-2xl" />
               )}
-              <div className="h-[200px] md:h-auto md:flex-[45] flex flex-row gap-0.5 md:gap-1">
-                {photoStories[1] && <MomentCard story={photoStories[1]} delay={0.2} className="flex-1" />}
-                {photoStories[2] && <MomentCard story={photoStories[2]} delay={0.3} className="flex-1" />}
+              <div className="h-[250px] md:h-auto md:flex-[45] flex flex-row gap-2 md:gap-4">
+                {photoStories[1] && <MomentCard story={photoStories[1]} delay={0.2} className="flex-1 rounded-2xl" />}
+                {photoStories[2] && <MomentCard story={photoStories[2]} delay={0.3} className="flex-1 rounded-2xl" />}
               </div>
             </div>
 
             {/* Right Half */}
-            <div className="flex-1 flex flex-col gap-0.5 md:gap-1">
-              <div className="h-[200px] md:h-auto md:flex-[35] flex flex-row gap-0.5 md:gap-1">
-                {photoStories[3] && <MomentCard story={photoStories[3]} delay={0.4} className="flex-1" />}
-                {photoStories[4] && <MomentCard story={photoStories[4]} delay={0.5} className="flex-1" />}
+            <div className="flex-1 flex flex-col gap-2 md:gap-4">
+              <div className="h-[250px] md:h-auto md:flex-[35] flex flex-row gap-2 md:gap-4">
+                {photoStories[3] && <MomentCard story={photoStories[3]} delay={0.4} className="flex-1 rounded-2xl" />}
+                {photoStories[4] && <MomentCard story={photoStories[4]} delay={0.5} className="flex-1 rounded-2xl" />}
               </div>
-              <div className="h-[400px] md:h-auto md:flex-[65] flex flex-row gap-0.5 md:gap-1">
-                {photoStories[5] && <MomentCard story={photoStories[5]} delay={0.6} className="flex-1" />}
-                {photoStories[6] && <MomentCard story={photoStories[6]} delay={0.7} className="flex-1" />}
+              <div className="h-[500px] md:h-auto md:flex-[65] flex flex-row gap-2 md:gap-4">
+                {photoStories[5] && <MomentCard story={photoStories[5]} delay={0.6} className="flex-1 rounded-2xl" />}
+                {photoStories[6] && <MomentCard story={photoStories[6]} delay={0.7} className="flex-1 rounded-2xl" />}
               </div>
             </div>
           </div>

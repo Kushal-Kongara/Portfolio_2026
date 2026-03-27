@@ -84,7 +84,7 @@ export default function BoredPage() {
                             {movieImages.slice(0, 40).map((src, i) => (
                                 <div key={i} className="w-full aspect-[2/3] overflow-hidden border-white/10 border-[0.5px] hover:z-50 hover:scale-110 transition-all duration-500 group cursor-pointer shadow-2xl">
                                     {/* eslint-disable-next-line @next/next/no-img-element */}
-                                    <img src={src} alt={`Movie Poster ${i + 1}`} className="w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all duration-700" />
+                                    <img src={src} alt={`Movie Poster ${i + 1}`} className="w-full h-full object-cover transition-all duration-700" />
                                 </div>
                             ))}
                         </div>

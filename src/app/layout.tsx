@@ -18,6 +18,7 @@ export const metadata: Metadata = {
   description: "Product Designer & Frontend Engineer",
   icons: {
     icon: "/icon.jpg",
+    shortcut: "/favicon.ico",
   },
 };
 

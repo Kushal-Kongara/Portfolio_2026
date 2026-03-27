@@ -14,8 +14,11 @@ const caveat = Caveat({
 });
 
 export const metadata: Metadata = {
-  title: "Portfolio",
-  description: "Portfolio website",
+  title: "Kushal Kongara | Portfolio",
+  description: "Product Designer & Frontend Engineer",
+  icons: {
+    icon: "/icon.jpg",
+  },
 };
 
 export default function RootLayout({

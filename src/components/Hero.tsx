@@ -118,22 +118,34 @@ export default function Hero() {
         </button>
       </motion.div>
 
-      {/* Hero Graphic / Graphics */}
+      {/* Hero Graphic / Characters */}
       <motion.div
-        initial={{ y: 50, opacity: 0 }}
+        initial={{ y: 100, opacity: 0 }}
         animate={{ y: 0, opacity: 1 }}
         transition={{ duration: 0.8, delay: 0.5, ease: "easeOut" }}
-        className="absolute bottom-0 right-0 z-20 w-screen md:w-[80vw] lg:w-[60vw] h-[80vh] pointer-events-none flex items-end justify-end md:pr-4 lg:pr-8"
+        className="absolute bottom-0 right-0 z-20 w-full md:w-[80%] lg:w-[60%] h-[80%] pointer-events-none flex items-end justify-end md:pr-4 lg:pr-8"
       >
-        <div className="relative w-full h-full flex items-end justify-end">
-          <video
-            src="/hero-video.mp4"
-            autoPlay
-            loop
-            muted
-            playsInline
-            className="w-full h-full object-contain object-right-bottom drop-shadow-[0_20px_40px_rgba(0,0,0,0.3)] mix-blend-multiply"
-          />
+        <div className="relative w-full h-full">
+          {!imgError && (
+            <Image
+              src="/hero-characters.png"
+              alt="Hero Characters"
+              fill
+              className="object-contain object-right-bottom drop-shadow-[0_20px_40px_rgba(0,0,0,0.3)]"
+              onError={() => setImgError(true)}
+              priority
+            />
+          )}
+          {imgError && (
+            <div className="absolute bottom-10 right-10 flex flex-col items-end gap-2 text-right">
+              <div className="bg-black text-white px-4 py-2 font-mono text-xs rounded shadow-lg pointer-events-auto">
+                PLACEHOLDER: Add your character graphic here
+              </div>
+              <code className="bg-white text-black border border-black/20 px-2 py-1 text-[10px] rounded shadow pointer-events-auto">
+                public/hero-characters.png
+              </code>
+            </div>
+          )}
         </div>
       </motion.div>
 

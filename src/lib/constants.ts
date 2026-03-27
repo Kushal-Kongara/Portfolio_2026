@@ -124,11 +124,11 @@ export const projects = [
     image: "/projects/project-02.png",
   },
   {
-    title: "Project Three",
-    description: "A comprehensive description of a full stack application built.",
-    link: "#",
-    code: "#",
-    image: "",
+    title: "LexFill",
+    description: "A comprehensive description of a full stack application built. Documentations for lawyers.",
+    link: "https://lexfill.vercel.app/",
+    code: "https://github.com/Kushal-Kongara/lexfill?tab=readme-ov-file",
+    image: "/projects/lexfill.png",
   },
   {
     title: "Project Four",

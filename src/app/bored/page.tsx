@@ -69,7 +69,7 @@ export default function BoredPage() {
 
                 <div className="flex flex-col w-full relative z-10"> {/* Bypassing SectionWrapper for true full-width */}
                     <h2
-                        className="text-4xl md:text-6xl font-black uppercase tracking-tighter mb-12 text-center text-white px-8 max-w-4xl mx-auto drop-shadow-[0_4px_8px_rgba(0,0,0,0.8)]"
+                        className="text-3xl md:text-5xl font-black uppercase tracking-tighter mb-10 text-center text-white px-8 max-w-4xl mx-auto drop-shadow-[0_4px_8px_rgba(0,0,0,0.8)]"
                         style={{ fontFamily: 'Impact, sans-serif' }}
                     >
                         MORE ABOUT ME

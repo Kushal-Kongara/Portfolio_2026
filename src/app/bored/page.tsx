@@ -91,18 +91,22 @@ export default function BoredPage() {
                 </div>
             </section>
 
-            {/* PARTITION: TRAVEL SOUVENIRS - Full Edge-to-Edge */}
-            <section id="travel" className="w-full relative overflow-hidden border-b-[3px] border-black pb-20">
-                <div className="absolute top-24 left-0 w-full z-20 pointer-events-none">
+            {/* PARTITION: TRAVEL SOUVENIRS */}
+            <section id="travel" className="w-full bg-[#FAFAF5] py-32 overflow-hidden border-b-[3px] border-black">
+                <SectionWrapper className="flex flex-col items-center">
                     <h2
-                        className="text-6xl md:text-8xl font-black uppercase tracking-tighter text-center text-white drop-shadow-[0_4px_12px_rgba(0,0,0,0.8)]"
+                        className="text-6xl md:text-8xl font-black uppercase tracking-tighter mb-20 text-center text-black"
                         style={{ fontFamily: 'Impact, sans-serif' }}
                     >
                         TRAVEL BOARD
                     </h2>
-                </div>
 
-                <TravelBoard />
+                    <TravelBoard />
+                    
+                    <p className="mt-12 text-black/40 font-black uppercase tracking-widest text-xs">
+                        Drag the souvenirs around • More memories coming soon
+                    </p>
+                </SectionWrapper>
             </section>
 
             {/* PARTITION 3: THE COLLECTION */}

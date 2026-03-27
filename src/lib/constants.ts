@@ -117,7 +117,7 @@ export const projects = [
     image: "/projects/project-01.png",
   },
   {
-    title: "Project Two",
+    title: "FitMate",
     description: "Created a demo for fitmate company using React and Node.js.",
     link: "#",
     code: "https://github.com/Kushal-Kongara/fitmate-demo",
@@ -125,7 +125,7 @@ export const projects = [
   },
   {
     title: "LexFill",
-    description: "A comprehensive description of a full stack application built. Documentations for lawyers.",
+    description: "Documentations for lawyers",
     link: "https://lexfill.vercel.app/",
     code: "https://github.com/Kushal-Kongara/lexfill?tab=readme-ov-file",
     image: "/projects/lexfill.png",

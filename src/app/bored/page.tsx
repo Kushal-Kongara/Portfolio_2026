@@ -5,11 +5,9 @@ import Link from "next/link";
 import SectionWrapper from "@/components/SectionWrapper";
 import LifeWeeks from "@/components/LifeWeeks";
 import TravelBoard from "@/components/TravelBoard";
-import Harmonium from "@/components/Harmonium";
-import { motion, AnimatePresence } from "framer-motion";
+import { motion } from "framer-motion";
 
 export default function BoredPage() {
-    const [activeGame, setActiveGame] = useState<"weeks" | "harmonium" | null>(null);
     const [movieImages, setMovieImages] = useState<string[]>([]);
 
     useEffect(() => {
@@ -58,51 +56,7 @@ export default function BoredPage() {
                     </h1>
 
                     <div className="w-full max-w-5xl mx-auto flex flex-col items-center">
-                        <AnimatePresence mode="wait">
-                            {!activeGame && (
-                                <motion.div 
-                                    key="selection"
-                                    initial={{ opacity: 0, y: 20 }}
-                                    animate={{ opacity: 1, y: 0 }}
-                                    exit={{ opacity: 0, scale: 0.95 }}
-                                    className="flex flex-col md:flex-row gap-8 items-center justify-center mt-12"
-                                >
-                                    {/* Option 1: Life Weeks */}
-                                    <button 
-                                        onClick={() => setActiveGame("weeks")}
-                                        className="group relative bg-[#FDFBF7] text-black px-10 py-12 rounded-[3.5rem] border-[4px] border-black transition-all hover:scale-105 hover:bg-white shadow-[8px_8px_0px_#000]"
-                                    >
-                                        <span className="font-black text-2xl uppercase tracking-tighter block mb-2">Weeks Left</span>
-                                        <span className="text-[10px] font-bold uppercase tracking-widest opacity-40">Calculate Reality</span>
-                                    </button>
-
-                                    <div className="text-white font-black text-2xl italic opacity-50">OR</div>
-
-                                    {/* Option 2: Harmonium */}
-                                    <button 
-                                        onClick={() => setActiveGame("harmonium")}
-                                        className="group relative bg-[#4E342E] text-[#D7CCC8] px-10 py-12 rounded-[3.5rem] border-[4px] border-[#3E2723] transition-all hover:scale-105 hover:bg-[#5D4037] shadow-[8px_8px_0px_#000]"
-                                    >
-                                        <span className="font-black text-2xl uppercase tracking-tighter block mb-2">Play Harmonium</span>
-                                        <span className="text-[10px] font-bold uppercase tracking-widest opacity-40">Lid Angle Sensitive</span>
-                                    </button>
-                                </motion.div>
-                            )}
-
-                            {activeGame === "weeks" && (
-                                <motion.div key="weeks" initial={{ opacity: 0 }} animate={{ opacity: 1 }} className="flex flex-col items-center">
-                                    <LifeWeeks />
-                                    <button onClick={() => setActiveGame(null)} className="mt-4 text-[10px] font-black uppercase tracking-widest text-white/60 hover:text-white underline">Back to Games</button>
-                                </motion.div>
-                            )}
-
-                            {activeGame === "harmonium" && (
-                                <motion.div key="harmonium" initial={{ opacity: 0 }} animate={{ opacity: 1 }} className="flex flex-col items-center">
-                                    <Harmonium />
-                                    <button onClick={() => setActiveGame(null)} className="mt-8 text-[10px] font-black uppercase tracking-widest text-white/60 hover:text-white underline">Back to Games</button>
-                                </motion.div>
-                            )}
-                        </AnimatePresence>
+                        <LifeWeeks />
                     </div>
                 </SectionWrapper>
             </section>

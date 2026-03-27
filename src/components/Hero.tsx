@@ -1,6 +1,6 @@
 "use client";
 
-import { motion } from "framer-motion";
+import { motion, useScroll, useMotionValueEvent } from "framer-motion";
 import Image from "next/image";
 import { useState, useEffect, useRef } from "react";
 import { FiGithub, FiLinkedin, FiInstagram } from "react-icons/fi";
@@ -37,6 +37,17 @@ export default function Hero() {
       }
     };
   }, []);
+
+  const { scrollY } = useScroll();
+  const [hasScrolled, setHasScrolled] = useState(false);
+
+  useMotionValueEvent(scrollY, "change", (latest) => {
+    if (latest > 50) {
+      if (!hasScrolled) setHasScrolled(true);
+    } else {
+      if (hasScrolled) setHasScrolled(false);
+    }
+  });
 
   const toggleCall = async () => {
     if (isLoading) return;
@@ -109,7 +120,7 @@ export default function Hero() {
           className={`bg-white border-[3px] border-black p-3 md:p-4 rounded-2xl text-xs font-black shadow-[4px_4px_0px_#000] relative cursor-pointer hover:scale-105 transition-transform max-w-[150px] md:max-w-[170px] hover:bg-gray-50 flex items-center justify-center text-center leading-snug ${isCallActive ? "text-green-600 border-green-600" : isLoading ? "text-orange-500" : "text-black"
             }`}
         >
-          {isLoading ? "Connecting..." : isCallActive ? "Stop AI Agent" : "Click on me to Activate the voice agent."}
+          {isLoading ? "Connecting..." : isCallActive ? "Stop AI Agent" : hasScrolled ? "Hey.... don't scroll. Talk to me." : "Click on me to Activate the voice agent."}
 
           {/* Bubble tail pointing left towards character */}
           <div className={`absolute top-1/2 -left-[14px] -translate-y-1/2 w-0 h-0 border-y-[10px] border-y-transparent border-r-[14px] ${isCallActive ? 'border-r-green-600' : 'border-r-black'}`}>

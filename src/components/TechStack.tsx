@@ -160,8 +160,8 @@ export default function TechStack() {
                                         <span className="text-[11px] font-black uppercase tracking-tighter group-hover:underline leading-none">
                                             {word.word}
                                         </span>
-                                        <div className="flex items-center gap-2 mt-1">
-                                            <div className="text-base transition-transform duration-300 group-hover:translate-x-1" style={{ color: word.color }}>
+                                        <div className="flex items-center gap-2 mt-2">
+                                            <div className="text-2xl transition-transform duration-300 group-hover:translate-x-1" style={{ color: word.color }}>
                                                 {word.icon}
                                             </div>
                                         </div>
@@ -230,8 +230,8 @@ export default function TechStack() {
                                         <span className="text-[11px] font-black uppercase tracking-tighter group-hover:underline leading-none">
                                             {word.word}
                                         </span>
-                                        <div className="flex items-center gap-2 mt-1 justify-end">
-                                            <div className="text-base transition-transform duration-300 group-hover:-translate-x-1" style={{ color: word.color }}>
+                                        <div className="flex items-center gap-2 mt-2 justify-end">
+                                            <div className="text-2xl transition-transform duration-300 group-hover:-translate-x-1" style={{ color: word.color }}>
                                                 {word.icon}
                                             </div>
                                         </div>

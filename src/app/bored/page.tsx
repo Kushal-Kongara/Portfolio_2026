@@ -63,11 +63,9 @@ export default function BoredPage() {
 
             <section 
                 id="about" 
-                className="w-full py-32 overflow-hidden border-b-[3px] border-black bg-cover bg-center transition-all duration-1000 relative"
-                style={{ backgroundImage: `url('/movies-bg.jpg')` }}
+                className="w-full py-32 overflow-hidden border-b-[3px] border-black bg-black transition-all duration-1000 relative"
             >
-                {/* Darker overlay for better text contrast against the stickers */}
-                <div className="absolute inset-0 bg-black/40 backdrop-blur-[1px]" />
+                {/* Clean black background for Movies section */}
 
                 <div className="flex flex-col w-full relative z-10"> {/* Bypassing SectionWrapper for true full-width */}
                     <h2

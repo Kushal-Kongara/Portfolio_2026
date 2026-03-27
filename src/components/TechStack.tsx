@@ -6,7 +6,8 @@ import {
     SiReact, SiJavascript, SiTypescript, SiTailwindcss,
     SiNodedotjs, SiNextdotjs, SiPostgresql, SiMongodb,
     SiAnthropic, SiOpenai, SiDocker, SiGithubactions,
-    SiPython, SiCplusplus, SiRedis, SiGooglecloud, SiMeta
+    SiPython, SiCplusplus, SiRedis, SiGooglecloud, SiMeta,
+    SiHtml5, SiCss, SiRedux, SiExpress, SiGraphql, SiMysql, SiFirebase, SiVercel, SiGithub, SiFigma, SiPostman, SiJira
 } from "react-icons/si";
 import { HiCode } from "react-icons/hi";
 import { FaRobot, FaCoffee, FaAws, FaDatabase } from "react-icons/fa";
@@ -37,35 +38,59 @@ const Highlighter = ({ children, color = "#dcfce7", className = "" }: { children
 );
 
 export default function TechStack() {
-    // Definining the crossword grid data
-    // Format: [row, col, direction, word, clueNumber, icon]
+    // Definining the crossword grid data with colors
     const crosswordWords = [
-        { r: 2, c: 2, dir: "h", word: "TYPESCRIPT", num: 1, icon: <SiTypescript /> },
-        { r: 2, c: 11, dir: "v", word: "TAILWIND", num: 2, icon: <SiTailwindcss /> },
-        { r: 4, c: 5, dir: "h", word: "NODEJS", num: 3, icon: <SiNodedotjs /> },
-        { r: 0, c: 6, dir: "v", word: "NEXTJS", num: 4, icon: <SiNextdotjs /> },
-        { r: 7, c: 1, dir: "h", word: "JAVASCRIPT", num: 5, icon: <SiJavascript /> },
-        { r: 6, c: 4, dir: "v", word: "REACT", num: 6, icon: <SiReact /> },
-        { r: 10, c: 4, dir: "h", word: "DOCKER", num: 7, icon: <SiDocker /> },
-        { r: 9, c: 7, dir: "v", word: "PYTHON", num: 8, icon: <SiPython /> },
-        { r: 12, c: 1, dir: "h", word: "POSTGRESQL", num: 9, icon: <SiPostgresql /> },
-        { r: 11, c: 10, dir: "v", word: "AWS", num: 10, icon: <FaAws /> },
-        { r: 14, c: 7, dir: "h", word: "REDIS", num: 11, icon: <SiRedis /> },
-        { r: 13, c: 13, dir: "v", word: "MONGODB", num: 12, icon: <SiMongodb /> },
-        { r: 3, c: 14, dir: "v", word: "GPT4O", num: 13, icon: <SiOpenai /> },
-        { r: 16, c: 2, dir: "h", word: "CLAUDE", num: 14, icon: <SiAnthropic /> },
-        { r: 17, c: 10, dir: "h", word: "LLAMA", num: 15, icon: <SiMeta /> },
+        // Frontend
+        { r: 2, c: 1, dir: "h", word: "JAVASCRIPT", num: 1, color: "#F7DF1E", icon: <SiJavascript /> },
+        { r: 0, c: 6, dir: "v", word: "TYPESCRIPT", num: 2, color: "#3178C6", icon: <SiTypescript /> },
+        { r: 4, c: 4, dir: "h", word: "REACT", num: 3, color: "#61DAFB", icon: <SiReact /> },
+        { r: 0, c: 10, dir: "v", word: "NEXTJS", num: 4, color: "#000000", icon: <SiNextdotjs /> },
+        { r: 7, c: 10, dir: "h", word: "HTML5", num: 5, color: "#E34F26", icon: <SiHtml5 /> },
+        { r: 6, c: 13, dir: "v", word: "CSS3", num: 6, color: "#1572B6", icon: <SiCss /> },
+        { r: 9, c: 3, dir: "h", word: "TAILWIND", num: 7, color: "#06B6D4", icon: <SiTailwindcss /> },
+        { r: 8, c: 1, dir: "v", word: "REDUX", num: 8, color: "#764ABC", icon: <SiRedux /> },
+
+        // Backend
+        { r: 12, c: 1, dir: "h", word: "NODEJS", num: 9, color: "#339933", icon: <SiNodedotjs /> },
+        { r: 11, c: 4, dir: "v", word: "EXPRESS", num: 10, color: "#444444", icon: <SiExpress /> },
+        { r: 15, c: 4, dir: "h", word: "RESTAPIS", num: 11, color: "#008080", icon: <HiCode /> },
+        { r: 14, c: 10, dir: "v", word: "GRAPHQL", num: 12, color: "#E10098", icon: <SiGraphql /> },
+
+        // Databases
+        { r: 18, c: 0, dir: "h", word: "MONGODB", num: 13, color: "#47A248", icon: <SiMongodb /> },
+        { r: 17, c: 5, dir: "v", word: "POSTGRESQL", num: 14, color: "#4169E1", icon: <SiPostgresql /> },
+        { r: 21, c: 2, dir: "h", word: "MYSQL", num: 15, color: "#4479A1", icon: <SiMysql /> },
+        { r: 19, c: 12, dir: "v", word: "FIREBASE", num: 16, color: "#FFCA28", icon: <SiFirebase /> },
+
+        // Cloud / DevOps
+        { r: 0, c: 15, dir: "h", word: "AWS", num: 17, color: "#FF9900", icon: <FaAws /> },
+        { r: 24, c: 1, dir: "h", word: "VERCEL", num: 18, color: "#000000", icon: <SiVercel /> },
+        { r: 23, c: 10, dir: "h", word: "DOCKER", num: 19, color: "#2496ED", icon: <SiDocker /> },
+        { r: 4, c: 17, dir: "v", word: "GITHUBACTIONS", num: 20, color: "#2088FF", icon: <SiGithubactions /> },
+        { r: 18, c: 16, dir: "v", word: "CICD", num: 21, color: "#6D6E71", icon: <HiCode /> },
+
+        // AI
+        { r: 10, c: 15, dir: "v", word: "OPENAI", num: 22, color: "#412991", icon: <SiOpenai /> },
+        { r: 12, c: 14, dir: "h", word: "LLM", num: 23, color: "#8E75C2", icon: <FaRobot /> },
+        { r: 15, c: 13, dir: "h", word: "RAG", num: 24, color: "#3B82F6", icon: <SiMeta /> },
+        { r: 7, c: 0, dir: "v", word: "PROMPT", num: 25, color: "#D4AF37", icon: <FaRobot /> },
+        { r: 1, c: 18, dir: "v", word: "PYTHON", num: 26, color: "#3776AB", icon: <SiPython /> },
+
+        // Tools
+        { r: 3, c: 12, dir: "h", word: "GITHUB", num: 27, color: "#181717", icon: <SiGithub /> },
+        { r: 13, c: 7, dir: "v", word: "FIGMA", num: 28, color: "#F24E1E", icon: <SiFigma /> },
+        { r: 19, c: 2, dir: "v", word: "POSTMAN", num: 29, color: "#FF6C37", icon: <SiPostman /> },
+        { r: 21, c: 8, dir: "h", word: "JIRA", num: 30, color: "#0052CC", icon: <SiJira /> },
     ];
 
-    const ROWS = 20;
-    const COLS = 16;
+    const ROWS = 26;
+    const COLS = 20;
 
-    // Create the empty grid
-    const grid: ({ char: string, num?: number, icon?: React.ReactNode } | null)[][] = 
+    // Create the grid
+    const grid: ({ char: string, num?: number, color: string, icon?: React.ReactNode } | null)[][] = 
         Array.from({ length: ROWS }, () => Array(COLS).fill(null));
 
-    // Fill the grid
-    crosswordWords.forEach(({ r, c, dir, word, num, icon }) => {
+    crosswordWords.forEach(({ r, c, dir, word, num, color, icon }) => {
         for (let i = 0; i < word.length; i++) {
             const currR = dir === "v" ? r + i : r;
             const currC = dir === "h" ? c + i : c;
@@ -74,60 +99,55 @@ export default function TechStack() {
                 const existing = grid[currR][currC];
                 grid[currR][currC] = {
                     char: word[i],
-                    num: i === 0 ? num : (existing?.num || undefined),
-                    icon: i === 0 ? icon : (existing?.icon || undefined)
+                    num: (i === 0 || existing?.num) ? (existing?.num || num) : undefined,
+                    color: color, // Words take precedence or can blend, here we just set
+                    icon: (i === 0 || existing?.icon) ? (existing?.icon || icon) : undefined
                 };
             }
         }
     });
 
-    // Scattered icons to place in empty spots
     const scatteredIcons = [
-        { r: 0, c: 0, icon: <SiTypescript className="text-blue-600" /> },
-        { r: 4, c: 1, icon: <SiReact className="text-cyan-400" /> },
-        { r: 1, c: 14, icon: <SiNextdotjs className="text-white" /> },
-        { r: 8, c: 13, icon: <SiNodedotjs className="text-green-500" /> },
-        { r: 11, c: 2, icon: <SiTailwindcss className="text-cyan-500" /> },
-        { r: 5, c: 8, icon: <SiPostgresql className="text-blue-400" /> },
-        { r: 15, c: 15, icon: <FaAws className="text-orange-400" /> },
-        { r: 9, c: 1, icon: <SiDocker className="text-blue-500" /> },
-        { r: 18, c: 6, icon: <SiPython className="text-yellow-400" /> },
-        { r: 19, c: 14, icon: <SiRedis className="text-red-500" /> },
-        { r: 0, c: 10, icon: <SiOpenai className="text-white" /> },
-        { r: 15, c: 0, icon: <SiAnthropic className="text-orange-200" /> },
+        { r: 0, c: 0, icon: <SiJavascript /> },
+        { r: 5, c: 2, icon: <SiTypescript /> },
+        { r: 2, c: 14, icon: <SiReact /> },
+        { r: 11, c: 0, icon: <SiNodedotjs /> },
+        { r: 15, c: 10, icon: <SiOpenai /> },
+        { r: 20, c: 15, icon: <FaAws /> },
+        { r: 25, c: 8, icon: <SiFigma /> },
+        { r: 1, c: 16, icon: <SiVercel /> },
+        { r: 22, c: 0, icon: <SiDocker /> },
     ];
 
     return (
         <div className="w-full bg-[#FAFAF5] font-mono text-black py-24 border-y-4 border-black selection:bg-black selection:text-white relative overflow-hidden">
-            {/* Background Texture */}
             <div className="absolute inset-0 opacity-[0.03] pointer-events-none bg-[url('https://www.transparenttextures.com/patterns/paper-fibers.png')]" />
 
             <SectionWrapper id="tech-stack" className="max-w-7xl mx-auto px-4 relative z-10">
                 
-                {/* Crossword Header */}
+                {/* Header */}
                 <div className="mb-20 flex flex-col md:flex-row justify-between items-end gap-8">
-                    <div>
-                        <div className="text-[10px] font-black uppercase tracking-[0.4em] mb-4 opacity-30">Inventory // Archive 2026</div>
-                        <h2 className="text-7xl md:text-8xl font-black uppercase tracking-tighter leading-none">
-                            MY TECH <span className="inline-block px-4 bg-black text-white ml-2">STACK</span>
+                    <div className="flex flex-col gap-2">
+                        <div className="text-[10px] font-black uppercase tracking-[0.4em] opacity-30">Technical Archive // 2026</div>
+                        <h2 className="text-7xl md:text-8xl font-black uppercase tracking-tighter leading-none border-b-8 border-black pb-2">
+                            PILOT <span className="text-[#a0a0a0]">#01</span>
                         </h2>
-                        <div className="mt-4 h-1 w-24 bg-black" />
                     </div>
-                    <div className="text-right max-w-xs text-[9px] font-bold leading-relaxed opacity-40 uppercase tracking-[0.2em]">
-                        A concrete visualization of <br />
-                        Engineering Capabilities & Tools <br />
-                        Compiled by Kushal Kongara
+                    <div className="text-right max-w-xs text-[9px] font-bold leading-relaxed opacity-40 uppercase tracking-[0.15em]">
+                        Exact Implementation Ledger <br />
+                        Categorical Core Competencies <br />
+                        Kushal Kongara // Engineering
                     </div>
                 </div>
 
-                {/* The Crossword Grid */}
+                {/* Grid */}
                 <div className="relative flex justify-center">
                     <div 
-                        className="grid border-[3px] border-black bg-black shadow-[20px_20px_0px_rgba(0,0,0,0.05)]"
+                        className="grid border-[3px] border-black bg-black shadow-[25px_25px_0px_rgba(0,0,0,0.06)]"
                         style={{ 
                             gridTemplateColumns: `repeat(${COLS}, minmax(0, 1fr))`,
                             width: '100%',
-                            maxWidth: '960px',
+                            maxWidth: '1000px',
                             aspectRatio: `${COLS} / ${ROWS}`
                         }}
                     >
@@ -138,25 +158,24 @@ export default function TechStack() {
                                     <div 
                                         key={`${rIdx}-${cIdx}`}
                                         className={`relative border-[1px] border-black flex items-center justify-center transition-all duration-300 group
-                                                   ${cell ? 'bg-white text-black hover:bg-black hover:text-white cursor-help' : 'bg-black'}`}
+                                                   ${cell ? 'bg-white hover:bg-black cursor-crosshair' : 'bg-black'}`}
                                     >
                                         {cell ? (
                                             <>
-                                                {/* Letter */}
-                                                <span className="text-xl md:text-3xl font-black uppercase select-none tracking-tighter">
+                                                <span 
+                                                    className="text-lg sm:text-2xl md:text-3xl font-black uppercase select-none tracking-tighter group-hover:text-white"
+                                                    style={{ color: cell.color }}
+                                                >
                                                     {cell.char}
                                                 </span>
-
-                                                {/* Clue Number */}
                                                 {cell.num && (
-                                                    <span className="absolute top-1 left-1 text-[8px] md:text-[10px] font-black leading-none group-hover:text-white/40 transition-colors">
+                                                    <span className="absolute top-0.5 left-0.5 text-[7px] md:text-[9px] font-black leading-none group-hover:text-white/30">
                                                         {cell.num}
                                                     </span>
                                                 )}
                                             </>
                                         ) : scattered ? (
-                                            /* Scattered Icon in empty space */
-                                            <div className="text-xl md:text-3xl opacity-20 group-hover:opacity-100 group-hover:scale-125 transition-all duration-500">
+                                            <div className="text-xl md:text-2xl opacity-10 group-hover:opacity-100 group-hover:scale-125 transition-all text-white">
                                                 {scattered.icon}
                                             </div>
                                         ) : null}
@@ -166,10 +185,9 @@ export default function TechStack() {
                         ))}
                     </div>
 
-                    {/* Left vertical label */}
-                    <div className="absolute -left-12 top-0 h-full hidden xl:flex flex-col justify-center gap-20 pointer-events-none">
+                    <div className="absolute -left-12 top-0 h-full hidden xl:flex flex-col justify-center gap-32 pointer-events-none">
                         <div className="rotate-[-90deg] font-black text-xs uppercase tracking-[0.5em] whitespace-nowrap opacity-10">
-                            TECHNICAL INVENTORY ———— #01
+                            PILOT DATA ———— #1
                         </div>
                     </div>
                 </div>

@@ -17,8 +17,12 @@ export const metadata: Metadata = {
   title: "Kushal Kongara | Portfolio",
   description: "Product Designer & Frontend Engineer",
   icons: {
-    icon: "/icon.jpg",
-    shortcut: "/favicon.ico",
+    icon: [
+      { url: "/favicon.ico?v=2" },
+      { url: "/icon.png?v=2", type: "image/png" },
+    ],
+    shortcut: "/favicon.ico?v=2",
+    apple: "/apple-touch-icon.png?v=2",
   },
 };
 

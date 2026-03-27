@@ -95,7 +95,7 @@ export default function Experience() {
             whileInView={{ opacity: 1, x: 0 }}
             className="flex flex-col md:flex-row md:items-end gap-4"
           >
-            <h2 className="text-6xl md:text-8xl font-black tracking-tighter text-[#1e3a8a] leading-[0.8] uppercase">
+            <h2 className="text-5xl md:text-6xl font-black tracking-tighter text-[#1e3a8a] leading-[0.8] uppercase">
               Experience <br />
               <span className="text-[#0ea5e9]">Highlights</span>
             </h2>
@@ -107,7 +107,7 @@ export default function Experience() {
         </div>
 
         {/* Bento Grid Layout */}
-        <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 gap-6 auto-rows-[200px]">
+        <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 gap-4 md:gap-6 auto-rows-[160px] md:auto-rows-[180px]">
 
           {/* Main Experience Card */}
           <motion.div
@@ -120,7 +120,7 @@ export default function Experience() {
 
             <div className="relative z-10">
               <span className="text-white/60 font-bold uppercase tracking-widest text-xs mb-2 block">Career Tenure</span>
-              <h3 className="text-8xl font-black text-white leading-none tracking-tighter mb-2">5+</h3>
+              <h3 className="text-6xl font-black text-white leading-none tracking-tighter mb-2">5+</h3>
               <p className="text-white text-xl font-bold leading-tight">Years of building production-grade software.</p>
             </div>
           </motion.div>
@@ -136,7 +136,7 @@ export default function Experience() {
               <span className="text-blue-600 font-black uppercase tracking-widest text-xs mb-2 block flex items-center gap-2">
                 <FiZap /> Optimization Result
               </span>
-              <h3 className="text-6xl font-black text-slate-900 tracking-tighter leading-none mb-1">45%</h3>
+              <h3 className="text-5xl font-black text-slate-900 tracking-tighter leading-none mb-1">45%</h3>
               <p className="text-slate-500 font-bold text-lg">Page-load reduction at Oatmeal AI</p>
             </div>
             <div className="hidden lg:flex flex-col gap-2 relative z-10">
@@ -180,7 +180,7 @@ export default function Experience() {
             <FiServer className="text-white/20 text-7xl absolute -bottom-4 -right-4 rotate-12 group-hover:rotate-0 transition-transform" />
             <span className="text-white/80 font-black uppercase tracking-widest text-[10px] block">Scale reached</span>
             <div className="relative z-10">
-              <h3 className="text-5xl font-black text-white tracking-tighter leading-none mb-1">5K+</h3>
+              <h3 className="text-4xl font-black text-white tracking-tighter leading-none mb-1">5K+</h3>
               <p className="text-white font-bold text-sm leading-tight opacity-90">Daily requests handled at L&T</p>
             </div>
           </motion.div>
@@ -195,7 +195,7 @@ export default function Experience() {
             <FiTrendingUp className="text-black/10 text-7xl absolute -bottom-4 -right-4 -rotate-12 group-hover:rotate-0 transition-transform" />
             <span className="text-black/60 font-black uppercase tracking-widest text-[10px] block">Performance</span>
             <div className="relative z-10">
-              <h3 className="text-5xl font-black text-black tracking-tighter leading-none mb-1">30%</h3>
+              <h3 className="text-4xl font-black text-black tracking-tighter leading-none mb-1">30%</h3>
               <p className="text-black font-bold text-sm leading-tight opacity-90">Scalability increase at CIS</p>
             </div>
           </motion.div>

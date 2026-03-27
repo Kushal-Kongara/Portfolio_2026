@@ -123,16 +123,16 @@ export default function TechStack() {
     ];
 
     return (
-        <div className="w-full bg-[#FAFAF5] font-mono text-black py-24 border-y-4 border-black selection:bg-black selection:text-white relative overflow-hidden">
+        <div className="w-full bg-[#FAFAF5] font-mono text-black py-12 md:py-16 border-y-4 border-black selection:bg-black selection:text-white relative overflow-hidden">
             <div className="absolute inset-0 opacity-[0.03] pointer-events-none bg-[url('https://www.transparenttextures.com/patterns/paper-fibers.png')]" />
 
-            <SectionWrapper id="tech-stack" className="max-w-[1600px] mx-auto px-4 relative z-10">
+            <SectionWrapper id="tech-stack" className="max-w-5xl mx-auto px-4 relative z-10">
 
                 {/* Header */}
-                <div className="mb-20 flex flex-col md:flex-row justify-between items-end gap-8 border-b-4 border-black pb-8">
+                <div className="mb-12 flex flex-col md:flex-row justify-between items-end gap-8 border-b-4 border-black pb-6">
                     <div className="flex flex-col gap-2">
                         <div className="text-[10px] font-black uppercase tracking-[0.4em] opacity-30">Technical Archive // 2026</div>
-                        <h2 className="text-7xl md:text-8xl font-black uppercase tracking-tighter leading-none">
+                        <h2 className="text-5xl md:text-6xl font-black uppercase tracking-tighter leading-none">
                             TECH <span className="text-[#a0a0a0]">#STACK</span>
                         </h2>
                     </div>

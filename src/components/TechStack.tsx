@@ -1,5 +1,6 @@
 "use client";
 
+import { useState } from "react";
 import { motion } from "framer-motion";
 import SectionWrapper from "./SectionWrapper";
 import {
@@ -38,6 +39,8 @@ const Highlighter = ({ children, color = "#dcfce7", className = "" }: { children
 );
 
 export default function TechStack() {
+    const [hoveredWord, setHoveredWord] = useState<number | null>(null);
+
     // Definining the crossword grid data with colors
     const crosswordWords = [
         // Frontend
@@ -87,14 +90,14 @@ export default function TechStack() {
     const COLS = 20;
 
     // Create the grid
-    const grid: ({ char: string, num?: number, color: string, icon?: React.ReactNode } | null)[][] = 
+    const grid: ({ char: string, num?: number, color: string, icon?: React.ReactNode } | null)[][] =
         Array.from({ length: ROWS }, () => Array(COLS).fill(null));
 
     crosswordWords.forEach(({ r, c, dir, word, num, color, icon }) => {
         for (let i = 0; i < word.length; i++) {
             const currR = dir === "v" ? r + i : r;
             const currC = dir === "h" ? c + i : c;
-            
+
             if (currR < ROWS && currC < COLS) {
                 const existing = grid[currR][currC];
                 grid[currR][currC] = {
@@ -124,13 +127,13 @@ export default function TechStack() {
             <div className="absolute inset-0 opacity-[0.03] pointer-events-none bg-[url('https://www.transparenttextures.com/patterns/paper-fibers.png')]" />
 
             <SectionWrapper id="tech-stack" className="max-w-[1600px] mx-auto px-4 relative z-10">
-                
+
                 {/* Header */}
                 <div className="mb-20 flex flex-col md:flex-row justify-between items-end gap-8 border-b-4 border-black pb-8">
                     <div className="flex flex-col gap-2">
                         <div className="text-[10px] font-black uppercase tracking-[0.4em] opacity-30">Technical Archive // 2026</div>
                         <h2 className="text-7xl md:text-8xl font-black uppercase tracking-tighter leading-none">
-                            PILOT <span className="text-[#a0a0a0]">#01</span>
+                            TECH <span className="text-[#a0a0a0]">#STACK</span>
                         </h2>
                     </div>
                     <div className="text-right max-w-xs text-[9px] font-bold leading-relaxed opacity-40 uppercase tracking-[0.15em]">
@@ -142,16 +145,18 @@ export default function TechStack() {
 
                 {/* Grid & Side Clues Container */}
                 <div className="flex flex-col lg:flex-row items-stretch justify-center gap-12 xl:gap-20">
-                    
+
                     {/* Left Clues (1-15) */}
                     <div className="flex flex-col gap-4 w-full lg:w-56 xl:w-72 pt-4">
                         <div className="text-[11px] font-black uppercase tracking-[0.3em] mb-4 border-b-2 border-black pb-2 opacity-30">Clues // H-V 01-15</div>
                         <div className="flex flex-col gap-5">
                             {crosswordWords.slice(0, 15).map((word) => (
-                                <motion.div 
+                                <motion.div
                                     key={word.num}
+                                    onMouseEnter={() => setHoveredWord(word.num)}
+                                    onMouseLeave={() => setHoveredWord(null)}
                                     whileHover={{ x: 5 }}
-                                    className="flex items-center gap-4 group cursor-help border-b border-black/5 pb-1"
+                                    className={`flex items-center gap-4 group cursor-help border-b border-black/5 pb-1 transition-all ${hoveredWord && hoveredWord !== word.num ? 'opacity-20 blur-[0.5px]' : 'opacity-100'}`}
                                 >
                                     <div className="bg-black text-white text-[10px] font-black px-2 py-1 min-w-[28px] text-center shrink-0">
                                         {word.num}
@@ -173,9 +178,9 @@ export default function TechStack() {
 
                     {/* The Grid (Center) */}
                     <div className="relative flex justify-center flex-1 w-full lg:min-w-[600px] xl:min-w-[800px]">
-                        <div 
+                        <div
                             className="grid border-[3px] border-black bg-black shadow-[30px_30px_0px_rgba(0,0,0,0.06)] h-fit"
-                            style={{ 
+                            style={{
                                 gridTemplateColumns: `repeat(${COLS}, minmax(0, 1fr))`,
                                 width: '100%',
                                 aspectRatio: `${COLS} / ${ROWS}`
@@ -185,14 +190,21 @@ export default function TechStack() {
                                 row.map((cell, cIdx) => {
                                     const scattered = scatteredIcons.find(si => si.r === rIdx && si.c === cIdx);
                                     return (
-                                        <div 
+                                        <div
                                             key={`${rIdx}-${cIdx}`}
                                             className={`relative border-[1px] border-black flex items-center justify-center transition-all duration-300 group
-                                                       ${cell ? 'bg-white hover:bg-black cursor-crosshair' : 'bg-black'}`}
+                                                       ${cell ? 'bg-white' : 'bg-black'}
+                                                       ${(hoveredWord && crosswordWords.find(w => w.num === hoveredWord)?.word.split('').some((_, i) => {
+                                                           const w = crosswordWords.find(w => w.num === hoveredWord);
+                                                           if (!w) return false;
+                                                           const curR = w.dir === "v" ? w.r + i : w.r;
+                                                           const curC = w.dir === "h" ? w.c + i : w.c;
+                                                           return curR === rIdx && curC === cIdx;
+                                                       })) ? 'z-30 scale-105 bg-black' : ''}`}
                                         >
                                             {cell ? (
                                                 <>
-                                                    <span 
+                                                    <span
                                                         className="text-xs sm:text-xl md:text-2xl font-black uppercase select-none tracking-tighter group-hover:text-white"
                                                         style={{ color: cell.color }}
                                                     >
@@ -221,10 +233,12 @@ export default function TechStack() {
                         <div className="text-[11px] font-black uppercase tracking-[0.3em] mb-4 border-b-2 border-black pb-2 opacity-30 text-right">Data // H-V 16-30</div>
                         <div className="flex flex-col gap-5">
                             {crosswordWords.slice(15).map((word) => (
-                                <motion.div 
+                                <motion.div
                                     key={word.num}
+                                    onMouseEnter={() => setHoveredWord(word.num)}
+                                    onMouseLeave={() => setHoveredWord(null)}
                                     whileHover={{ x: -5 }}
-                                    className="flex items-center gap-4 group cursor-help justify-end text-right border-b border-black/5 pb-1"
+                                    className={`flex items-center gap-4 group cursor-help justify-end text-right border-b border-black/5 pb-1 transition-all ${hoveredWord && hoveredWord !== word.num ? 'opacity-20 blur-[0.5px]' : 'opacity-100'}`}
                                 >
                                     <div className="flex flex-col items-end order-1">
                                         <span className="text-[11px] font-black uppercase tracking-tighter group-hover:underline leading-none">

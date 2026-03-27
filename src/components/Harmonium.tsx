@@ -53,16 +53,27 @@ export default function Harmonium() {
   const bellowsRef = useRef<HTMLDivElement>(null);
 
   // Initialize Audio Context on first interaction
-  const initAudio = () => {
-    if (audioCtx.current) return;
-    audioCtx.current = new (window.AudioContext || (window as any).webkitAudioContext)();
+  const initAudio = async () => {
+    if (audioCtx.current) {
+      if (audioCtx.current.state === 'suspended') {
+        await audioCtx.current.resume();
+      }
+      return;
+    }
+    
+    const Ctx = window.AudioContext || (window as any).webkitAudioContext;
+    if (!Ctx) return;
+    
+    audioCtx.current = new Ctx();
     masterGain.current = audioCtx.current.createGain();
     masterGain.current.connect(audioCtx.current.destination);
     masterGain.current.gain.value = 0;
+    
+    console.log("Audio Context Initialized");
   };
 
-  const playNote = useCallback((note: string) => {
-    initAudio();
+  const playNote = useCallback(async (note: string) => {
+    await initAudio();
     if (!audioCtx.current || !masterGain.current) return;
     if (voices.current.has(note)) return;
 
@@ -145,19 +156,25 @@ export default function Harmonium() {
       window.removeEventListener("keyup", handleKeyUp);
     };
   }, [playNote, stopNote]);
+
   // Handle Laptop Lid / Device Orientation
   const toggleLidSync = async () => {
+    await initAudio(); // Interactions start here
+
     if (isLidSyncActive) {
       setIsLidSyncActive(false);
       return;
     }
 
-    // Attempt 1: WebHID for actual MacBook Lid Angle (Chrome-only, macOS-specific)
-    if ("hid" in navigator) {
+    // Attempt 1: WebHID for actual MacBook Lid Angle
+    if (typeof navigator !== "undefined" && "hid" in navigator) {
       try {
-        // This PID/Usage is common for Apple SMC Lid Angle sensor
+        console.log("Requesting HID devices...");
         const devices = await (navigator as any).hid.requestDevice({
-          filters: [{ vendorId: 0x05ac, usagePage: 0xff00, usage: 0x0c }]
+          filters: [
+            { vendorId: 0x05ac, usagePage: 0xff00, usage: 0x0c }, // Standard Lid Angle
+            { vendorId: 0x05ac, productId: 0x8102 }, // Alternative PID
+          ]
         });
         
         if (devices.length > 0) {
@@ -165,8 +182,6 @@ export default function Harmonium() {
           await device.open();
           device.oninputreport = (event: any) => {
             const { data } = event;
-            // The angle is usually in the first few bytes, varies by model
-            // Usually 0-180 degrees.
             const angle = data.getUint16(0, true) / 100 || 0;
             const intensity = Math.min(Math.max(angle / 130, 0), 1);
             setBellowsIntensity(intensity);
@@ -176,10 +191,11 @@ export default function Harmonium() {
         }
       } catch (err) {
         console.warn("WebHID not available or denied:", err);
+        alert("Lid Sensor connection failed or not supported. Using motion/mouse fallback.");
       }
     }
 
-    // Attempt 2: DeviceOrientation Permission (iOS/Safari/Some Chrome)
+    // Attempt 2: DeviceOrientation Permission
     if (typeof (DeviceOrientationEvent as any).requestPermission === "function") {
       try {
         const permission = await (DeviceOrientationEvent as any).requestPermission();
@@ -190,7 +206,6 @@ export default function Harmonium() {
         console.error("Orientation permission denied:", err);
       }
     } else {
-      // Standard Orientation (Desktop Chrome fallback)
       setIsLidSyncActive(true);
     }
   };
@@ -198,7 +213,6 @@ export default function Harmonium() {
   useEffect(() => {
     const handleOrientation = (e: DeviceOrientationEvent) => {
       if (!isLidSyncActive) return;
-      // Map front-to-back tilt (beta) to bellows intensity
       const tilt = Math.abs(e.beta || 0);
       const intensity = Math.min(Math.max((tilt - 15) / 60, 0), 1);
       setBellowsIntensity(intensity);
@@ -211,6 +225,7 @@ export default function Harmonium() {
   // Mouse fallback for Bellows
   const handleMouseMove = (e: React.MouseEvent) => {
     if (isLidSyncActive) return;
+    initAudio(); // Initialize on mouse move too
     if (bellowsRef.current) {
       const rect = bellowsRef.current.getBoundingClientRect();
       const relativeY = Math.min(Math.max((e.clientY - rect.top) / rect.height, 0), 1);

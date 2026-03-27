@@ -137,34 +137,6 @@ export const projects = [
     code: "#",
     image: "",
   },
-  {
-    title: "Project Five",
-    description: "Building scalable cloud-native architectures.",
-    link: "#",
-    code: "#",
-    image: "",
-  },
-  {
-    title: "Project Six",
-    description: "Creating engaging and interactive user experiences.",
-    link: "#",
-    code: "#",
-    image: "",
-  },
-  {
-    title: "Project Seven",
-    description: "Integrating intelligent AI models into web workflows.",
-    link: "#",
-    code: "#",
-    image: "",
-  },
-  {
-    title: "Project Eight",
-    description: "Designing simple solutions for complex data pipelines.",
-    link: "#",
-    code: "#",
-    image: "",
-  },
 ];
 
 // About section: intro + events/hackathons + photo stories

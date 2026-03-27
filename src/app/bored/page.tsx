@@ -69,18 +69,18 @@ export default function BoredPage() {
 
                 <div className="flex flex-col w-full relative z-10"> {/* Bypassing SectionWrapper for true full-width */}
                     <h2
-                        className="text-6xl md:text-8xl font-black uppercase tracking-tighter mb-20 text-center text-white px-8 max-w-6xl mx-auto drop-shadow-[0_4px_8px_rgba(0,0,0,0.8)]"
+                        className="text-4xl md:text-6xl font-black uppercase tracking-tighter mb-12 text-center text-white px-8 max-w-4xl mx-auto drop-shadow-[0_4px_8px_rgba(0,0,0,0.8)]"
                         style={{ fontFamily: 'Impact, sans-serif' }}
                     >
                         MORE ABOUT ME
                     </h2>
 
                     <div className="flex flex-col w-full text-center">
-                        <h3 className="text-3xl md:text-5xl font-black tracking-tight mb-16 text-white uppercase tracking-[0.2em] px-8 max-w-6xl mx-auto drop-shadow-[0_4px_8px_rgba(0,0,0,0.8)]">
+                        <h3 className="text-xl md:text-2xl font-black tracking-tight mb-10 text-white uppercase tracking-[0.2em] px-8 max-w-4xl mx-auto drop-shadow-[0_4px_8px_rgba(0,0,0,0.8)]">
                             Movies I like
                         </h3>
 
-                        <div className="grid grid-cols-4 md:grid-cols-6 lg:grid-cols-10 xl:grid-cols-10 gap-0 w-full mb-12 border-y-4 border-white/10">
+                        <div className="grid grid-cols-6 md:grid-cols-10 lg:grid-cols-12 xl:grid-cols-15 gap-0 w-full mb-12 border-y-4 border-white/10">
                             {movieImages.slice(0, 40).map((src, i) => (
                                 <div key={i} className="w-full aspect-[2/3] overflow-hidden border-white/10 border-[0.5px] hover:z-50 hover:scale-110 transition-all duration-500 group cursor-pointer shadow-2xl">
                                     {/* eslint-disable-next-line @next/next/no-img-element */}

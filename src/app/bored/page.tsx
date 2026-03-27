@@ -80,9 +80,9 @@ export default function BoredPage() {
                             Movies I like
                         </h3>
 
-                        <div className="grid grid-cols-4 md:grid-cols-6 lg:grid-cols-10 xl:grid-cols-10 gap-0 w-full mb-12 border-y-4 border-black/20">
+                        <div className="grid grid-cols-4 md:grid-cols-6 lg:grid-cols-10 xl:grid-cols-10 gap-0 w-full mb-12 border-y-4 border-white/10">
                             {movieImages.slice(0, 40).map((src, i) => (
-                                <div key={i} className="w-full aspect-[2/3] overflow-hidden border-black/30 border-[0.5px] hover:z-50 hover:scale-110 transition-all duration-500 group cursor-pointer shadow-2xl">
+                                <div key={i} className="w-full aspect-[2/3] overflow-hidden border-white/10 border-[0.5px] hover:z-50 hover:scale-110 transition-all duration-500 group cursor-pointer shadow-2xl">
                                     {/* eslint-disable-next-line @next/next/no-img-element */}
                                     <img src={src} alt={`Movie Poster ${i + 1}`} className="w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all duration-700" />
                                 </div>

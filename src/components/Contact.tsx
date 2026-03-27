@@ -49,7 +49,7 @@ export default function Contact() {
 
   return (
     <section id="contact" className="relative w-full bg-[#111111] text-[#FFC107] py-16 flex justify-center border-t-8 border-[#111111] overflow-hidden font-sans">
-      <div className="relative z-10 w-full max-w-4xl px-8">
+      <div className="relative z-10 w-full max-w-3xl px-8">
 
         {/* The heading */}
         <motion.h1
@@ -57,7 +57,7 @@ export default function Contact() {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.6 }}
-          className="text-6xl md:text-8xl font-black text-[#FFC107] tracking-tight leading-none mb-12 text-center uppercase"
+          className="text-5xl md:text-6xl font-black text-[#FFC107] tracking-tight leading-none mb-12 text-center uppercase"
           style={{ fontFamily: "Impact, system-ui, sans-serif" }}
         >
           CONTACT

@@ -15,8 +15,14 @@ const souvenirs = [
 
 export default function TravelBoard() {
     return (
-        <div className="relative w-full max-w-5xl bg-[#8B4513]/10 border-[6px] border-[#5D2E0A] p-12 md:p-20 rounded-lg shadow-inner min-h-[600px] flex flex-wrap justify-center items-start gap-12 bg-[radial-gradient(#5D2E0A_1px,_transparent_1px)] bg-[size:30px_30px]">
-            <div className="absolute top-4 left-4 bg-[#5D2E0A] text-white px-4 py-1 text-xs font-black uppercase rounded shadow-md">Pinned Memories</div>
+        <div 
+            className="relative w-full max-w-5xl border-[8px] border-[#5D2E0A] rounded-lg shadow-2xl min-h-[700px] flex flex-wrap justify-center items-start gap-12 overflow-hidden bg-cover bg-center"
+            style={{ backgroundImage: `url('/travel-bg.jpg')` }}
+        >
+            {/* Soft overlay to help souvenir cards pop */}
+            <div className="absolute inset-0 bg-black/10 backdrop-blur-[0.5px]" />
+            
+            <div className="absolute top-4 left-4 bg-[#5D2E0A] text-white px-4 py-1 text-xs font-black uppercase rounded shadow-lg z-30">Pinned Memories</div>
             
             {souvenirs.map((item, i) => (
                 <motion.div

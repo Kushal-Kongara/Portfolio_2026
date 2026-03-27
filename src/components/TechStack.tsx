@@ -123,13 +123,13 @@ export default function TechStack() {
         <div className="w-full bg-[#FAFAF5] font-mono text-black py-24 border-y-4 border-black selection:bg-black selection:text-white relative overflow-hidden">
             <div className="absolute inset-0 opacity-[0.03] pointer-events-none bg-[url('https://www.transparenttextures.com/patterns/paper-fibers.png')]" />
 
-            <SectionWrapper id="tech-stack" className="max-w-7xl mx-auto px-4 relative z-10">
+            <SectionWrapper id="tech-stack" className="max-w-[1600px] mx-auto px-4 relative z-10">
                 
                 {/* Header */}
-                <div className="mb-20 flex flex-col md:flex-row justify-between items-end gap-8">
+                <div className="mb-20 flex flex-col md:flex-row justify-between items-end gap-8 border-b-4 border-black pb-8">
                     <div className="flex flex-col gap-2">
                         <div className="text-[10px] font-black uppercase tracking-[0.4em] opacity-30">Technical Archive // 2026</div>
-                        <h2 className="text-7xl md:text-8xl font-black uppercase tracking-tighter leading-none border-b-8 border-black pb-2">
+                        <h2 className="text-7xl md:text-8xl font-black uppercase tracking-tighter leading-none">
                             PILOT <span className="text-[#a0a0a0]">#01</span>
                         </h2>
                     </div>
@@ -140,80 +140,117 @@ export default function TechStack() {
                     </div>
                 </div>
 
-                {/* Grid */}
-                <div className="relative flex justify-center">
-                    <div 
-                        className="grid border-[3px] border-black bg-black shadow-[25px_25px_0px_rgba(0,0,0,0.06)]"
-                        style={{ 
-                            gridTemplateColumns: `repeat(${COLS}, minmax(0, 1fr))`,
-                            width: '100%',
-                            maxWidth: '1000px',
-                            aspectRatio: `${COLS} / ${ROWS}`
-                        }}
-                    >
-                        {grid.map((row, rIdx) => (
-                            row.map((cell, cIdx) => {
-                                const scattered = scatteredIcons.find(si => si.r === rIdx && si.c === cIdx);
-                                return (
-                                    <div 
-                                        key={`${rIdx}-${cIdx}`}
-                                        className={`relative border-[1px] border-black flex items-center justify-center transition-all duration-300 group
-                                                   ${cell ? 'bg-white hover:bg-black cursor-crosshair' : 'bg-black'}`}
-                                    >
-                                        {cell ? (
-                                            <>
-                                                <span 
-                                                    className="text-lg sm:text-2xl md:text-3xl font-black uppercase select-none tracking-tighter group-hover:text-white"
-                                                    style={{ color: cell.color }}
-                                                >
-                                                    {cell.char}
-                                                </span>
-                                                {cell.num && (
-                                                    <span className="absolute top-0.5 left-0.5 text-[7px] md:text-[9px] font-black leading-none group-hover:text-white/30">
-                                                        {cell.num}
-                                                    </span>
-                                                )}
-                                            </>
-                                        ) : scattered ? (
-                                            <div className="text-xl md:text-2xl opacity-10 group-hover:opacity-100 group-hover:scale-125 transition-all text-white">
-                                                {scattered.icon}
-                                            </div>
-                                        ) : null}
+                {/* Grid & Side Clues Container */}
+                <div className="flex flex-col lg:flex-row items-stretch justify-center gap-12 xl:gap-20">
+                    
+                    {/* Left Clues (1-15) */}
+                    <div className="flex flex-col gap-4 w-full lg:w-56 xl:w-72 pt-4">
+                        <div className="text-[11px] font-black uppercase tracking-[0.3em] mb-4 border-b-2 border-black pb-2 opacity-30">Clues // H-V 01-15</div>
+                        <div className="flex flex-col gap-5">
+                            {crosswordWords.slice(0, 15).map((word) => (
+                                <motion.div 
+                                    key={word.num}
+                                    whileHover={{ x: 5 }}
+                                    className="flex items-center gap-4 group cursor-help border-b border-black/5 pb-1"
+                                >
+                                    <div className="bg-black text-white text-[10px] font-black px-2 py-1 min-w-[28px] text-center shrink-0">
+                                        {word.num}
                                     </div>
-                                );
-                            })
-                        ))}
-                    </div>
-
-                    <div className="absolute -left-12 top-0 h-full hidden xl:flex flex-col justify-center gap-32 pointer-events-none">
-                        <div className="rotate-[-90deg] font-black text-xs uppercase tracking-[0.5em] whitespace-nowrap opacity-10">
-                            PILOT DATA ———— #1
+                                    <div className="flex flex-col">
+                                        <span className="text-[11px] font-black uppercase tracking-tighter group-hover:underline leading-none">
+                                            {word.word}
+                                        </span>
+                                        <div className="flex items-center gap-2 mt-1">
+                                            <div className="text-base transition-transform duration-300 group-hover:translate-x-1" style={{ color: word.color }}>
+                                                {word.icon}
+                                            </div>
+                                        </div>
+                                    </div>
+                                </motion.div>
+                            ))}
                         </div>
                     </div>
+
+                    {/* The Grid (Center) */}
+                    <div className="relative flex justify-center flex-1 w-full lg:min-w-[600px] xl:min-w-[800px]">
+                        <div 
+                            className="grid border-[3px] border-black bg-black shadow-[30px_30px_0px_rgba(0,0,0,0.06)] h-fit"
+                            style={{ 
+                                gridTemplateColumns: `repeat(${COLS}, minmax(0, 1fr))`,
+                                width: '100%',
+                                aspectRatio: `${COLS} / ${ROWS}`
+                            }}
+                        >
+                            {grid.map((row, rIdx) => (
+                                row.map((cell, cIdx) => {
+                                    const scattered = scatteredIcons.find(si => si.r === rIdx && si.c === cIdx);
+                                    return (
+                                        <div 
+                                            key={`${rIdx}-${cIdx}`}
+                                            className={`relative border-[1px] border-black flex items-center justify-center transition-all duration-300 group
+                                                       ${cell ? 'bg-white hover:bg-black cursor-crosshair' : 'bg-black'}`}
+                                        >
+                                            {cell ? (
+                                                <>
+                                                    <span 
+                                                        className="text-xs sm:text-xl md:text-2xl font-black uppercase select-none tracking-tighter group-hover:text-white"
+                                                        style={{ color: cell.color }}
+                                                    >
+                                                        {cell.char}
+                                                    </span>
+                                                    {cell.num && (
+                                                        <span className="absolute top-0.5 left-0.5 text-[6px] md:text-[8px] font-black leading-none group-hover:text-white/30">
+                                                            {cell.num}
+                                                        </span>
+                                                    )}
+                                                </>
+                                            ) : scattered ? (
+                                                <div className="text-xl md:text-3xl opacity-10 group-hover:opacity-100 group-hover:scale-125 transition-all text-white">
+                                                    {scattered.icon}
+                                                </div>
+                                            ) : null}
+                                        </div>
+                                    );
+                                })
+                            ))}
+                        </div>
+                    </div>
+
+                    {/* Right Clues (16-30) */}
+                    <div className="flex flex-col gap-4 w-full lg:w-56 xl:w-72 pt-4">
+                        <div className="text-[11px] font-black uppercase tracking-[0.3em] mb-4 border-b-2 border-black pb-2 opacity-30 text-right">Data // H-V 16-30</div>
+                        <div className="flex flex-col gap-5">
+                            {crosswordWords.slice(15).map((word) => (
+                                <motion.div 
+                                    key={word.num}
+                                    whileHover={{ x: -5 }}
+                                    className="flex items-center gap-4 group cursor-help justify-end text-right border-b border-black/5 pb-1"
+                                >
+                                    <div className="flex flex-col items-end order-1">
+                                        <span className="text-[11px] font-black uppercase tracking-tighter group-hover:underline leading-none">
+                                            {word.word}
+                                        </span>
+                                        <div className="flex items-center gap-2 mt-1 justify-end">
+                                            <div className="text-base transition-transform duration-300 group-hover:-translate-x-1" style={{ color: word.color }}>
+                                                {word.icon}
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div className="bg-black text-white text-[10px] font-black px-2 py-1 min-w-[28px] text-center shrink-0 order-2">
+                                        {word.num}
+                                    </div>
+                                </motion.div>
+                            ))}
+                        </div>
+                    </div>
+
                 </div>
 
-                {/* Bottom Clues / Legend */}
-                <div className="mt-20 grid grid-cols-2 md:grid-cols-4 lg:grid-cols-5 gap-10 border-t-2 border-black pt-10">
-                    {crosswordWords.map((word) => (
-                        <motion.div 
-                            key={word.num}
-                            whileHover={{ x: 5 }}
-                            className="flex flex-col gap-1 cursor-default group"
-                        >
-                            <div className="flex items-center gap-2">
-                                <span className="bg-black text-white text-[10px] font-bold px-1.5 py-0.5 leading-none">
-                                    {word.num}
-                                </span>
-                                <span className="text-[10px] font-black uppercase tracking-tighter group-hover:underline">
-                                    {word.word}
-                                </span>
-                            </div>
-                            <div className="flex items-center gap-2 text-xl opacity-20 group-hover:opacity-100 transition-all">
-                                {word.icon}
-                                <div className="h-px flex-1 bg-black/10" />
-                            </div>
-                        </motion.div>
-                    ))}
+                {/* Label label (Absolute positioned) */}
+                <div className="absolute left-8 top-[40%] h-fit hidden 2xl:flex flex-col justify-center pointer-events-none opacity-5">
+                    <div className="rotate-[-90deg] font-black text-[80px] leading-none uppercase tracking-[0.5em] whitespace-nowrap">
+                        INVENTORY v.26
+                    </div>
                 </div>
 
             </SectionWrapper>

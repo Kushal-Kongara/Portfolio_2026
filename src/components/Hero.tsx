@@ -117,14 +117,20 @@ export default function Hero() {
       >
         <button
           onClick={toggleCall}
-          className={`bg-white border-[3px] border-black p-3 md:p-4 rounded-2xl text-xs font-black shadow-[4px_4px_0px_#000] relative cursor-pointer hover:scale-105 transition-transform max-w-[150px] md:max-w-[170px] hover:bg-gray-50 flex items-center justify-center text-center leading-snug ${isCallActive ? "text-green-600 border-green-600" : isLoading ? "text-orange-500" : "text-black"
+          className={`p-3 md:p-4 rounded-2xl text-xs font-black relative cursor-pointer hover:scale-105 transition-all duration-300 max-w-[150px] md:max-w-[170px] flex items-center justify-center text-center leading-snug border-[3px]
+            ${isCallActive ? "bg-white text-green-600 border-green-600 shadow-[4px_4px_0px_#16a34a]" : 
+              isLoading ? "bg-white text-orange-500 border-black shadow-[4px_4px_0px_#000]" : 
+              hasScrolled ? "bg-black text-white border-white shadow-[4px_4px_0px_#fff]" : 
+              "bg-white text-black border-black shadow-[4px_4px_0px_#000] hover:bg-gray-50"
             }`}
         >
           {isLoading ? "Connecting..." : isCallActive ? "Stop AI Agent" : hasScrolled ? "Hey.... don't scroll. Talk to me." : "Click on me to Activate the voice agent."}
 
           {/* Bubble tail pointing left towards character */}
-          <div className={`absolute top-1/2 -left-[14px] -translate-y-1/2 w-0 h-0 border-y-[10px] border-y-transparent border-r-[14px] ${isCallActive ? 'border-r-green-600' : 'border-r-black'}`}>
-            <div className={`absolute -top-[6px] -right-[13px] w-0 h-0 border-y-[6px] border-y-transparent border-r-[10px] border-r-white hover:border-r-gray-50`} />
+          <div className={`absolute top-1/2 -left-[14px] -translate-y-1/2 w-0 h-0 border-y-[10px] border-y-transparent border-r-[14px] transition-colors duration-300
+            ${isCallActive ? 'border-r-green-600' : (hasScrolled ? 'border-r-white' : 'border-r-black')}`}>
+            <div className={`absolute -top-[6px] -right-[13px] w-0 h-0 border-y-[6px] border-y-transparent border-r-[10px] transition-colors duration-300
+              ${hasScrolled && !isCallActive ? 'border-r-black' : 'border-r-white'}`} />
           </div>
         </button>
       </motion.div>

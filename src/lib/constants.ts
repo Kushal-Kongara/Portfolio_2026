@@ -118,7 +118,7 @@ export const projects = [
   },
   {
     title: "FitMate",
-    description: "Created a demo for fitmate company using React and Node.js.",
+    description: "Demo for fitmate company using React and Node.js.",
     link: "#",
     code: "https://github.com/Kushal-Kongara/fitmate-demo",
     image: "/projects/project-02.png",

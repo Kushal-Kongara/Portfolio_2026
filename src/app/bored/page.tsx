@@ -35,31 +35,10 @@ export default function BoredPage() {
                     ← Back to Portfolio
                 </Link>
                 <div className="flex gap-4 md:gap-8 text-[9px] md:text-[10px] font-black uppercase tracking-widest opacity-60 overflow-x-auto">
-                   <a href="#gamezone" className="hover:text-black whitespace-nowrap">Game Zone</a>
                    <a href="#about" className="hover:text-black whitespace-nowrap">Movies</a>
                    <a href="#travel" className="hover:text-black whitespace-nowrap">Travel</a>
                 </div>
             </nav>
-
-            {/* PARTITION 1: GAME ZONE */}
-            <section 
-                id="gamezone"
-                className="relative min-h-[95vh] flex flex-col justify-center bg-cover bg-center overflow-hidden border-b-[3px] border-black"
-                style={{ backgroundImage: `url('/gamezone-bg.jpg')` }}
-            >
-                <SectionWrapper className="relative z-10 py-12 md:py-20 text-center flex flex-col items-center">
-                    <h1
-                        className="text-7xl md:text-9xl font-black uppercase tracking-tighter mb-4 text-white drop-shadow-[0_4px_20px_rgba(0,0,0,0.6)]"
-                        style={{ fontFamily: 'Impact, sans-serif' }}
-                    >
-                        GAME ZONE
-                    </h1>
-
-                    <div className="w-full max-w-5xl mx-auto flex flex-col items-center">
-                        <LifeWeeks />
-                    </div>
-                </SectionWrapper>
-            </section>
 
             <section 
                 id="about" 

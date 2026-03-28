@@ -71,19 +71,19 @@ export default function GameHub() {
 
     return (
         <section 
-            className="relative w-full h-[600px] md:h-[750px] overflow-hidden bg-center flex flex-col pt-12 md:pt-16"
+            className="relative w-full h-[800px] md:h-[1000px] overflow-hidden bg-center flex flex-col pt-16 md:pt-24"
             style={{ 
                 backgroundImage: "url('/game-hub-bg.png')",
                 backgroundSize: 'cover',
                 backgroundPosition: 'center bottom'
             }}
         >
-            <SectionWrapper className="relative z-10 w-full mb-0">
+            <SectionWrapper className="relative z-10 w-full mb-0 flex flex-col md:flex-row md:items-start md:justify-between gap-6 px-10">
                 <motion.h2
                     initial={{ opacity: 0, x: -12 }}
                     whileInView={{ opacity: 1, x: 0 }}
                     viewport={{ once: true }}
-                    className="text-[10vw] md:text-[3.5rem] lg:text-[4.5rem] font-black text-white uppercase tracking-tighter leading-none mb-4 md:mb-6 text-left origin-left drop-shadow-lg"
+                    className="text-[10vw] md:text-[3.5rem] lg:text-[4.5rem] font-black text-white uppercase tracking-tighter leading-none text-left origin-left drop-shadow-lg"
                     style={{
                         fontFamily: "Impact, system-ui, sans-serif",
                         transform: "scaleY(1.2)",
@@ -93,17 +93,17 @@ export default function GameHub() {
                     GAME ZONE
                 </motion.h2>
 
-                {/* Retro HUD Overlay - Positioned relative to heading */}
+                {/* Retro HUD Overlay - Positioned to the right for better alignment */}
                 <div className="hidden md:block">
-                    <div className="inline-flex items-center gap-3 bg-black/40 backdrop-blur-sm border border-white/20 px-4 py-2 rounded-full shadow-[0_4px_12px_rgba(0,0,0,0.5)]">
+                    <div className="inline-flex items-center gap-3 bg-black/40 backdrop-blur-sm border border-white/20 px-6 py-3 rounded-full shadow-[0_4px_12px_rgba(0,0,0,0.5)]">
                         <FiCpu className="text-green-500 animate-pulse" />
                         <span className="text-[10px] font-black text-white uppercase tracking-[0.2em]">Game Hub v1.2.0</span>
                     </div>
                 </div>
             </SectionWrapper>
 
-            {/* Launchers Grid - Positioned on the 'grass' line */}
-            <div className="absolute bottom-[22%] left-1/2 -translate-x-1/2 flex flex-col md:flex-row items-center md:items-end gap-12 md:gap-16 px-6 w-full max-w-6xl justify-center scale-90 md:scale-100">
+            {/* Launchers Grid - Positioned on the 'grass' line with better breathing room */}
+            <div className="absolute bottom-[15%] left-1/2 -translate-x-1/2 flex flex-col md:flex-row items-center md:items-end gap-12 md:gap-16 px-6 w-full max-w-6xl justify-center scale-90 md:scale-100">
                 
                 {/* Survive CLI Popup */}
                 <GameLauncherPopup 

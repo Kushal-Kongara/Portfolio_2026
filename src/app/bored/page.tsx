@@ -4,7 +4,6 @@ import { useState, useEffect } from "react";
 import Link from "next/link";
 import SectionWrapper from "@/components/SectionWrapper";
 import LifeWeeks from "@/components/LifeWeeks";
-import ProductionIncidentGame from "@/components/ProductionIncidentGame";
 import TravelBoard from "@/components/TravelBoard";
 import { motion } from "framer-motion";
 
@@ -50,19 +49,14 @@ export default function BoredPage() {
             >
                 <SectionWrapper className="relative z-10 py-12 md:py-20 text-center flex flex-col items-center">
                     <h1
-                        className="text-7xl md:text-9xl font-black uppercase tracking-tighter mb-12 text-white drop-shadow-[0_4px_20px_rgba(0,0,0,0.6)]"
+                        className="text-7xl md:text-9xl font-black uppercase tracking-tighter mb-4 text-white drop-shadow-[0_4px_20px_rgba(0,0,0,0.6)]"
                         style={{ fontFamily: 'Impact, sans-serif' }}
                     >
                         GAME ZONE
                     </h1>
 
-                    <div className="w-full max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
-                        <div className="w-full flex justify-center">
-                             <LifeWeeks />
-                        </div>
-                        <div className="w-full flex justify-center">
-                             <ProductionIncidentGame />
-                        </div>
+                    <div className="w-full max-w-5xl mx-auto flex flex-col items-center">
+                        <LifeWeeks />
                     </div>
                 </SectionWrapper>
             </section>

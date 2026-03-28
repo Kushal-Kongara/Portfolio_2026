@@ -112,7 +112,12 @@ export default function GameHub() {
                         initial={{ opacity: 0 }}
                         animate={{ opacity: 1 }}
                         exit={{ opacity: 0 }}
-                        className="fixed inset-0 z-[1000] bg-black/95 backdrop-blur-xl flex items-center justify-center p-4 md:p-8"
+                        className="fixed inset-0 z-[1000] flex items-center justify-center p-4 md:p-8"
+                        style={{ 
+                            backgroundImage: "url('/game-overlay-bg.png')",
+                            backgroundSize: 'cover',
+                            backgroundPosition: 'center'
+                        }}
                     >
                         <motion.div 
                             initial={{ scale: 0.95, y: 10 }}

@@ -128,9 +128,9 @@ export default function GameHub() {
                             {/* Close Button */}
                             <button 
                                 onClick={() => setActiveGame(null)}
-                                className="fixed top-6 right-6 p-3 bg-white/10 hover:bg-white/20 text-white rounded-full transition-all hover:rotate-90 z-[1010]"
+                                className="fixed top-6 right-6 p-4 bg-[#EF4444] hover:bg-[#DC2626] text-white rounded-xl border-b-[6px] border-black/20 hover:border-b-[2px] hover:translate-y-[4px] transition-all z-[1010] shadow-[0_10px_20px_rgba(239,68,68,0.3)] flex items-center justify-center border-2 border-black"
                             >
-                                <FiX size={24} />
+                                <FiX size={28} strokeWidth={4} />
                             </button>
 
                             <div className="py-12">

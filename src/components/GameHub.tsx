@@ -93,13 +93,6 @@ export default function GameHub() {
                     GAME ZONE
                 </motion.h2>
 
-                {/* Retro HUD Overlay - Positioned to the right for better alignment */}
-                <div className="hidden md:block">
-                    <div className="inline-flex items-center gap-3 bg-black/40 backdrop-blur-sm border border-white/20 px-6 py-2 rounded-full shadow-[0_4px_12px_rgba(0,0,0,0.5)]">
-                        <FiCpu className="text-green-500 animate-pulse" />
-                        <span className="text-[10px] font-black text-white uppercase tracking-[0.2em]">Game Hub v1.2.0</span>
-                    </div>
-                </div>
             </SectionWrapper>
 
             {/* Launchers Grid - Positioned higher up for the shorter section */}

@@ -195,12 +195,12 @@ export default function TechStack() {
                                             className={`relative border-[1px] border-black flex items-center justify-center transition-all duration-300 group
                                                        ${cell ? 'bg-white' : 'bg-black'}
                                                        ${(hoveredWord && crosswordWords.find(w => w.num === hoveredWord)?.word.split('').some((_, i) => {
-                                                           const w = crosswordWords.find(w => w.num === hoveredWord);
-                                                           if (!w) return false;
-                                                           const curR = w.dir === "v" ? w.r + i : w.r;
-                                                           const curC = w.dir === "h" ? w.c + i : w.c;
-                                                           return curR === rIdx && curC === cIdx;
-                                                       })) ? 'z-30 scale-105 bg-black' : ''}`}
+                                                            const w = crosswordWords.find(w => w.num === hoveredWord);
+                                                            if (!w) return false;
+                                                            const curR = w.dir === "v" ? w.r + i : w.r;
+                                                            const curC = w.dir === "h" ? w.c + i : w.c;
+                                                            return curR === rIdx && curC === cIdx;
+                                                        })) ? 'z-30 scale-105 bg-black' : ''}`}
                                         >
                                             {cell ? (
                                                 <>

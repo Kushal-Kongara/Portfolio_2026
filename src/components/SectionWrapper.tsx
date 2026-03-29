@@ -1,21 +1,20 @@
 "use client";
 
 import React from 'react';
-import { motion } from 'framer-motion';
 
 interface SectionWrapperProps {
   title?: string;
   children: React.ReactNode;
   className?: string;
-  sectionRef?: React.RefObject<HTMLElement>;
+  sectionRef?: React.RefObject<HTMLDivElement>;
 }
 
-const SectionWrapper: React.FC<SectionWrapperProps> = ({ 
+export default function SectionWrapper({ 
   title, 
   children, 
   className = '', 
   sectionRef 
-}) => {
+}: SectionWrapperProps) {
   const id = title ? title.toLowerCase().replace(/\s+/g, '-') : undefined;
 
   return (
@@ -48,6 +47,4 @@ const SectionWrapper: React.FC<SectionWrapperProps> = ({
       </div>
     </section>
   );
-};
-
-export default SectionWrapper;
+}

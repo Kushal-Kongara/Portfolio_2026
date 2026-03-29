@@ -3,6 +3,7 @@
 import React from 'react';
 
 interface SectionWrapperProps {
+  id?: string;
   title?: string;
   children: React.ReactNode;
   className?: string;
@@ -10,16 +11,18 @@ interface SectionWrapperProps {
 }
 
 export default function SectionWrapper({ 
+  id,
   title, 
   children, 
   className = '', 
   sectionRef 
 }: SectionWrapperProps) {
-  const id = title ? title.toLowerCase().replace(/\s+/g, '-') : undefined;
+  const generatedId = title ? title.toLowerCase().replace(/\s+/g, '-') : undefined;
+  const sectionId = id || generatedId;
 
   return (
     <section 
-      id={id} 
+      id={sectionId} 
       ref={sectionRef as any}
       className={`relative w-full py-8 md:py-12 px-4 md:px-10 lg:px-20 overflow-hidden ${className}`}
     >

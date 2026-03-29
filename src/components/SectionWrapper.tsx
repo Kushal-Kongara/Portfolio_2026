@@ -1,32 +1,53 @@
 "use client";
 
-import { motion } from "framer-motion";
+import React from 'react';
+import { motion } from 'framer-motion';
 
 interface SectionWrapperProps {
+  title?: string;
   children: React.ReactNode;
   className?: string;
-  id?: string;
+  sectionRef?: React.RefObject<HTMLElement>;
 }
 
-export default function SectionWrapper({
-  children,
-  className = "",
-  id,
-}: SectionWrapperProps) {
+const SectionWrapper: React.FC<SectionWrapperProps> = ({ 
+  title, 
+  children, 
+  className = '', 
+  sectionRef 
+}) => {
+  const id = title ? title.toLowerCase().replace(/\s+/g, '-') : undefined;
+
   return (
-    <motion.section
-      id={id}
-      initial={{ opacity: 0, y: 50, scale: 0.98 }}
-      whileInView={{ opacity: 1, y: 0, scale: 1 }}
-      viewport={{ once: true, amount: 0.15 }}
-      transition={{
-        duration: 0.8,
-        ease: [0.16, 1, 0.3, 1], // Premium easing (Ease Out Expo)
-        delay: 0.1
-      }}
-      className={`max-w-6xl mx-auto px-6 py-12 md:py-20 ${className}`}
+    <section 
+      id={id} 
+      ref={sectionRef as any}
+      className={`relative w-full py-8 md:py-12 px-4 md:px-10 lg:px-20 overflow-hidden ${className}`}
     >
-      {children}
-    </motion.section>
+      <div className="max-w-7xl mx-auto relative z-10 h-full flex flex-col items-center justify-center">
+        {/* Section Header */}
+        {title && (
+          <div className="mb-8 text-center w-full">
+            <div className="inline-block relative">
+              <h2 className="text-5xl md:text-7xl lg:text-8xl font-extrabold tracking-tighter text-white uppercase select-none relative z-10 [font-family:Impact,sans-serif] scale-y-125">
+                {title}
+              </h2>
+              {/* Glitch Shadow Effect */}
+              <div className="absolute top-1 left-1 w-full h-full text-rose-500 opacity-30 blur-[2px] font-extrabold text-5xl md:text-7xl lg:text-8xl uppercase tracking-tighter [font-family:Impact,sans-serif] scale-y-125 -z-10 translate-x-1 translate-y-1">
+                {title}
+              </div>
+              <div className="absolute -bottom-1 left-0 w-full h-[3px] bg-white transform -skew-x-12"></div>
+            </div>
+          </div>
+        )}
+
+        {/* Content container */}
+        <div className="w-full h-full">
+          {children}
+        </div>
+      </div>
+    </section>
   );
-}
+};
+
+export default SectionWrapper;

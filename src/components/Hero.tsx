@@ -1,4 +1,5 @@
 "use client";
+/* eslint-disable react/no-unescaped-entities */
 
 import { motion, useScroll, useMotionValueEvent } from "framer-motion";
 import Image from "next/image";
@@ -124,7 +125,7 @@ export default function Hero() {
               "bg-white text-black border-black shadow-[4px_4px_0px_#000] hover:bg-gray-50"
             }`}
         >
-          {isLoading ? "Connecting..." : isCallActive ? "Stop AI Agent" : hasScrolled ? "Hey.... don't scroll. Talk to me." : "Click on me to Activate the voice agent."}
+          {isLoading ? "Connecting..." : isCallActive ? "Stop AI Agent" : hasScrolled ? `Hey.... don't scroll. Talk to me.` : "Click on me to Activate the voice agent."}
 
           {/* Bubble tail pointing left towards character */}
           <div className={`absolute top-1/2 -left-[14px] -translate-y-1/2 w-0 h-0 border-y-[10px] border-y-transparent border-r-[14px] transition-colors duration-300
@@ -175,7 +176,7 @@ export default function Hero() {
       >
         <div className="flex flex-col sm:flex-row sm:items-center items-start gap-12 lg:gap-32 pointer-events-auto w-full">
           <p className="max-w-[280px] md:max-w-md text-[#ff5500] text-2xl md:text-3xl leading-relaxed font-bold tracking-tight font-caveat">
-            {"\"Nothing in life is truly easy or hard only familiar or unfamiliar.\""}
+            &quot;Nothing in life is truly easy or hard only familiar or unfamiliar.&quot;
           </p>
 
           {/* Bold Colorful Pencil Art Social Icons */}
@@ -202,11 +203,11 @@ export default function Hero() {
                 style={{
                   color: color,
                   borderColor: color,
-                  filter: "url(#pencil-sketch)",
-                  borderRadius: "255px 15px 225px 15px/15px 225px 15px 255px", // sketchy irregular box
+                  filter: `url(#pencil-sketch)`,
+                  borderRadius: `255px 15px 225px 15px/15px 225px 15px 255px`, // sketchy irregular box
                 }}
               >
-                <Icon className="w-6 h-6 md:w-7 md:h-7 stroke-[2.5]" style={{ filter: "url(#pencil-sketch)" }} />
+                <Icon className="w-6 h-6 md:w-7 md:h-7 stroke-[2.5]" style={{ filter: `url(#pencil-sketch)` }} />
               </motion.a>
             ))}
           </div>

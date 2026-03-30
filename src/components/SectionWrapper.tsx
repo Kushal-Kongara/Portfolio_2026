@@ -24,9 +24,9 @@ export default function SectionWrapper({
     <section 
       id={sectionId} 
       ref={sectionRef as any}
-      className={`relative w-full py-8 md:py-12 px-4 md:px-10 lg:px-20 overflow-hidden ${className}`}
+      className="relative w-full overflow-hidden"
     >
-      <div className="max-w-7xl mx-auto relative z-10 h-full flex flex-col items-center justify-center">
+      <div className={`mx-auto relative z-10 h-full flex flex-col items-center justify-center p-4 md:p-8 lg:p-12 ${className}`}>
         {/* Section Header */}
         {title && (
           <div className="mb-8 text-center w-full">

@@ -126,10 +126,10 @@ export default function TechStack() {
         <div className="w-full bg-[#FAFAF5] font-mono text-black py-12 md:py-16 border-y-4 border-black selection:bg-black selection:text-white relative overflow-hidden">
             <div className="absolute inset-0 opacity-[0.03] pointer-events-none bg-[url('https://www.transparenttextures.com/patterns/paper-fibers.png')]" />
 
-            <SectionWrapper id="tech-stack" className="max-w-5xl mx-auto px-4 relative z-10">
+            <SectionWrapper id="tech-stack" className="max-w-[1800px] px-0 md:px-0 lg:px-0 mx-auto relative z-10">
 
                 {/* Header */}
-                <div className="mb-12 flex flex-col md:flex-row justify-between items-end gap-8 border-b-4 border-black pb-6">
+                <div className="mb-12 flex flex-col md:flex-row justify-between items-end gap-8 border-b-4 border-black pb-6 px-6 md:px-12">
                     <div className="flex flex-col gap-2">
                         <div className="text-[10px] font-black uppercase tracking-[0.4em] opacity-30">Technical Archive // 2026</div>
                         <h2 className="text-5xl md:text-6xl font-black uppercase tracking-tighter leading-none">
@@ -144,29 +144,29 @@ export default function TechStack() {
                 </div>
 
                 {/* Grid & Side Clues Container */}
-                <div className="flex flex-col lg:flex-row items-stretch justify-center gap-12 xl:gap-20">
+                <div className="flex flex-col lg:flex-row items-start justify-between gap-6 xl:gap-16 px-8 md:px-16">
 
                     {/* Left Clues (1-15) */}
-                    <div className="flex flex-col gap-4 w-full lg:w-56 xl:w-72 pt-4">
-                        <div className="text-[11px] font-black uppercase tracking-[0.3em] mb-4 border-b-2 border-black pb-2 opacity-30">Clues // H-V 01-15</div>
-                        <div className="flex flex-col gap-5">
+                    <div className="flex flex-col gap-3 w-full lg:w-48 xl:w-64 pt-4 shrink-0 lg:sticky lg:top-24">
+                        <div className="text-[10px] font-black uppercase tracking-[0.3em] mb-2 border-b-2 border-black pb-2 opacity-30">Clues // H-V 01-15</div>
+                        <div className="flex flex-col gap-3 md:gap-4">
                             {crosswordWords.slice(0, 15).map((word) => (
                                 <motion.div
                                     key={word.num}
                                     onMouseEnter={() => setHoveredWord(word.num)}
                                     onMouseLeave={() => setHoveredWord(null)}
                                     whileHover={{ x: 5 }}
-                                    className={`flex items-center gap-4 group cursor-help border-b border-black/5 pb-1 transition-all ${hoveredWord && hoveredWord !== word.num ? 'opacity-20 blur-[0.5px]' : 'opacity-100'}`}
+                                    className={`flex items-center gap-3 group cursor-help border-b border-black/5 pb-1 transition-all ${hoveredWord && hoveredWord !== word.num ? 'opacity-20 blur-[0.5px]' : 'opacity-100'}`}
                                 >
-                                    <div className="bg-black text-white text-[10px] font-black px-2 py-1 min-w-[28px] text-center shrink-0">
+                                    <div className="bg-black text-white text-[9px] font-black px-1.5 py-0.5 min-w-[24px] text-center shrink-0">
                                         {word.num}
                                     </div>
-                                    <div className="flex flex-col">
-                                        <span className="text-[11px] font-black uppercase tracking-tighter group-hover:underline leading-none">
+                                    <div className="flex flex-col gap-1">
+                                        <span className="text-[8px] md:text-[9px] font-bold uppercase tracking-[0.1em] opacity-40 leading-none">
                                             {word.word}
                                         </span>
-                                        <div className="flex items-center gap-2 mt-2">
-                                            <div className="text-2xl transition-transform duration-300 group-hover:translate-x-1" style={{ color: word.color }}>
+                                        <div className="flex items-center">
+                                            <div className="p-1.5 md:p-2 bg-[#f8f8f2] border border-black/10 rounded-lg shadow-[2px_2px_0px_rgba(0,0,0,0.05)] text-lg md:text-xl transition-all duration-300 group-hover:scale-110 group-hover:border-black/20" style={{ color: word.color }}>
                                                 {word.icon}
                                             </div>
                                         </div>
@@ -177,12 +177,13 @@ export default function TechStack() {
                     </div>
 
                     {/* The Grid (Center) */}
-                    <div className="relative flex justify-center flex-1 w-full lg:min-w-[600px] xl:min-w-[800px]">
+                    <div className="relative flex justify-center flex-1 w-full min-w-0">
                         <div
-                            className="grid border-[3px] border-black bg-black shadow-[30px_30px_0px_rgba(0,0,0,0.06)] h-fit"
+                            className="grid border-[2px] md:border-[3px] border-black bg-black shadow-[20px_20px_0px_rgba(0,0,0,0.05)] md:shadow-[40px_40px_0px_rgba(0,0,0,0.05)] h-fit"
                             style={{
                                 gridTemplateColumns: `repeat(${COLS}, minmax(0, 1fr))`,
                                 width: '100%',
+                                maxWidth: '1000px',
                                 aspectRatio: `${COLS} / ${ROWS}`
                             }}
                         >
@@ -192,7 +193,7 @@ export default function TechStack() {
                                     return (
                                         <div
                                             key={`${rIdx}-${cIdx}`}
-                                            className={`relative border-[1px] border-black flex items-center justify-center transition-all duration-300 group
+                                            className={`relative border-[0.5px] border-black/20 flex items-center justify-center transition-all duration-300 group
                                                        ${cell ? 'bg-white' : 'bg-black'}
                                                        ${(hoveredWord && crosswordWords.find(w => w.num === hoveredWord)?.word.split('').some((_, i) => {
                                                             const w = crosswordWords.find(w => w.num === hoveredWord);
@@ -205,19 +206,19 @@ export default function TechStack() {
                                             {cell ? (
                                                 <>
                                                     <span
-                                                        className="text-xs sm:text-xl md:text-2xl font-black uppercase select-none tracking-tighter group-hover:text-white"
-                                                        style={{ color: cell.color }}
+                                                        className="text-[2vw] lg:text-[1.2vw] xl:text-[14px] font-black uppercase select-none tracking-tighter group-hover:text-white"
+                                                        style={{ color: cell.color, fontSize: 'clamp(8px, 1.5vw, 22px)' }}
                                                     >
                                                         {cell.char}
                                                     </span>
                                                     {cell.num && (
-                                                        <span className="absolute top-0.5 left-0.5 text-[6px] md:text-[8px] font-black leading-none group-hover:text-white/30">
+                                                        <span className="absolute top-0 md:top-0.5 left-0 md:left-0.5 text-[1.5vw] lg:text-[0.6vw] xl:text-[8px] font-black leading-none group-hover:text-white/30 text-black/40" style={{ fontSize: 'clamp(4px, 0.7vw, 10px)' }}>
                                                             {cell.num}
                                                         </span>
                                                     )}
                                                 </>
                                             ) : scattered ? (
-                                                <div className="text-xl md:text-3xl opacity-10 group-hover:opacity-100 group-hover:scale-125 transition-all text-white">
+                                                <div className="text-[2.5vw] md:text-2xl opacity-[0.03] group-hover:opacity-100 group-hover:scale-125 transition-all text-white" style={{ fontSize: 'clamp(10px, 2vw, 30px)' }}>
                                                     {scattered.icon}
                                                 </div>
                                             ) : null}
@@ -229,28 +230,28 @@ export default function TechStack() {
                     </div>
 
                     {/* Right Clues (16-30) */}
-                    <div className="flex flex-col gap-4 w-full lg:w-56 xl:w-72 pt-4">
-                        <div className="text-[11px] font-black uppercase tracking-[0.3em] mb-4 border-b-2 border-black pb-2 opacity-30 text-right">Data // H-V 16-30</div>
-                        <div className="flex flex-col gap-5">
+                    <div className="flex flex-col gap-3 w-full lg:w-48 xl:w-64 pt-4 shrink-0 lg:sticky lg:top-24">
+                        <div className="text-[10px] font-black uppercase tracking-[0.3em] mb-2 border-b-2 border-black pb-2 opacity-30 text-right">Data // H-V 16-30</div>
+                        <div className="flex flex-col gap-3 md:gap-4">
                             {crosswordWords.slice(15).map((word) => (
                                 <motion.div
                                     key={word.num}
                                     onMouseEnter={() => setHoveredWord(word.num)}
                                     onMouseLeave={() => setHoveredWord(null)}
                                     whileHover={{ x: -5 }}
-                                    className={`flex items-center gap-4 group cursor-help justify-end text-right border-b border-black/5 pb-1 transition-all ${hoveredWord && hoveredWord !== word.num ? 'opacity-20 blur-[0.5px]' : 'opacity-100'}`}
+                                    className={`flex items-center gap-3 group cursor-help justify-end text-right border-b border-black/5 pb-1 transition-all ${hoveredWord && hoveredWord !== word.num ? 'opacity-20 blur-[0.5px]' : 'opacity-100'}`}
                                 >
-                                    <div className="flex flex-col items-end order-1">
-                                        <span className="text-[11px] font-black uppercase tracking-tighter group-hover:underline leading-none">
+                                    <div className="flex flex-col items-end order-1 gap-1">
+                                        <span className="text-[8px] md:text-[9px] font-bold uppercase tracking-[0.1em] opacity-40 leading-none">
                                             {word.word}
                                         </span>
-                                        <div className="flex items-center gap-2 mt-2 justify-end">
-                                            <div className="text-2xl transition-transform duration-300 group-hover:-translate-x-1" style={{ color: word.color }}>
+                                        <div className="flex items-center justify-end">
+                                            <div className="p-1.5 md:p-2 bg-[#f8f8f2] border border-black/10 rounded-lg shadow-[-2px_2px_0px_rgba(0,0,0,0.05)] text-lg md:text-xl transition-all duration-300 group-hover:scale-110 group-hover:border-black/20 flex items-center justify-center bg-gradient-to-br from-white to-[#f0f0e0]" style={{ color: word.color }}>
                                                 {word.icon}
                                             </div>
                                         </div>
                                     </div>
-                                    <div className="bg-black text-white text-[10px] font-black px-2 py-1 min-w-[28px] text-center shrink-0 order-2">
+                                    <div className="bg-black text-white text-[9px] font-black px-1.5 py-0.5 min-w-[24px] text-center shrink-0 order-2">
                                         {word.num}
                                     </div>
                                 </motion.div>

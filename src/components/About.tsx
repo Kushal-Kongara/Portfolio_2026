@@ -5,6 +5,7 @@ import { motion, useScroll, useTransform } from "framer-motion";
 import Image from "next/image";
 import SectionWrapper from "./SectionWrapper";
 import { about, events, photoStories, type PhotoStory } from "@/lib/constants";
+import { GitHubSticker, AWSSticker, SaveSticker } from "./HackathonStickers";
 
 function MomentCard({ story, className = "", delay = 0 }: { story: PhotoStory; className?: string; delay?: number }) {
   const [imgError, setImgError] = useState(false);
@@ -643,47 +644,78 @@ export default function About() {
         </SectionWrapper>
       </div>
 
-        {/* Events & Hackathons - Edge to Edge Photos */}
-        <section id="events" className="w-full bg-[#F2B50B] pb-10 pt-0 overflow-hidden flex flex-col">
-          <SectionWrapper className="mb-2 md:mb-4 mt-0">
-            <motion.h2
-              initial={{ opacity: 0, x: -12 }}
-              whileInView={{ opacity: 1, x: 0 }}
-              viewport={{ once: true }}
-              className="text-[10vw] md:text-[4rem] lg:text-[5rem] font-black text-[#DE1A58] uppercase tracking-tighter leading-none text-left origin-left"
-              style={{
-                fontFamily: "Impact, system-ui, sans-serif",
-                transform: "scaleY(1.2)",
-                WebkitTextStroke: "2px #DE1A58"
-              }}
+        {/* Events & Hackathons - Premium Bento Grid */}
+        <section id="events" className="w-full bg-[#f8f8f8] pb-24 pt-12 overflow-hidden flex flex-col">
+          <div className="w-full max-w-[1400px] mx-auto px-2 md:px-4 lg:px-8">
+            
+            {/* The Bento Grid */}
+            <motion.div 
+              initial={{ opacity: 0, y: 40 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, amount: 0.1 }}
+              transition={{ duration: 0.8, ease: "easeOut" }}
+              className="grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-6 auto-rows-[180px] md:auto-rows-[220px] lg:auto-rows-[250px] overflow-hidden"
             >
-              EVENTS & HACKATHONS
-            </motion.h2>
-          </SectionWrapper>
+              
+              {/* Row 1 */}
+              <div className="col-span-1 row-span-1">
+                {photoStories[0] && <MomentCard story={photoStories[0]} delay={0.1} className="rounded-3xl" />}
+              </div>
+              <div className="col-span-1 row-span-1">
+                {photoStories[1] && <MomentCard story={photoStories[1]} delay={0.2} className="rounded-3xl" />}
+              </div>
+              <div className="col-span-1 row-span-1 hidden md:block">
+                <AWSSticker />
+              </div>
+              <div className="col-span-1 row-span-1">
+                {photoStories[2] && <MomentCard story={photoStories[2]} delay={0.3} className="rounded-3xl" />}
+              </div>
 
-          <div className="flex flex-col md:flex-row gap-2 md:gap-4 w-full px-4 md:px-8 lg:px-12 md:h-[600px] lg:h-[750px]">
-            {/* Left Half */}
-            <div className="flex-1 flex flex-col gap-2 md:gap-4">
-              {photoStories[0] && (
-                <MomentCard story={photoStories[0]} delay={0.1} className="h-[350px] md:h-auto md:flex-[55] rounded-2xl" />
-              )}
-              <div className="h-[180px] md:h-auto md:flex-[45] flex flex-row gap-2 md:gap-4">
-                {photoStories[1] && <MomentCard story={photoStories[1]} delay={0.2} className="flex-1 rounded-2xl" />}
-                {photoStories[2] && <MomentCard story={photoStories[2]} delay={0.3} className="flex-1 rounded-2xl" />}
+              {/* Row 2 - Feature Row */}
+              <div className="col-span-2 md:col-span-1 row-span-1 order-2 md:order-none">
+                <div className="w-full h-full relative rounded-3xl overflow-hidden bg-black flex items-center justify-center p-0">
+                  <Image 
+                    src="https://media1.giphy.com/media/v1.Y2lkPTc5MGI3NjExdng2cnZwazN4NTBiYm5uMGcwbHJlamlvd3g4cXc3cjhxMTFwdGt0cSZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/qmGZhRFjhAAy5d5WGX/giphy.gif" 
+                    alt="Hackathon GIF" 
+                    fill 
+                    className="object-cover"
+                    unoptimized
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/40 to-transparent" />
+                </div>
               </div>
-            </div>
 
-            {/* Right Half */}
-            <div className="flex-1 flex flex-col gap-2 md:gap-4">
-              <div className="h-[180px] md:h-auto md:flex-[35] flex flex-row gap-2 md:gap-4">
-                {photoStories[3] && <MomentCard story={photoStories[3]} delay={0.4} className="flex-1 rounded-2xl" />}
-                {photoStories[4] && <MomentCard story={photoStories[4]} delay={0.5} className="flex-1 rounded-2xl" />}
+              <div className="col-span-2 row-span-1 bg-white rounded-3xl border-[3px] border-black shadow-[8px_8px_0px_#000] flex flex-col items-center justify-center p-2 text-center group transition-all hover:bg-gray-50 hover:-translate-y-1 hover:-translate-x-1 order-1 md:order-none relative overflow-hidden">
+                {/* Decorative background pattern */}
+                <div className="absolute inset-0 opacity-[0.03] pointer-events-none" style={{ backgroundImage: "url('data:image/svg+xml,%3Csvg width=\\'20\\' height=\\'20\\' viewBox=\\'0 0 20 20\\' xmlns=\\'http://www.w3.org/2000/svg\\'%3E%3Cg fill=\\'%23000000\\' fill-opacity=\\'1\\' fill-rule=\\'evenodd\\'%3E%3Ccircle cx=\\'3\\' cy=\\'3\\' r=\\'1\\'/%3E%3Ccircle cx=\\'13\\' cy=\\'13\\' r=\\'1\\'/%3E%3C/g%3E%3C/svg%3E')" }} />
+                
+                <h3 className="text-3xl md:text-5xl lg:text-6xl font-black text-black uppercase tracking-tight [font-family:Impact,sans-serif] leading-[0.9] mb-0 relative z-10 w-full px-4">
+                  EVENTS &<br /> HACKATHONS
+                </h3>
               </div>
-              <div className="h-[350px] md:h-auto md:flex-[65] flex flex-row gap-2 md:gap-4">
-                {photoStories[5] && <MomentCard story={photoStories[5]} delay={0.6} className="flex-1 rounded-2xl" />}
-                {photoStories[6] && <MomentCard story={photoStories[6]} delay={0.7} className="flex-1 rounded-2xl" />}
+
+              <div className="col-span-1 row-span-1 order-3 md:order-none">
+                <GitHubSticker />
               </div>
-            </div>
+
+              {/* Row 3 */}
+              <div className="col-span-1 row-span-1">
+                {photoStories[3] && <MomentCard story={photoStories[3]} delay={0.4} className="rounded-3xl" />}
+              </div>
+              <div className="col-span-1 row-span-1">
+                {photoStories[5] && <MomentCard story={photoStories[5]} delay={0.5} className="rounded-3xl" />}
+              </div>
+              <div className="col-span-1 row-span-1">
+                {photoStories[4] && <MomentCard story={photoStories[4]} delay={0.6} className="rounded-3xl" />}
+              </div>
+              <div className="col-span-1 row-span-1 hidden md:flex">
+                <SaveSticker />
+              </div>
+              <div className="col-span-1 row-span-1 flex md:hidden">
+                <AWSSticker />
+              </div>
+
+            </motion.div>
           </div>
         </section>
     </>

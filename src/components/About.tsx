@@ -549,24 +549,40 @@ function IDBadge() {
 
 
 export default function About() {
+  const sectionRef = useRef<HTMLDivElement>(null);
+  const { scrollYProgress } = useScroll({
+    target: sectionRef,
+    offset: ["start end", "end start"],
+  });
+
+  const bgScale = useTransform(scrollYProgress, [0, 0.5, 1], [1.1, 1, 1.1]);
+  const bgOpacity = useTransform(scrollYProgress, [0, 0.2, 0.8, 1], [0, 1, 1, 0]);
+
   return (
     <>
       <div
-        className="w-full relative bg-white"
-        style={{
-          backgroundImage: "url('/about-bg-nature.jpg')",
-          backgroundRepeat: "no-repeat",
-          backgroundSize: "cover",
-          backgroundPosition: "center"
-        }}
+        ref={sectionRef}
+        className="w-full relative overflow-hidden bg-white"
       >
+        <motion.div
+          className="absolute inset-0 z-0"
+          style={{
+            backgroundImage: "url('/about-bg-nature.jpg')",
+            backgroundRepeat: "no-repeat",
+            backgroundSize: "cover",
+            backgroundPosition: "center",
+            scale: bgScale,
+            opacity: bgOpacity,
+          }}
+        />
         <SectionWrapper id="about" className="flex-1 flex flex-col justify-center py-20">
           {/* Intro */}
           <motion.h2
-            initial={{ opacity: 0, x: -12 }}
-            whileInView={{ opacity: 1, x: 0 }}
-            viewport={{ once: true }}
-            className="text-[10vw] md:text-[3.5rem] lg:text-[4.5rem] font-black text-white uppercase tracking-tighter leading-none mb-4 md:mb-6 mt-4 text-left origin-left drop-shadow-lg"
+            initial={{ opacity: 0, x: -30, filter: "blur(10px)" }}
+            whileInView={{ opacity: 1, x: 0, filter: "blur(0px)" }}
+            viewport={{ once: true, amount: 0.5 }}
+            transition={{ duration: 0.8, ease: "easeOut" }}
+            className="text-[10vw] md:text-[3.5rem] lg:text-[4.5rem] font-black text-white uppercase tracking-tighter leading-none mb-4 md:mb-6 mt-4 text-left origin-left drop-shadow-lg relative z-10"
             style={{
               fontFamily: "Impact, system-ui, sans-serif",
               transform: "scaleY(1.2)",
@@ -578,17 +594,23 @@ export default function About() {
 
           <div className="flex flex-col lg:flex-row gap-10 lg:gap-16 items-center justify-between mb-4">
             {/* Left: ID Badge container */}
-            <div className="w-full lg:w-[45%] flex justify-center lg:justify-center">
+            <motion.div 
+               initial={{ opacity: 0, y: 50 }}
+               whileInView={{ opacity: 1, y: 0 }}
+               viewport={{ once: true, amount: 0.3 }}
+               transition={{ duration: 0.8, delay: 0.2 }}
+               className="w-full lg:w-[45%] flex justify-center lg:justify-center relative z-10"
+            >
               <IDBadge />
-            </div>
+            </motion.div>
 
             {/* Right: Intro Text inside Retro Window */}
             <motion.div
-              initial={{ opacity: 0, rotate: -2, y: 20 }}
-              whileInView={{ opacity: 1, rotate: 0, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ type: "spring", bounce: 0.4, duration: 0.8 }}
-              className="w-full lg:w-[55%] bg-white border-[3px] border-black shadow-[8px_8px_0px_0px_rgba(0,0,0,1)] hover:shadow-[12px_12px_0px_0px_rgba(0,0,0,1)] hover:-translate-y-1 hover:-translate-x-1 transition-all duration-300 flex flex-col"
+              initial={{ opacity: 0, scale: 0.95, y: 30 }}
+              whileInView={{ opacity: 1, scale: 1, y: 0 }}
+              viewport={{ once: true, amount: 0.3 }}
+              transition={{ type: "spring", bounce: 0.3, duration: 1, delay: 0.4 }}
+              className="w-full lg:w-[55%] bg-white border-[3px] border-black shadow-[8px_8px_0px_0px_rgba(0,0,0,1)] hover:shadow-[12px_12px_0px_0px_rgba(0,0,0,1)] hover:-translate-y-1 hover:-translate-x-1 transition-all duration-300 flex flex-col relative z-10"
             >
               {/* Window Top Bar */}
               <div className="w-full bg-[#0cae67] border-b-[3px] border-black px-3 py-2 flex justify-end items-center gap-2">

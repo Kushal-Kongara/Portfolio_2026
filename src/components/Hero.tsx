@@ -1,7 +1,7 @@
 "use client";
 /* eslint-disable react/no-unescaped-entities */
 
-import { motion, useScroll, useMotionValueEvent } from "framer-motion";
+import { motion, useScroll, useMotionValueEvent, useTransform } from "framer-motion";
 import Image from "next/image";
 import { useState, useEffect, useRef } from "react";
 import { FiGithub, FiLinkedin, FiInstagram } from "react-icons/fi";
@@ -67,10 +67,30 @@ export default function Hero() {
     }
   };
 
+  const containerRef = useRef<HTMLDivElement>(null);
+  const { scrollYProgress } = useScroll({
+    target: containerRef,
+    offset: ["start start", "end start"],
+  });
+
+  // Parallax transforms for various elements
+  const textY = useTransform(scrollYProgress, [0, 1], [0, 150]);
+  const textScale = useTransform(scrollYProgress, [0, 1], [1, 0.85]);
+  const textOpacity = useTransform(scrollYProgress, [0, 0.8], [1, 0]);
+
+  const charY = useTransform(scrollYProgress, [0, 1], [0, 80]);
+  const charOpacity = useTransform(scrollYProgress, [0, 0.9], [1, 0]);
+
+  const bubbleY = useTransform(scrollYProgress, [0, 1], [0, -40]);
+  const bubbleOpacity = useTransform(scrollYProgress, [0, 0.5], [1, 0]);
+
+  const socialY = useTransform(scrollYProgress, [0, 1], [0, 40]);
+  const socialOpacity = useTransform(scrollYProgress, [0, 0.7], [1, 0]);
 
   return (
     <section
       id="hero"
+      ref={containerRef}
       className="relative w-full h-[100svh] min-h-[600px] bg-white overflow-hidden flex flex-col justify-between pt-10 pb-16 px-6 lg:px-12 selection:bg-[#ff5500] selection:text-white"
     >
       {/* SVG Filter for Pencil Sketch Effect */}
@@ -82,7 +102,10 @@ export default function Hero() {
       </svg>
 
       {/* Giant Background Text & Sub Titles */}
-      <div className="absolute inset-0 flex flex-col items-center justify-center z-0 pointer-events-none select-none overflow-hidden pb-12">
+      <motion.div 
+        style={{ y: textY, scale: textScale, opacity: textOpacity }}
+        className="absolute inset-0 flex flex-col items-center justify-center z-0 pointer-events-none select-none overflow-hidden pb-12"
+      >
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
@@ -107,12 +130,13 @@ export default function Hero() {
         >
           KUSHAL
         </motion.h1>
-      </div>
+      </motion.div>
 
       {/* Interactive Speech Bubble container (Clickable to start AI agent) */}
       <motion.div
         initial={{ scale: 0, rotate: 10 }}
         animate={{ scale: 1, rotate: -5 }}
+        style={{ y: bubbleY, opacity: bubbleOpacity }}
         transition={{ type: "spring", stiffness: 200, delay: 0.8 }}
         className="absolute top-[35%] right-[2%] md:right-[3%] lg:right-[5%] z-40 pointer-events-auto"
       >
@@ -140,6 +164,7 @@ export default function Hero() {
       <motion.div
         initial={{ y: 100, opacity: 0 }}
         animate={{ y: 0, opacity: 1 }}
+        style={{ y: charY, opacity: charOpacity }}
         transition={{ duration: 0.8, delay: 0.5, ease: "easeOut" }}
         className="absolute bottom-0 right-0 z-20 w-full md:w-[80%] lg:w-[60%] h-[80%] pointer-events-none flex items-end justify-end md:pr-4 lg:pr-8"
       >
@@ -171,6 +196,7 @@ export default function Hero() {
       <motion.div
         initial={{ opacity: 0, x: -20 }}
         animate={{ opacity: 1, x: 0 }}
+        style={{ y: socialY, opacity: socialOpacity }}
         transition={{ duration: 0.6, delay: 0.4 }}
         className="relative z-20 w-full max-w-7xl mx-auto flex flex-col justify-end h-full pointer-events-none"
       >

@@ -4,10 +4,10 @@ import { motion } from "framer-motion";
 import { projects } from "@/lib/constants";
 import Image from "next/image";
 import { FiArrowUpRight, FiGithub } from "react-icons/fi";
-import { 
-  SiReact, SiNextdotjs, SiThreedotjs, SiFramer, SiGreensock, 
-  SiOpenai, SiTailwindcss, SiPrisma, SiNodedotjs, 
-  SiRedis, SiPostgresql, SiPython, SiFastapi, SiHuggingface 
+import {
+  SiReact, SiNextdotjs, SiThreedotjs, SiFramer, SiGreensock,
+  SiOpenai, SiTailwindcss, SiPrisma, SiNodedotjs,
+  SiRedis, SiPostgresql, SiPython, SiFastapi, SiHuggingface
 } from "react-icons/si";
 
 const THEME_COLORS = [
@@ -41,11 +41,11 @@ const ProjectSection = ({ project, index }: { project: any; index: number }) => 
   const isAlt = index % 2 !== 0;
 
   return (
-    <section 
-      style={{ 
+    <section
+      style={{
         backgroundColor: colors.bg,
-        clipPath: index === 0 
-          ? "polygon(0 0, 100% 0, 100% 98%, 0 100%)" 
+        clipPath: index === 0
+          ? "polygon(0 0, 100% 0, 100% 98%, 0 100%)"
           : index === projects.length - 1
             ? "polygon(0 0, 100% 0, 100% 100%, 0 100%)" // Flat bottom for the last project
             : "polygon(0 2%, 100% 0, 100% 98%, 0 100%)"
@@ -53,7 +53,7 @@ const ProjectSection = ({ project, index }: { project: any; index: number }) => 
       className={`relative py-14 md:py-20 px-6 overflow-hidden ${index !== 0 ? "-mt-6 md:-mt-8" : ""}`}
     >
       {/* Background Index Number */}
-      <span 
+      <span
         style={{ color: colors.text, opacity: 0.1 }}
         className={`absolute text-[12rem] md:text-[18rem] font-black pointer-events-none select-none z-0 ${isAlt ? "left-5" : "right-5"}`}
       >
@@ -61,9 +61,9 @@ const ProjectSection = ({ project, index }: { project: any; index: number }) => 
       </span>
 
       <div className="max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-16 items-center relative z-10">
-        
+
         {/* INFO COLUMN */}
-        <motion.div 
+        <motion.div
           initial={{ opacity: 0, x: isAlt ? 20 : -20 }}
           whileInView={{ opacity: 1, x: 0 }}
           viewport={{ once: true }}
@@ -75,12 +75,12 @@ const ProjectSection = ({ project, index }: { project: any; index: number }) => 
               {project.title}
             </h3>
           </div>
-          
+
           <div className="max-w-md">
             <p className="text-xl md:text-2xl font-bold leading-tight mb-8" style={{ color: colors.text, opacity: 0.9 }}>
               {project.impact}
             </p>
-            
+
             <div className="flex flex-col gap-2 mb-8">
               <span className="text-xs font-black uppercase tracking-[0.2em] opacity-60" style={{ color: colors.text }}>Impact Metric</span>
               <p className="text-3xl md:text-4xl font-black tracking-tight" style={{ color: colors.text }}>
@@ -101,26 +101,26 @@ const ProjectSection = ({ project, index }: { project: any; index: number }) => 
         </motion.div>
 
         {/* IMAGE COLUMN */}
-        <motion.div 
+        <motion.div
           initial={{ opacity: 0, scale: 0.95 }}
           whileInView={{ opacity: 1, scale: 1 }}
           viewport={{ once: true }}
           className={`relative ${isAlt ? "md:order-1" : "md:order-2"}`}
         >
           {/* Picture Box */}
-          <div 
+          <div
             className="relative aspect-video rounded-3xl overflow-hidden shadow-[20px_20px_60px_rgba(0,0,0,0.2)] border-b-8 group"
-            style={{ 
+            style={{
               borderColor: colors.text,
               perspective: "1000px",
               transform: isAlt ? "rotateY(8deg) scale(0.98)" : "rotateY(-8deg) scale(0.98)"
             }}
           >
             {project.image ? (
-              <Image 
-                src={project.image} 
-                alt={project.title} 
-                fill 
+              <Image
+                src={project.image}
+                alt={project.title}
+                fill
                 className="object-cover transition-transform duration-700 group-hover:scale-105"
               />
             ) : (
@@ -128,7 +128,7 @@ const ProjectSection = ({ project, index }: { project: any; index: number }) => 
                 <span className="text-black/20 font-black italic">PREVIEW</span>
               </div>
             )}
-            
+
             <div className="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center gap-4 backdrop-blur-sm">
               {project.link !== "#" && (
                 <a href={project.link} target="_blank" className="p-4 bg-white rounded-full hover:scale-110 transition-transform">
@@ -152,20 +152,7 @@ export default function Projects() {
   const displayProjects = projects.slice(0, 4);
 
   return (
-    <div className="w-full bg-white relative">
-      {/* Massive Section Header */}
-      <div className="w-full pt-24 pb-12 px-6 text-center">
-        <motion.h2 
-          initial={{ opacity: 0, scale: 1.2 }}
-          whileInView={{ opacity: 1, scale: 1 }}
-          className="text-[15vw] md:text-[12vw] font-black text-black uppercase tracking-tighter leading-none [font-family:Impact,sans-serif]"
-          style={{ transform: "scaleY(1.1)" }}
-        >
-          PROJECTS
-        </motion.h2>
-        <div className="h-4 w-32 bg-black mx-auto mt-4 rounded-full" />
-      </div>
-
+    <div className="w-full relative">
       <div className="flex flex-col">
         {displayProjects.map((project, i) => (
           <ProjectSection key={i} project={project} index={i} />

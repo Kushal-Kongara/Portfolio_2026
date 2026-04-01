@@ -31,7 +31,7 @@ const CountUp = ({ to, suffix = "", delay = 0 }: { to: number; suffix?: string; 
 
       const duration = 2000;
       const increment = end / (duration / 16);
-      
+
       const timer = setTimeout(() => {
         const handle = setInterval(() => {
           start += increment;
@@ -197,7 +197,7 @@ export default function Experience() {
               <div className="relative z-10" style={{ transform: "translateZ(50px)" }}>
                 <span className="text-white/60 font-bold uppercase tracking-widest text-xs mb-2 block">Career Tenure</span>
                 <h3 className="text-6xl font-black text-white leading-none tracking-tighter mb-2">
-                  <CountUp to={6} suffix="+" />
+                  <CountUp to={5} suffix="+" />
                 </h3>
                 <p className="text-white text-xl font-bold leading-tight">Years of building production-grade software.</p>
               </div>
@@ -317,11 +317,10 @@ export default function Experience() {
             <div className="flex flex-col gap-4">
               <div className="flex flex-wrap gap-1 md:gap-1.5 justify-center md:justify-start">
                 {[
-                  ...Array(75).fill({ name: "L&T Finance", color: "#1e3a8a" }),
-                  ...Array(39).fill({ name: "DispatchTrack", color: "#0ea5e9" }),
+                  ...Array(72).fill({ name: "DispatchTrack", color: "#0ea5e9" }),
                   ...Array(72).fill({ name: "SFBU (Masters)", color: "#8b5cf6" }),
-                  ...Array(21).fill({ name: "Cyber Infra", color: "#f59e0b" }),
-                  ...Array(18).fill({ name: "Oatmeal AI", color: "#10b981" })
+                  ...Array(15).fill({ name: "Saayam", color: "#f59e0b" }),
+                  ...Array(66).fill({ name: "Oatmeal AI", color: "#10b981" })
                 ].map((month, i) => (
                   <motion.div
                     key={i}
@@ -336,7 +335,7 @@ export default function Experience() {
                 ))}
               </div>
               <div className="flex justify-between items-center text-[10px] font-black text-slate-300 uppercase tracking-[0.2em] px-1">
-                <span>Nov 2019</span>
+                <span>Dec 2020</span>
                 <span className="h-px flex-1 mx-4 bg-slate-100" />
                 <span>Present</span>
               </div>

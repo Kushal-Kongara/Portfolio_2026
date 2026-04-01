@@ -1,6 +1,7 @@
 "use client";
 
-import { motion } from "framer-motion";
+import { motion, useMotionValue, useTransform, useSpring, useInView } from "framer-motion";
+import { useEffect, useState, useRef } from "react";
 import { experiences } from "@/lib/constants";
 import {
   FiArrowUpRight,
@@ -16,6 +17,80 @@ import {
 } from "react-icons/fi";
 import { SiReact, SiNextdotjs, SiNodedotjs, SiTypescript, SiTailwindcss, SiPostgresql, SiDocker, SiGithubactions, SiFlutter } from "react-icons/si";
 import { FaAws } from "react-icons/fa";
+
+const CountUp = ({ to, suffix = "", delay = 0 }: { to: number; suffix?: string; delay?: number }) => {
+  const [count, setCount] = useState(0);
+  const nodeRef = useRef(null);
+  const isInView = useInView(nodeRef, { once: true });
+
+  useEffect(() => {
+    if (isInView) {
+      let start = 0;
+      const end = to;
+      if (start === end) return;
+
+      const duration = 2000;
+      const increment = end / (duration / 16);
+      
+      const timer = setTimeout(() => {
+        const handle = setInterval(() => {
+          start += increment;
+          if (start >= end) {
+            setCount(end);
+            clearInterval(handle);
+          } else {
+            setCount(Math.floor(start));
+          }
+        }, 16);
+        return () => clearInterval(handle);
+      }, delay * 1000);
+
+      return () => clearTimeout(timer);
+    }
+  }, [to, isInView, delay]);
+
+  return <span ref={nodeRef}>{count}{suffix}</span>;
+};
+
+const TiltCard = ({ children, className = "" }: { children: React.ReactNode; className?: string }) => {
+  const x = useMotionValue(0);
+  const y = useMotionValue(0);
+  const mouseXSpring = useSpring(x);
+  const mouseYSpring = useSpring(y);
+
+  const rotateX = useTransform(mouseYSpring, [-0.5, 0.5], ["7deg", "-7deg"]);
+  const rotateY = useTransform(mouseXSpring, [-0.5, 0.5], ["-7deg", "7deg"]);
+
+  const handleMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
+    const rect = e.currentTarget.getBoundingClientRect();
+    const width = rect.width;
+    const height = rect.height;
+    const mouseX = e.clientX - rect.left;
+    const mouseY = e.clientY - rect.top;
+    const xPct = mouseX / width - 0.5;
+    const yPct = mouseY / height - 0.5;
+    x.set(xPct);
+    y.set(yPct);
+  };
+
+  const handleMouseLeave = () => {
+    x.set(0);
+    y.set(0);
+  };
+
+  return (
+    <motion.div
+      onMouseMove={handleMouseMove}
+      onMouseLeave={handleMouseLeave}
+      style={{ rotateX, rotateY, perspective: 1000, transformStyle: "preserve-3d" }}
+      className={`relative ${className}`}
+    >
+      <div style={{ transform: "translateZ(30px)", transformStyle: "preserve-3d" }}>
+        {children}
+      </div>
+    </motion.div>
+  );
+};
 
 export default function Experience() {
   // Highlights derived from constants
@@ -101,7 +176,7 @@ export default function Experience() {
             </h2>
             <div className="h-px flex-1 bg-slate-200 mb-4 hidden md:block" />
             <p className="text-slate-500 max-w-xs font-medium text-sm border-l-4 border-[#f59e0b] pl-4">
-              Measurable impact and engineering leadership across 6 years of full-stack development.
+              Measurable impact and engineering leadership across 6 years of full-stack expertise.
             </p>
           </motion.div>
         </div>
@@ -110,44 +185,52 @@ export default function Experience() {
         <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 gap-4 md:gap-6 auto-rows-[160px] md:auto-rows-[180px]">
 
           {/* Main Experience Card */}
-          <motion.div
-            initial={{ opacity: 0, scale: 0.9 }}
-            whileInView={{ opacity: 1, scale: 1 }}
-            className="md:col-span-1 md:row-span-2 bg-[#1e3a8a] rounded-[2rem] p-8 relative flex flex-col justify-end overflow-hidden group shadow-2xl shadow-blue-900/20"
-          >
-            <div className="absolute top-0 right-0 w-32 h-32 bg-white/5 rounded-full -mr-16 -mt-16 group-hover:scale-150 transition-transform duration-700" />
-            <FiClock className="text-white/10 text-[12rem] absolute -top-10 -right-10 rotate-12" />
+          <TiltCard className="md:col-span-1 md:row-span-2">
+            <motion.div
+              initial={{ opacity: 0, scale: 0.9 }}
+              whileInView={{ opacity: 1, scale: 1 }}
+              className="w-full h-full bg-[#1e3a8a] rounded-[2rem] p-8 relative flex flex-col justify-end overflow-hidden group shadow-2xl shadow-blue-900/20"
+            >
+              <div className="absolute top-0 right-0 w-32 h-32 bg-white/5 rounded-full -mr-16 -mt-16 group-hover:scale-150 transition-transform duration-700" />
+              <FiClock className="text-white/10 text-[12rem] absolute -top-10 -right-10 rotate-12" />
 
-            <div className="relative z-10">
-              <span className="text-white/60 font-bold uppercase tracking-widest text-xs mb-2 block">Career Tenure</span>
-              <h3 className="text-6xl font-black text-white leading-none tracking-tighter mb-2">5+</h3>
-              <p className="text-white text-xl font-bold leading-tight">Years of building production-grade software.</p>
-            </div>
-          </motion.div>
+              <div className="relative z-10" style={{ transform: "translateZ(50px)" }}>
+                <span className="text-white/60 font-bold uppercase tracking-widest text-xs mb-2 block">Career Tenure</span>
+                <h3 className="text-6xl font-black text-white leading-none tracking-tighter mb-2">
+                  <CountUp to={6} suffix="+" />
+                </h3>
+                <p className="text-white text-xl font-bold leading-tight">Years of building production-grade software.</p>
+              </div>
+            </motion.div>
+          </TiltCard>
 
           {/* Performance Card */}
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.1 }}
-            className="md:col-span-2 md:row-span-1 bg-white rounded-[2rem] p-8 border-2 border-slate-100 flex items-center justify-between group overflow-hidden relative"
-          >
-            <div className="relative z-10">
-              <span className="text-blue-600 font-black uppercase tracking-widest text-xs mb-2 block flex items-center gap-2">
-                <FiZap /> Optimization Result
-              </span>
-              <h3 className="text-5xl font-black text-slate-900 tracking-tighter leading-none mb-1">45%</h3>
-              <p className="text-slate-500 font-bold text-lg">Page-load reduction at Oatmeal AI</p>
-            </div>
-            <div className="hidden lg:flex flex-col gap-2 relative z-10">
-              <div className="bg-slate-50 px-4 py-2 rounded-full text-xs font-bold text-slate-700 border border-slate-200">React.js Migration</div>
-              <div className="bg-slate-50 px-4 py-2 rounded-full text-xs font-bold text-slate-700 border border-slate-200">System Architecture</div>
-            </div>
-            {/* Background pattern */}
-            <div className="absolute inset-0 opacity-[0.03] pointer-events-none"
-              style={{ backgroundImage: `radial-gradient(#000 1px, transparent 1px)`, backgroundSize: '16px 16px' }}
-            />
-          </motion.div>
+          <TiltCard className="md:col-span-2 md:row-span-1">
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.1 }}
+              className="w-full h-full bg-white rounded-[2rem] p-8 border-2 border-slate-100 flex items-center justify-between group overflow-hidden relative"
+            >
+              <div className="relative z-10" style={{ transform: "translateZ(40px)" }}>
+                <span className="text-blue-600 font-black uppercase tracking-widest text-xs mb-2 block flex items-center gap-2">
+                  <FiZap /> Optimization Result
+                </span>
+                <h3 className="text-5xl font-black text-slate-900 tracking-tighter leading-none mb-1">
+                  <CountUp to={45} suffix="%" delay={0.2} />
+                </h3>
+                <p className="text-slate-500 font-bold text-lg">Page-load reduction at Oatmeal AI</p>
+              </div>
+              <div className="hidden lg:flex flex-col gap-2 relative z-10">
+                <div className="bg-slate-50 px-4 py-2 rounded-full text-xs font-bold text-slate-700 border border-slate-200">React.js Migration</div>
+                <div className="bg-slate-50 px-4 py-2 rounded-full text-xs font-bold text-slate-700 border border-slate-200">System Architecture</div>
+              </div>
+              {/* Background pattern */}
+              <div className="absolute inset-0 opacity-[0.03] pointer-events-none"
+                style={{ backgroundImage: `radial-gradient(#000 1px, transparent 1px)`, backgroundSize: '16px 16px' }}
+              />
+            </motion.div>
+          </TiltCard>
 
           {/* Tech/Skills Grid Card */}
           <motion.div
@@ -171,34 +254,42 @@ export default function Experience() {
           </motion.div>
 
           {/* Scale Metric 1 */}
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.3 }}
-            className="md:col-span-1 md:row-span-1 bg-[#0ea5e9] rounded-[2rem] p-6 relative overflow-hidden flex flex-col justify-between group"
-          >
-            <FiServer className="text-white/20 text-7xl absolute -bottom-4 -right-4 rotate-12 group-hover:rotate-0 transition-transform" />
-            <span className="text-white/80 font-black uppercase tracking-widest text-[10px] block">Scale reached</span>
-            <div className="relative z-10">
-              <h3 className="text-4xl font-black text-white tracking-tighter leading-none mb-1">5K+</h3>
-              <p className="text-white font-bold text-sm leading-tight opacity-90">Daily requests handled at L&T</p>
-            </div>
-          </motion.div>
+          <TiltCard className="md:col-span-1 md:row-span-1">
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.3 }}
+              className="w-full h-full bg-[#0ea5e9] rounded-[2rem] p-6 relative overflow-hidden flex flex-col justify-between group"
+            >
+              <FiServer className="text-white/20 text-7xl absolute -bottom-4 -right-4 rotate-12 group-hover:rotate-0 transition-transform" />
+              <span className="text-white/80 font-black uppercase tracking-widest text-[10px] block">Scale reached</span>
+              <div className="relative z-10" style={{ transform: "translateZ(35px)" }}>
+                <h3 className="text-4xl font-black text-white tracking-tighter leading-none mb-1">
+                  <CountUp to={25} suffix="%" delay={0.4} />
+                </h3>
+                <p className="text-white font-bold text-sm leading-tight opacity-90">Efficiency boost at DispatchTrack</p>
+              </div>
+            </motion.div>
+          </TiltCard>
 
           {/* Scale Metric 2 */}
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.4 }}
-            className="md:col-span-1 md:row-span-1 bg-[#f59e0b] rounded-[2rem] p-6 relative overflow-hidden flex flex-col justify-between group"
-          >
-            <FiTrendingUp className="text-black/10 text-7xl absolute -bottom-4 -right-4 -rotate-12 group-hover:rotate-0 transition-transform" />
-            <span className="text-black/60 font-black uppercase tracking-widest text-[10px] block">Performance</span>
-            <div className="relative z-10">
-              <h3 className="text-4xl font-black text-black tracking-tighter leading-none mb-1">30%</h3>
-              <p className="text-black font-bold text-sm leading-tight opacity-90">Scalability increase at CIS</p>
-            </div>
-          </motion.div>
+          <TiltCard className="md:col-span-1 md:row-span-1">
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.4 }}
+              className="w-full h-full bg-[#f59e0b] rounded-[2rem] p-6 relative overflow-hidden flex flex-col justify-between group"
+            >
+              <FiTrendingUp className="text-black/10 text-7xl absolute -bottom-4 -right-4 -rotate-12 group-hover:rotate-0 transition-transform" />
+              <span className="text-black/60 font-black uppercase tracking-widest text-[10px] block">Tech Growth</span>
+              <div className="relative z-10" style={{ transform: "translateZ(35px)" }}>
+                <h3 className="text-4xl font-black text-black tracking-tighter leading-none mb-1">
+                  <CountUp to={30} suffix="%" delay={0.5} />
+                </h3>
+                <p className="text-black font-bold text-sm leading-tight opacity-90">UI efficiency at Saayam</p>
+              </div>
+            </motion.div>
+          </TiltCard>
 
           {/* Career Timeline Proportional Bar (Contribution Graph Style) */}
           <motion.div
@@ -254,11 +345,10 @@ export default function Experience() {
             {/* Legend / Timeline Labels */}
             <div className="grid grid-cols-2 md:grid-cols-5 gap-4">
               {[
-                { name: "L&T Finance", color: "#1e3a8a", year: "2019-21" },
-                { name: "DispatchTrack", color: "#0ea5e9", year: "2021-22" },
+                { name: "DispatchTrack", color: "#0ea5e9", year: "2020-22" },
                 { name: "S.F. Bay Univ.", color: "#8b5cf6", year: "2023-24" },
-                { name: "Cyber Infra", color: "#f59e0b", year: "2025" },
-                { name: "Oatmeal AI", color: "#10b981", year: "2025-26" }
+                { name: "Saayam", color: "#f59e0b", year: "2024" },
+                { name: "Oatmeal AI", color: "#10b981", year: "2024-Present" }
               ].map((item, i) => (
                 <div key={i} className="flex flex-col gap-1.5">
                   <div className="flex items-center gap-2">

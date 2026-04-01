@@ -30,7 +30,7 @@ export const experiences: ExperienceItem[] = [
   {
     company: "Oatmeal AI",
     role: "Full-stack Developer",
-    period: "Aug 2025 - Jan 2026 · 6 mos",
+    period: "May 2024 - Present",
     location: "Medford, Oregon, United States · Remote",
     bullets: [
       "Led the migration of legacy ASP-based systems to a modern stack using React.js, TypeScript, Tailwind CSS, Node.js, and Next.js, improving maintainability and reducing page-load times by 45%.",
@@ -38,10 +38,21 @@ export const experiences: ExperienceItem[] = [
       "Orchestrated and implemented CI/CD pipelines with GitHub Actions, Docker, and Vercel, achieving zero-downtime deployments and faster release cycles.",
       "Created an AI-powered chatbot agent leveraging Large Language Models (LLMs) and Hugging Face transformers, enhancing user interaction and automating customer support workflows.",
       "Developed a cross-platform mobile app using Flutter, extending the web experience to Android and iOS while maintaining a unified backend.",
-      "Built a component driven UI system using Tailwind CSS and Storybook, improving design consistency and cutting front-end development effort by 30%.",
+      "Built a component-driven UI system using Tailwind CSS and Storybook, improving design consistency and cutting front-end development effort by 30%.",
       "Collaborated with AI engineers and stakeholders to deliver scalable, production-ready solutions with a focus on security, performance, and user experience.",
     ],
     skills: ["JavaScript", "TypeScript", "React.js", "Next.js", "Node.js", "Tailwind CSS", "Flutter", "Docker", "Azure", "GitHub Actions"],
+  },
+  {
+    company: "Saayam",
+    role: "Software Engineer",
+    period: "Jan 2024 - May 2024",
+    location: "Remote",
+    bullets: [
+      "Collaborated on building and scaling core infrastructure for NGO management platforms.",
+      "Delivered performance optimizations across the front-end stack while ensuring high-quality UI/UX standards.",
+    ],
+    skills: ["React.js", "Node.js", "Tailwind CSS", "TypeScript"],
   },
   {
     company: "Cyber Infrastructure (CIS)",
@@ -81,7 +92,7 @@ export const experiences: ExperienceItem[] = [
   {
     company: "DispatchTrack",
     role: "Software Engineer",
-    period: "Dec 2021 - Dec 2022 · 1 yr 1 mo",
+    period: "Dec 2020 - Dec 2022",
     location: "Hyderabad, Telangana, India · Hybrid",
     bullets: [
       "Developed and maintained enterprise logistics applications using JavaScript, React.js, Next.js, Node.js, and Express.js improving delivery scheduling efficiency and user experience.",

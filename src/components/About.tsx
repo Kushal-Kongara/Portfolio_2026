@@ -644,16 +644,17 @@ export default function About() {
         </SectionWrapper>
       </div>
 
-        {/* Events & Hackathons - Compact Bento Grid */}
-        <section id="events" className="w-full bg-[#f8f8f8] py-10 overflow-hidden flex flex-col">
+        {/* Events & Hackathons - Premium Bento Grid */}
+        <section id="events" className="w-full bg-[#f8f8f8] pb-24 pt-12 overflow-hidden flex flex-col">
           <div className="w-full max-w-[1400px] mx-auto px-2 md:px-4 lg:px-8">
             
+            {/* The Bento Grid */}
             <motion.div 
-              initial={{ opacity: 0, y: 30 }}
+              initial={{ opacity: 0, y: 40 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, amount: 0.1 }}
               transition={{ duration: 0.8, ease: "easeOut" }}
-              className="grid grid-cols-2 md:grid-cols-4 gap-3 md:gap-4 auto-rows-[150px] md:auto-rows-[180px] lg:auto-rows-[200px] overflow-hidden"
+              className="grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-6 auto-rows-[180px] md:auto-rows-[220px] lg:auto-rows-[250px] overflow-hidden"
             >
               
               {/* Row 1 */}
@@ -688,7 +689,7 @@ export default function About() {
                 {/* Decorative background pattern */}
                 <div className="absolute inset-0 opacity-[0.03] pointer-events-none" style={{ backgroundImage: "url('data:image/svg+xml,%3Csvg width=\\'20\\' height=\\'20\\' viewBox=\\'0 0 20 20\\' xmlns=\\'http://www.w3.org/2000/svg\\'%3E%3Cg fill=\\'%23000000\\' fill-opacity=\\'1\\' fill-rule=\\'evenodd\\'%3E%3Ccircle cx=\\'3\\' cy=\\'3\\' r=\\'1\\'/%3E%3Ccircle cx=\\'13\\' cy=\\'13\\' r=\\'1\\'/%3E%3C/g%3E%3C/svg%3E')" }} />
                 
-                <h3 className="text-2xl md:text-4xl lg:text-5xl font-black text-black uppercase tracking-tight [font-family:Impact,sans-serif] leading-[0.9] mb-0 relative z-10 w-full px-4">
+                <h3 className="text-3xl md:text-5xl lg:text-6xl font-black text-black uppercase tracking-tight [font-family:Impact,sans-serif] leading-[0.9] mb-0 relative z-10 w-full px-4">
                   EVENTS &<br /> HACKATHONS
                 </h3>
               </div>

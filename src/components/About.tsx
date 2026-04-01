@@ -648,7 +648,7 @@ export default function About() {
         <section id="events" className="w-full bg-[#f8f8f8] py-10 overflow-hidden flex flex-col">
           <div className="w-full max-w-[1400px] mx-auto px-2 md:px-4 lg:px-8">
             
-            {/* The Bento Grid */}
+            <motion.div 
               initial={{ opacity: 0, y: 30 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, amount: 0.1 }}

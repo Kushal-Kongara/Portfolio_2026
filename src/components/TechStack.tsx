@@ -90,35 +90,30 @@ export default function TechStack() {
     };
 
     return (
-        <div id="tech-stack" className="w-full bg-[#0B0B0C] font-sans text-white py-24 md:py-32 relative overflow-hidden selection:bg-white/20 selection:text-white">
-            {/* VIBRANT Aesthetic Radiance background (Enhanced Northern Lights) */}
-            <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[140%] h-[140%] pointer-events-none opacity-30">
-                <div className="absolute top-1/8 left-1/4 w-[600px] h-[600px] bg-blue-600/20 blur-[130px] rounded-full animate-pulse" />
-                <div className="absolute bottom-1/8 right-1/4 w-[700px] h-[700px] bg-purple-600/20 blur-[160px] rounded-full animate-pulse [animation-delay:2s]" />
-                <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[900px] h-[900px] bg-teal-500/15 blur-[220px] rounded-full" />
-                <div className="absolute top-1/3 right-1/3 w-[400px] h-[400px] bg-orange-500/10 blur-[100px] rounded-full animate-pulse [animation-delay:1.5s]" />
-            </div>
+        <div id="tech-stack" className="w-full bg-[#FAFAF5] font-sans text-black py-24 md:py-32 relative overflow-hidden selection:bg-black/10 selection:text-black">
+            {/* Subtle clean paper texture */}
+            <div className="absolute inset-0 opacity-[0.03] pointer-events-none bg-[url('https://www.transparenttextures.com/patterns/paper-fibers.png')]" />
 
             <SectionWrapper id="tech-stack-inner" className="max-w-[1400px] px-8 md:px-20 mx-auto relative z-10 flex flex-col items-center">
 
-                {/* Header - Minimalist & Premium */}
+                {/* Header - Minimalist & Premium (Light Theme) */}
                 <div className="mb-24 w-full text-center">
                     <div className="inline-block group">
-                        <div className="text-[10px] font-black uppercase tracking-[0.8em] text-white/30 mb-4 flex items-center justify-center gap-4 group-hover:text-white/50 transition-colors">
-                            <span className="w-12 h-[1px] bg-white/10 group-hover:bg-blue-500/30 transition-all" />
-                            Aesthetic Archive // v2.6
-                            <span className="w-12 h-[1px] bg-white/10 group-hover:bg-purple-500/30 transition-all" />
+                        <div className="text-[10px] font-black uppercase tracking-[0.8em] text-black/30 mb-4 flex items-center justify-center gap-4 group-hover:text-black/50 transition-colors">
+                            <span className="w-12 h-[1px] bg-black/10 group-hover:bg-blue-500/30 transition-all" />
+                            Technical Recognition // v2.6
+                            <span className="w-12 h-[1px] bg-black/10 group-hover:bg-purple-500/30 transition-all" />
                         </div>
                         <h2 className="text-7xl md:text-9xl font-black uppercase tracking-tighter leading-none [font-family:Impact,sans-serif]" style={{ transform: "scaleY(1.1)" }}>
-                            TECH <span className="text-white/20 animate-pulse">#STACK</span>
+                            TECH <span className="text-black/10">#STACK</span>
                         </h2>
                     </div>
                 </div>
 
-                {/* The Horizontally Aligned VIBRANT Grid */}
+                {/* The Horizontally Aligned VIBRANT Grid (Black background maintained) */}
                 <div className="relative w-full flex justify-center mb-24 transition-all duration-700">
                     <div
-                        className="grid border border-white/5 bg-[#121214]/90 backdrop-blur-md rounded-2xl p-4 md:p-10 shadow-[0_30px_70px_rgba(0,0,0,0.6),inset_0_1px_1px_rgba(255,255,255,0.05)]"
+                        className="grid border-[3px] border-black bg-black rounded-2xl p-4 md:p-10 shadow-[0_30px_70px_rgba(0,0,0,0.15),inset_0_1px_1px_rgba(255,255,255,0.05)]"
                         style={{
                             gridTemplateColumns: `repeat(${COLS}, minmax(0, 1fr))`,
                             width: '100%',
@@ -139,15 +134,15 @@ export default function TechStack() {
                                 return (
                                     <div
                                         key={`${rIdx}-${cIdx}`}
-                                        className={`relative border-[0.5px] border-white/[0.04] flex items-center justify-center transition-all duration-500 rounded-[5px] md:rounded-[8px]
-                                                   ${cell ? 'group/cell bg-white/[0.04] shadow-[0_1px_0_rgba(255,255,255,0.05)]' : 'bg-transparent'}
+                                        className={`relative border-[0.5px] border-white/[0.05] flex items-center justify-center transition-all duration-500 rounded-[5px] md:rounded-[8px]
+                                                   ${cell ? 'group/cell bg-white/[0.05] shadow-[0_1px_0_rgba(255,255,255,0.05)]' : 'bg-transparent'}
                                                    ${isCurrentHovered ? 'z-30 scale-[1.12] md:scale-[1.15] bg-white/[0.15] ring-2 ring-white/20' : ''}`}
                                         style={isCurrentHovered ? { 
-                                            boxShadow: `0 0 40px ${getGlowColor(hoveredWord)}40, inset 0 1px 2px rgba(255,255,255,0.2)`,
-                                            backgroundColor: `${getGlowColor(hoveredWord)}15`
+                                            boxShadow: `0 0 40px ${getGlowColor(hoveredWord)}50, inset 0 1px 2px rgba(255,255,255,0.2)`,
+                                            backgroundColor: `${getGlowColor(hoveredWord)}20`
                                         } : cell ? {
                                             backgroundColor: `${cell.color}08`,
-                                            borderColor: `${cell.color}15`
+                                            borderColor: `${cell.color}20`
                                         } : {}}
                                     >
                                         {cell ? (
@@ -157,7 +152,7 @@ export default function TechStack() {
                                                     style={{ 
                                                         color: isCurrentHovered ? '#FFFFFF' : cell.color, 
                                                         fontSize: 'clamp(7px, 1.2vw, 16px)',
-                                                        textShadow: `0 0 8px ${cell.color}40`
+                                                        textShadow: `0 0 8px ${cell.color}50`
                                                     }}
                                                 >
                                                     {cell.char}
@@ -176,12 +171,12 @@ export default function TechStack() {
                     </div>
                 </div>
 
-                {/* Aesthetic VIBRANT Icon Vault */}
+                {/* Aesthetic VIBRANT Icon Vault (Optimized for White Background) */}
                 <div className="w-full">
-                    <div className="text-[10px] font-black uppercase tracking-[0.5em] mb-16 text-white/20 text-center flex items-center justify-center gap-8">
-                        <span className="w-16 h-[1px] bg-gradient-to-r from-transparent to-white/10" />
-                        Aesthetic Technical Recognition Vault
-                        <span className="w-16 h-[1px] bg-gradient-to-l from-transparent to-white/10" />
+                    <div className="text-[10px] font-black uppercase tracking-[0.5em] mb-16 text-black/20 text-center flex items-center justify-center gap-8">
+                        <span className="w-16 h-[1px] bg-gradient-to-r from-transparent to-black/5" />
+                        Premium Technological Archive
+                        <span className="w-16 h-[1px] bg-gradient-to-l from-transparent to-black/5" />
                     </div>
                     <div className="flex flex-wrap justify-center gap-4 md:gap-10">
                         {crosswordWords.map((word, idx) => (
@@ -196,13 +191,13 @@ export default function TechStack() {
                                 onMouseLeave={() => setHoveredWord(null)}
                             >
                                 <div 
-                                    className="p-4 md:p-7 bg-[#161618]/70 backdrop-blur-xl border border-white/5 rounded-[22px] transition-all duration-500 group-hover:-translate-y-3 group-hover:border-white/30 shadow-[0_15px_35px_rgba(0,0,0,0.4),inset_0_1px_1px_rgba(255,255,255,0.05)] group-hover:shadow-[0_25px_60px_rgba(0,0,0,0.7),0_0_40px_rgba(255,255,255,0.05)] cursor-pointer overflow-hidden relative"
+                                    className="p-4 md:p-7 bg-white/80 backdrop-blur-xl border border-black/5 rounded-[22px] transition-all duration-500 group-hover:-translate-y-3 group-hover:border-black/10 shadow-[0_15px_35px_rgba(0,0,0,0.05),inset_0_1px_1px_rgba(255,255,255,0.8)] group-hover:shadow-[0_25px_60px_rgba(0,0,0,0.1),0_0_40px_rgba(0,0,0,0.02)] cursor-pointer overflow-hidden relative"
                                 >
                                     {/* Subtle background colored glow on hover */}
-                                    <div className="absolute inset-0 opacity-0 group-hover:opacity-10 transition-opacity duration-500" style={{ backgroundColor: word.color }} />
+                                    <div className="absolute inset-0 opacity-0 group-hover:opacity-[0.03] transition-opacity duration-500" style={{ backgroundColor: word.color }} />
                                     
-                                    <div className="text-3xl md:text-5xl text-white/30 transition-all duration-300 group-hover:scale-110 relative z-10" style={{ color: hoveredWord === word.num ? word.color : undefined }}>
-                                      <span className={hoveredWord === word.num ? 'drop-shadow-[0_0_15px_rgba(255,255,255,0.3)]' : ''}>{word.icon}</span>
+                                    <div className="text-3xl md:text-5xl text-black/20 transition-all duration-300 group-hover:scale-110 relative z-10" style={{ color: hoveredWord === word.num ? word.color : undefined }}>
+                                      <span className={hoveredWord === word.num ? 'drop-shadow-[0_0_15px_rgba(0,0,0,0.1)]' : ''}>{word.icon}</span>
                                     </div>
                                 </div>
                                 <div className="absolute -bottom-10 left-1/2 -translate-x-1/2 opacity-0 group-hover:opacity-100 transition-all duration-300 pointer-events-none transform group-hover:-translate-y-2">

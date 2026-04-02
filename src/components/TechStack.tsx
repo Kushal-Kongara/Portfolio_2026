@@ -178,30 +178,27 @@ export default function TechStack() {
                         Premium Technological Archive
                         <span className="w-16 h-[1px] bg-gradient-to-l from-transparent to-black/5" />
                     </div>
-                    <div className="flex flex-wrap justify-center gap-4 md:gap-10">
+                    <div className="flex flex-wrap justify-center gap-6 md:gap-14">
                         {crosswordWords.map((word, idx) => (
                             <motion.div
                                 key={`vault-${idx}`}
-                                initial={{ opacity: 0, y: 30 }}
+                                initial={{ opacity: 0, y: 20 }}
                                 whileInView={{ opacity: 1, y: 0 }}
-                                transition={{ duration: 0.6, delay: idx * 0.015 }}
+                                transition={{ duration: 0.5, delay: idx * 0.01 }}
                                 viewport={{ once: true }}
-                                className="group relative"
+                                className="flex flex-col items-center gap-3"
                                 onMouseEnter={() => setHoveredWord(word.num)}
                                 onMouseLeave={() => setHoveredWord(null)}
                             >
                                 <div 
-                                    className="p-4 md:p-7 bg-white/80 backdrop-blur-xl border border-black/5 rounded-[22px] transition-all duration-500 group-hover:-translate-y-3 group-hover:border-black/10 shadow-[0_15px_35px_rgba(0,0,0,0.05),inset_0_1px_1px_rgba(255,255,255,0.8)] group-hover:shadow-[0_25px_60px_rgba(0,0,0,0.1),0_0_40px_rgba(0,0,0,0.02)] cursor-pointer overflow-hidden relative"
+                                    className="p-4 md:p-6 bg-white/70 backdrop-blur-xl border border-black/5 rounded-[22px] transition-all duration-300 shadow-[0_10px_25px_rgba(0,0,0,0.05),inset_0_1px_1px_rgba(255,255,255,1)] flex items-center justify-center relative overflow-hidden"
                                 >
-                                    {/* Subtle background colored glow on hover */}
-                                    <div className="absolute inset-0 opacity-0 group-hover:opacity-[0.03] transition-opacity duration-500" style={{ backgroundColor: word.color }} />
-                                    
-                                    <div className="text-3xl md:text-5xl text-black/20 transition-all duration-300 group-hover:scale-110 relative z-10" style={{ color: hoveredWord === word.num ? word.color : undefined }}>
-                                      <span className={hoveredWord === word.num ? 'drop-shadow-[0_0_15px_rgba(0,0,0,0.1)]' : ''}>{word.icon}</span>
+                                    <div className="text-3xl md:text-5xl transition-all duration-300" style={{ color: word.color }}>
+                                      {word.icon}
                                     </div>
                                 </div>
-                                <div className="absolute -bottom-10 left-1/2 -translate-x-1/2 opacity-0 group-hover:opacity-100 transition-all duration-300 pointer-events-none transform group-hover:-translate-y-2">
-                                    <span className="text-[9px] font-black uppercase tracking-[0.3em] transition-colors" style={{ color: word.color }}>
+                                <div className="text-center">
+                                    <span className="text-[9px] font-black uppercase tracking-[0.2em] opacity-40" style={{ color: word.color }}>
                                       {word.word}
                                     </span>
                                 </div>

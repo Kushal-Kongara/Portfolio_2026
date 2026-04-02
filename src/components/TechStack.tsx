@@ -143,31 +143,6 @@ export default function TechStack() {
                     </div>
                 </div>
 
-                {/* Clue Ledger - Moved below the grid */}
-                <div className="w-full mb-20">
-                    <div className="text-sm font-black uppercase tracking-[0.4em] mb-8 border-b-4 border-black pb-3 text-center">
-                        THE TECHNICAL CLUE LEDGER
-                    </div>
-                    <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-x-8 gap-y-4">
-                        {crosswordWords.map((word) => (
-                            <motion.div
-                                key={word.num}
-                                onMouseEnter={() => setHoveredWord(word.num)}
-                                onMouseLeave={() => setHoveredWord(null)}
-                                whileHover={{ x: 4, scale: 1.02 }}
-                                className={`flex items-center gap-3 cursor-pointer group border-b border-black/10 pb-1.5 transition-all
-                                           ${hoveredWord && hoveredWord !== word.num ? 'opacity-20 blur-[0.5px]' : 'opacity-100'}`}
-                            >
-                                <span className="bg-black text-white text-[10px] font-black px-1.5 py-0.5 min-w-[24px] text-center">
-                                    {word.num}
-                                </span>
-                                <span className={`text-[11px] font-black uppercase tracking-tight transition-colors group-hover:text-black`} style={{ color: hoveredWord === word.num ? word.color : 'inherit' }}>
-                                    {word.word}
-                                </span>
-                            </motion.div>
-                        ))}
-                    </div>
-                </div>
 
                 {/* New Icon Vault - Under the clues */}
                 <div className="w-full">

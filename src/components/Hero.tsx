@@ -1,7 +1,7 @@
 "use client";
 /* eslint-disable react/no-unescaped-entities */
 
-import { motion, useScroll, useMotionValueEvent, useTransform } from "framer-motion";
+import { motion, useScroll, useMotionValueEvent, useTransform, useMotionValue, useSpring } from "framer-motion";
 import Image from "next/image";
 import { useState, useEffect, useRef } from "react";
 import { FiGithub, FiLinkedin, FiInstagram } from "react-icons/fi";
@@ -97,12 +97,34 @@ export default function Hero() {
   const bubbleOpacity = useTransform(scrollYProgress, [0, 0.5], [1, 0]);
 
   const socialY = useTransform(scrollYProgress, [0, 1], [0, 40]);
+
+  // Mouse parallax for hero character
+  const rawMouseX = useMotionValue(0);
+  const rawMouseY = useMotionValue(0);
+  const mouseCharX = useSpring(rawMouseX, { stiffness: 60, damping: 20 });
+  const mouseCharY = useSpring(rawMouseY, { stiffness: 60, damping: 20 });
+
+  const handleMouseMove = (e: React.MouseEvent<HTMLElement>) => {
+    const rect = containerRef.current?.getBoundingClientRect();
+    if (!rect) return;
+    const cx = rect.left + rect.width / 2;
+    const cy = rect.top + rect.height / 2;
+    rawMouseX.set(((e.clientX - cx) / rect.width) * 22);
+    rawMouseY.set(((e.clientY - cy) / rect.height) * 12);
+  };
+
+  const handleMouseLeave = () => {
+    rawMouseX.set(0);
+    rawMouseY.set(0);
+  };
   const socialOpacity = useTransform(scrollYProgress, [0, 0.7], [1, 0]);
 
   return (
     <section
       id="hero"
       ref={containerRef}
+      onMouseMove={handleMouseMove}
+      onMouseLeave={handleMouseLeave}
       className="relative w-full h-[100svh] min-h-[600px] bg-white overflow-hidden flex flex-col justify-between pt-10 pb-16 px-6 lg:px-12 selection:bg-[#ff5500] selection:text-white"
     >
       {/* SVG Filter for Pencil Sketch Effect */}
@@ -176,7 +198,7 @@ export default function Hero() {
       <motion.div
         initial={{ y: 100, opacity: 0 }}
         animate={{ y: 0, opacity: 1 }}
-        style={{ y: charY, opacity: charOpacity }}
+        style={{ y: charY, opacity: charOpacity, x: mouseCharX, rotateY: mouseCharX, rotateX: mouseCharY }}
         transition={{ duration: 0.8, delay: 0.5, ease: "easeOut" }}
         className="absolute bottom-0 right-0 z-20 w-full md:w-[80%] lg:w-[60%] h-[80%] pointer-events-none flex items-end justify-end md:pr-4 lg:pr-8"
       >

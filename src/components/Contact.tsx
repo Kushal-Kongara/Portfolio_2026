@@ -110,7 +110,7 @@ export default function Contact() {
                 data-cal-config='{"layout":"month_view"}'
                 className="border-2 border-[#FFC107] text-[#FFC107] text-[10px] font-black tracking-widest px-6 py-2 rounded-full hover:bg-[#FFC107] hover:text-[#111111] transition-all duration-300 uppercase w-full sm:w-auto"
               >
-                📅 Schedule a Call
+                Schedule a Call
               </button>
             </div>
           </motion.div>

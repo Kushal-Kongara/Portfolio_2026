@@ -1,7 +1,10 @@
 import type { Metadata } from "next";
 import { DM_Sans, Caveat } from "next/font/google";
 import { Analytics } from "@vercel/analytics/next";
+import dynamic from "next/dynamic";
 import "./globals.css";
+
+const SpotifyWidget = dynamic(() => import("@/components/SpotifyWidget"), { ssr: false });
 
 const dmSans = DM_Sans({
   subsets: ["latin"],
@@ -36,6 +39,7 @@ export default function RootLayout({
     <html lang="en" className={`${dmSans.variable} ${caveat.variable}`}>
       <body className="min-h-screen bg-white font-sans antialiased">
         {children}
+        <SpotifyWidget />
         <Analytics />
       </body>
     </html>

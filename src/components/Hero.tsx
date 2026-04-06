@@ -6,12 +6,24 @@ import Image from "next/image";
 import { useState, useEffect, useRef } from "react";
 import { FiGithub, FiLinkedin, FiInstagram } from "react-icons/fi";
 import Vapi from "@vapi-ai/web";
+import { getCalApi } from "@calcom/embed-react";
 
 export default function Hero() {
   const [imgError, setImgError] = useState(false);
   const [isCallActive, setIsCallActive] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const vapiRef = useRef<any>(null);
+
+  useEffect(() => {
+    (async function () {
+      const cal = await getCalApi({ namespace: "30min" });
+      cal("ui", {
+        styles: { branding: { brandColor: "#ff5500" } },
+        hideEventTypeDetails: false,
+        layout: "month_view",
+      });
+    })();
+  }, []);
 
   useEffect(() => {
     vapiRef.current = new Vapi("5e00c6e3-fb53-423d-9c61-125dfd4ca769");
@@ -102,7 +114,7 @@ export default function Hero() {
       </svg>
 
       {/* Giant Background Text & Sub Titles */}
-      <motion.div 
+      <motion.div
         style={{ y: textY, scale: textScale, opacity: textOpacity }}
         className="absolute inset-0 flex flex-col items-center justify-center z-0 pointer-events-none select-none overflow-hidden pb-12"
       >
@@ -143,10 +155,10 @@ export default function Hero() {
         <button
           onClick={toggleCall}
           className={`p-3 md:p-4 rounded-2xl text-xs font-black relative cursor-pointer hover:scale-105 transition-all duration-300 max-w-[150px] md:max-w-[170px] flex items-center justify-center text-center leading-snug border-[3px]
-            ${isCallActive ? "bg-white text-green-600 border-green-600 shadow-[4px_4px_0px_#16a34a]" : 
-              isLoading ? "bg-white text-orange-500 border-black shadow-[4px_4px_0px_#000]" : 
-              hasScrolled ? "bg-black text-white border-white shadow-[4px_4px_0px_#fff]" : 
-              "bg-white text-black border-black shadow-[4px_4px_0px_#000] hover:bg-gray-50"
+            ${isCallActive ? "bg-white text-green-600 border-green-600 shadow-[4px_4px_0px_#16a34a]" :
+              isLoading ? "bg-white text-orange-500 border-black shadow-[4px_4px_0px_#000]" :
+                hasScrolled ? "bg-black text-white border-white shadow-[4px_4px_0px_#fff]" :
+                  "bg-white text-black border-black shadow-[4px_4px_0px_#000] hover:bg-gray-50"
             }`}
         >
           {isLoading ? "Connecting..." : isCallActive ? "Stop AI Agent" : hasScrolled ? `Hey.... don't scroll. Talk to me.` : "Click on me to Activate the voice agent."}
@@ -206,7 +218,22 @@ export default function Hero() {
           </p>
 
           {/* Bold Colorful Pencil Art Social Icons */}
-          <div className="flex gap-5 shrink-0 ml-auto sm:ml-0">
+          <div className="flex items-center gap-5 shrink-0 ml-auto sm:ml-0">
+            {/* Book a Call pill */}
+            <motion.button
+              data-cal-namespace="30min"
+              data-cal-link="kushalkongara/30min"
+              data-cal-config='{"layout":"month_view"}'
+              initial={{ opacity: 0, y: 10 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.5, delay: 1.0 }}
+              whileHover={{ scale: 1.08 }}
+              whileTap={{ scale: 0.95 }}
+              className="bg-[#ff5500] text-white text-[10px] font-black tracking-widest px-4 py-2 border-[3px] border-black shadow-[3px_3px_0px_#000] hover:shadow-[1px_1px_0px_#000] transition-all duration-200 uppercase cursor-pointer"
+              style={{ borderRadius: `255px 15px 225px 15px/15px 225px 15px 255px` }}
+            >
+              Book a Call
+            </motion.button>
             {[
               { Icon: FiLinkedin, href: "https://www.linkedin.com/in/kushalkongara/", label: "LinkedIn", color: "#0A66C2" },
               { Icon: FiGithub, href: "https://github.com/Kushal-Kongara", label: "GitHub", color: "#333333" },

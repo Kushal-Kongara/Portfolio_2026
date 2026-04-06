@@ -1,13 +1,25 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { useRef, useState } from "react";
+import { useRef, useState, useEffect } from "react";
 import emailjs from "@emailjs/browser";
+import { getCalApi } from "@calcom/embed-react";
 
 export default function Contact() {
   const form = useRef<HTMLFormElement>(null);
   const [isSending, setIsSending] = useState(false);
   const [status, setStatus] = useState<{ type: 'success' | 'error' | null, message: string }>({ type: null, message: "" });
+
+  useEffect(() => {
+    (async function () {
+      const cal = await getCalApi({ namespace: "30min" });
+      cal("ui", {
+        styles: { branding: { brandColor: "#FFC107" } },
+        hideEventTypeDetails: false,
+        layout: "month_view",
+      });
+    })();
+  }, []);
 
   const sendEmail = (e: React.FormEvent) => {
     e.preventDefault();
@@ -87,6 +99,19 @@ export default function Contact() {
               <div className="leading-tight text-base">
                 San Jose, CA, USA
               </div>
+            </div>
+
+            {/* Cal.com Schedule Button */}
+            <div className="pt-2">
+              <p className="text-[#FFC107]/50 text-[10px] uppercase mb-2 tracking-widest">Prefer a quick call?</p>
+              <button
+                data-cal-namespace="30min"
+                data-cal-link="kushalkongara/30min"
+                data-cal-config='{"layout":"month_view"}'
+                className="border-2 border-[#FFC107] text-[#FFC107] text-[10px] font-black tracking-widest px-6 py-2 rounded-full hover:bg-[#FFC107] hover:text-[#111111] transition-all duration-300 uppercase w-full sm:w-auto"
+              >
+                📅 Schedule a Call
+              </button>
             </div>
           </motion.div>
 

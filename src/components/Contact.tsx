@@ -60,13 +60,13 @@ export default function Contact() {
   };
 
   return (
-    <section id="contact" className="relative w-full bg-[#111111] text-[#10b981] py-24 flex justify-center border-t-8 border-[#111111] overflow-hidden font-sans">
+    <section id="contact" className="relative w-full bg-[#111111] text-[#ffff00] py-16 flex justify-center border-t-8 border-[#111111] overflow-hidden font-sans">
       <div className="relative z-10 w-full max-w-4xl px-8">
 
-        {/* The heading (Unified Typography) */}
-        <div className="text-center mb-16 space-y-4">
-            <div className="inline-flex items-center gap-3 bg-white border-[2.5px] border-black px-4 py-1 shadow-[4px_4px_0px_#10b981]">
-                <span className="w-2 h-2 bg-[#10b981] animate-pulse" />
+        {/* The heading (Unified Typography - Smaller) */}
+        <div className="text-center mb-10 space-y-4">
+            <div className="inline-flex items-center gap-3 bg-white border-[2.5px] border-black px-4 py-1 shadow-[4px_4px_0px_#ffff00]">
+                <span className="w-2 h-2 bg-[#ffff00] animate-pulse" />
                 <p className="text-black text-[11px] font-black tracking-[0.4em] uppercase">
                     SYSTEM.LOG / CONTACT
                 </p>
@@ -75,16 +75,16 @@ export default function Contact() {
               className="text-white font-black uppercase leading-none tracking-tighter"
               style={{
                 fontFamily: "var(--font-dm-sans), sans-serif",
-                fontSize: "clamp(3.5rem, 10vw, 6rem)",
+                fontSize: "clamp(2.5rem, 8vw, 4.5rem)",
                 letterSpacing: "-0.06em"
               }}
             >
-              GET IN <span className="text-[#10b981]">TOUCH</span>
+              GET IN <span className="text-[#ffff00]">TOUCH</span>
             </h2>
         </div>
 
-        {/* The original two-column layout */}
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-16">
+        {/* The original two-column layout - Compact */}
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-12">
 
           {/* Left Column - Contact Info */}
           <motion.div
@@ -92,31 +92,31 @@ export default function Contact() {
             whileInView={{ opacity: 1 }}
             viewport={{ once: true }}
             transition={{ delay: 0.2, duration: 0.6 }}
-            className="flex flex-col gap-8 text-sm font-bold"
+            className="flex flex-col gap-6 text-sm font-bold"
           >
             <div className="space-y-1">
-              <p className="text-[#10b981]/50 text-[10px] uppercase tracking-widest font-black">Email_Channel</p>
-              <a href="mailto:kkushal2509@gmail.com" className="hover:text-white transition-colors text-xl tracking-tight">kkushal2509@gmail.com</a>
+              <p className="text-[#ffff00]/50 text-[10px] uppercase tracking-widest font-black">Email_Channel</p>
+              <a href="mailto:kkushal2509@gmail.com" className="hover:text-white transition-colors text-lg tracking-tight">kkushal2509@gmail.com</a>
             </div>
             <div className="space-y-1">
-              <p className="text-[#10b981]/50 text-[10px] uppercase tracking-widest font-black">Voice_Channel</p>
-              <a href="tel:+16592530511" className="hover:text-white transition-colors text-xl tracking-tight">(659) 253-0511</a>
+              <p className="text-[#ffff00]/50 text-[10px] uppercase tracking-widest font-black">Voice_Channel</p>
+              <a href="tel:+16592530511" className="hover:text-white transition-colors text-lg tracking-tight">(659) 253-0511</a>
             </div>
             <div className="space-y-1">
-              <p className="text-[#10b981]/50 text-[10px] uppercase tracking-widest font-black">Geo_Location</p>
-              <div className="text-xl tracking-tight text-neutral-300">
+              <p className="text-[#ffff00]/50 text-[10px] uppercase tracking-widest font-black">Geo_Location</p>
+              <div className="text-lg tracking-tight text-neutral-300">
                 San Jose, CA, USA
               </div>
             </div>
 
             {/* Cal.com Schedule Button (Neo-Brutalist Style) */}
-            <div className="pt-4">
-              <p className="text-[#10b981]/50 text-[10px] uppercase mb-4 tracking-widest font-black">Prefer a direct sync?</p>
+            <div className="pt-2">
+              <p className="text-[#ffff00]/50 text-[10px] uppercase mb-3 tracking-widest font-black">Prefer a direct sync?</p>
               <button
                 data-cal-namespace="30min"
                 data-cal-link="kushalkongara/30min"
                 data-cal-config='{"layout":"month_view"}'
-                className="bg-[#10b981] text-black text-[11px] font-black tracking-widest px-8 py-3 border-[2px] border-black shadow-[6px_6px_0px_#000] hover:shadow-none hover:translate-x-[2px] hover:translate-y-[2px] transition-all uppercase w-full sm:w-auto"
+                className="bg-[#ffff00] text-black text-[11px] font-black tracking-widest px-8 py-3 border-[2px] border-black shadow-[6px_6px_0px_#000] hover:shadow-none hover:translate-x-[2px] hover:translate-y-[2px] transition-all uppercase w-full sm:w-auto"
               >
                 Schedule_a_Call
               </button>
@@ -131,38 +131,38 @@ export default function Contact() {
             transition={{ delay: 0.3, duration: 0.6 }}
             className="w-full"
           >
-            <form ref={form} className="flex flex-col gap-8" onSubmit={sendEmail}>
+            <form ref={form} className="flex flex-col gap-6" onSubmit={sendEmail}>
 
-              <div className="flex flex-col sm:flex-row gap-8">
+              <div className="flex flex-col sm:flex-row gap-6">
                 <div className="flex-1 flex flex-col gap-2">
-                  <label htmlFor="firstName" className="text-[#10b981]/70 text-[9px] font-black tracking-widest uppercase italic">_First_Name</label>
+                  <label htmlFor="firstName" className="text-[#ffff00]/70 text-[9px] font-black tracking-widest uppercase italic">_First_Name</label>
                   <input
                     type="text" id="firstName" name="firstName" required
-                    className="w-full bg-transparent border-b-2 border-[#10b981]/20 pb-2 text-white text-base font-semibold focus:outline-none focus:border-[#10b981] transition-colors"
+                    className="w-full bg-transparent border-b-2 border-[#ffff00]/20 pb-2 text-white text-base font-semibold focus:outline-none focus:border-[#ffff00] transition-colors"
                   />
                 </div>
                 <div className="flex-1 flex flex-col gap-2">
-                  <label htmlFor="lastName" className="text-[#10b981]/70 text-[9px] font-black tracking-widest uppercase italic">_Last_Name</label>
+                  <label htmlFor="lastName" className="text-[#ffff00]/70 text-[9px] font-black tracking-widest uppercase italic">_Last_Name</label>
                   <input
                     type="text" id="lastName" name="lastName" required
-                    className="w-full bg-transparent border-b-2 border-[#10b981]/20 pb-2 text-white text-base font-semibold focus:outline-none focus:border-[#10b981] transition-colors"
+                    className="w-full bg-transparent border-b-2 border-[#ffff00]/20 pb-2 text-white text-base font-semibold focus:outline-none focus:border-[#ffff00] transition-colors"
                   />
                 </div>
               </div>
 
               <div className="flex flex-col gap-2">
-                <label htmlFor="email" className="text-[#10b981]/70 text-[9px] font-black tracking-widest uppercase italic">_Email_Addr</label>
+                <label htmlFor="email" className="text-[#ffff00]/70 text-[9px] font-black tracking-widest uppercase italic">_Email_Addr</label>
                 <input
                   type="email" id="email" name="user_email" required
-                  className="w-full bg-transparent border-b-2 border-[#10b981]/20 pb-2 text-white text-base font-semibold focus:outline-none focus:border-[#10b981] transition-colors"
+                  className="w-full bg-transparent border-b-2 border-[#ffff00]/20 pb-2 text-white text-base font-semibold focus:outline-none focus:border-[#ffff00] transition-colors"
                 />
               </div>
 
               <div className="flex flex-col gap-2">
-                <label htmlFor="message" className="text-[#10b981]/70 text-[9px] font-black tracking-widest uppercase italic">_Message_Prompt</label>
+                <label htmlFor="message" className="text-[#ffff00]/70 text-[9px] font-black tracking-widest uppercase italic">_Message_Prompt</label>
                 <textarea
                   id="message" name="message" rows={2} required
-                  className="w-full bg-transparent border-b-2 border-[#10b981]/20 pb-2 text-white text-base font-semibold focus:outline-none focus:border-[#10b981] transition-colors resize-none"
+                  className="w-full bg-transparent border-b-2 border-[#ffff00]/20 pb-2 text-white text-base font-semibold focus:outline-none focus:border-[#ffff00] transition-colors resize-none"
                 />
               </div>
 
@@ -172,10 +172,10 @@ export default function Contact() {
                 </p>
               )}
 
-              <div className="pt-4">
+              <div className="pt-2">
                 <button
                   type="submit" disabled={isSending}
-                  className="bg-white text-black text-[11px] font-black tracking-widest px-10 py-4 border-[2.5px] border-black shadow-[8px_8px_0px_#10b981] hover:shadow-none hover:translate-x-[3px] hover:translate-y-[3px] transition-all uppercase w-full sm:w-auto disabled:opacity-50"
+                  className="bg-white text-black text-[11px] font-black tracking-widest px-10 py-4 border-[2.5px] border-black shadow-[8px_8px_0px_#ffff00] hover:shadow-none hover:translate-x-[3px] hover:translate-y-[3px] transition-all uppercase w-full sm:w-auto disabled:opacity-50"
                 >
                   {isSending ? 'Sending...' : 'Transmit_Message'}
                 </button>
@@ -187,7 +187,7 @@ export default function Contact() {
         </div>
 
         {/* Footer */}
-        <footer className="mt-24 pt-8 border-t border-white/10 flex flex-col md:flex-row items-center justify-between gap-6 text-[10px] font-black text-[#10b981]/40 uppercase tracking-[0.3em]">
+        <footer className="mt-24 pt-8 border-t border-white/10 flex flex-col md:flex-row items-center justify-between gap-6 text-[10px] font-black text-[#ffff00]/40 uppercase tracking-[0.3em]">
           <p>© {new Date().getFullYear()} KUSHAL_KONGARA // SYSTEM_LOG</p>
           <nav className="flex gap-8">
             <a href="#about" className="hover:text-white transition-colors">About</a>
@@ -199,4 +199,3 @@ export default function Contact() {
     </section>
   );
 }
-

@@ -138,7 +138,7 @@ export default function TechStack() {
                                                 <>
                                                     <span
                                                         className="text-[1.8vw] md:text-[18px] font-black tracking-tighter select-none"
-                                                        style={{ color: cell.color }}
+                                                        style={{ color: '#000000' }}
                                                     >
                                                         {cell.char}
                                                     </span>

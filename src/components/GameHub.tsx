@@ -71,7 +71,7 @@ export default function GameHub() {
 
     return (
         <section 
-            className="relative w-full h-[650px] md:h-[800px] overflow-hidden bg-center flex flex-col pt-12 md:pt-16"
+            className="relative w-full h-[500px] md:h-[620px] overflow-hidden bg-center flex flex-col pt-10 md:pt-12"
             style={{ 
                 backgroundImage: "url('/game-hub-bg.png')",
                 backgroundSize: 'cover',

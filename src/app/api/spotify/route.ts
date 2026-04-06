@@ -1,5 +1,7 @@
 import { NextResponse } from "next/server";
 
+export const dynamic = "force-dynamic";
+
 const CLIENT_ID = process.env.SPOTIFY_CLIENT_ID;
 const CLIENT_SECRET = process.env.SPOTIFY_CLIENT_SECRET;
 const REFRESH_TOKEN = process.env.SPOTIFY_REFRESH_TOKEN;
@@ -31,14 +33,14 @@ export async function GET() {
 
     const nowRes = await fetch(
       "https://api.spotify.com/v1/me/player/currently-playing",
-      { headers: { Authorization: `Bearer ${accessToken}` }, next: { revalidate: 30 } }
+      { headers: { Authorization: `Bearer ${accessToken}` }, cache: "no-store" }
     );
 
     if (nowRes.status === 204 || nowRes.status > 400) {
       // Not playing — get last played
       const recentRes = await fetch(
         "https://api.spotify.com/v1/me/player/recently-played?limit=1",
-        { headers: { Authorization: `Bearer ${accessToken}` }, next: { revalidate: 60 } }
+        { headers: { Authorization: `Bearer ${accessToken}` }, cache: "no-store" }
       );
       const recent = await recentRes.json();
       const track = recent.items?.[0]?.track;

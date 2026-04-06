@@ -591,7 +591,28 @@ function GalleryCard({ story, style, delay = 0, objectPosition = "center" }: { s
 
 function VideoCard({ style, delay = 0 }: { style?: React.CSSProperties; delay?: number }) {
   const videoRef = useRef<HTMLVideoElement>(null);
+  const containerRef = useRef<HTMLDivElement>(null);
   const [muted, setMuted] = useState(true);
+
+  useEffect(() => {
+    const v = videoRef.current;
+    const container = containerRef.current;
+    if (!v || !container) return;
+    v.muted = true;
+
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          v.play().catch(() => {});
+        } else {
+          v.pause();
+        }
+      },
+      { threshold: 0.3 }
+    );
+    observer.observe(container);
+    return () => observer.disconnect();
+  }, []);
 
   const toggleMute = (e: React.MouseEvent) => {
     e.stopPropagation();
@@ -602,6 +623,7 @@ function VideoCard({ style, delay = 0 }: { style?: React.CSSProperties; delay?: 
 
   return (
     <motion.div
+      ref={containerRef}
       initial={{ opacity: 0, scale: 0.97 }}
       whileInView={{ opacity: 1, scale: 1 }}
       viewport={{ once: true, amount: 0.1 }}
@@ -611,13 +633,15 @@ function VideoCard({ style, delay = 0 }: { style?: React.CSSProperties; delay?: 
     >
       <video
         ref={videoRef}
-        src="/Video1.mp4"
         autoPlay
         muted
         loop
         playsInline
+        preload="auto"
         className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
-      />
+      >
+        <source src="/Video1.mp4" type="video/mp4" />
+      </video>
       <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/10 to-transparent" />
       <div className="absolute inset-0 bg-black/50 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
 
@@ -656,10 +680,15 @@ export default function About() {
   const [spotify, setSpotify] = useState<{ isPlaying?: boolean; title?: string; artist?: string; songUrl?: string } | null>(null);
 
   useEffect(() => {
-    fetch("/api/spotify")
-      .then((r) => r.json())
-      .then((d) => { if (d.configured && d.title) setSpotify(d); })
-      .catch(() => {});
+    const fetchSpotify = () => {
+      fetch("/api/spotify")
+        .then((r) => r.json())
+        .then((d) => { if (d.configured && d.title) setSpotify(d); })
+        .catch(() => {});
+    };
+    fetchSpotify();
+    const interval = setInterval(fetchSpotify, 30_000);
+    return () => clearInterval(interval);
   }, []);
 
   const bgScale = useTransform(scrollYProgress, [0, 0.5, 1], [1.1, 1, 1.1]);
@@ -793,34 +822,6 @@ export default function About() {
           </div>
         </SectionWrapper>
 
-        {/* Fun Facts Ticker */}
-        {(() => {
-          const facts = [
-            "☕ Coffee before code",
-            "🚀 Built first app at 19",
-            "🌏 India → San Francisco",
-            "♟️ Chess enthusiast",
-            "✦ UI obsessed",
-            "⚡ 5+ years shipping products",
-            "🤖 AI builder",
-            "🎯 Clean code advocate",
-            "🌊 Weekend hiker",
-            "📚 Always learning",
-          ];
-          const repeated = [...facts, ...facts];
-          return (
-            <div className="w-full overflow-hidden border-y border-black/8 py-3 bg-white relative z-10">
-              <div className="flex animate-ticker whitespace-nowrap">
-                {repeated.map((fact, i) => (
-                  <span key={i} className="inline-flex items-center gap-3 px-6 text-[11px] font-medium text-black/40">
-                    {fact}
-                    <span className="text-[#ff5500] font-black">·</span>
-                  </span>
-                ))}
-              </div>
-            </div>
-          );
-        })()}
       </div>
 
         {/* Events & Hackathons — Dark Editorial Gallery */}
@@ -867,8 +868,8 @@ export default function About() {
             >
               {/* Photo 0 — large hero, 5 wide × 2 tall */}
               <GalleryCard story={photoStories[0]} style={{ gridColumn: "1 / 6", gridRow: "1 / 3" }} delay={0} />
-              {/* Photo 1 (AWS) — move image down so faces show */}
-              <GalleryCard story={photoStories[1]} objectPosition="center 70%" style={{ gridColumn: "6 / 10", gridRow: "1 / 2" }} delay={0.05} />
+              {/* Photo 1 (AWS) — show slightly below top so faces centered */}
+              <GalleryCard story={photoStories[1]} objectPosition="center 25%" style={{ gridColumn: "6 / 10", gridRow: "1 / 2" }} delay={0.05} />
               {/* Photo 3 (Met Harnoor) — swapped to tall slot */}
               <GalleryCard story={photoStories[3]} style={{ gridColumn: "10 / 13", gridRow: "1 / 3" }} delay={0.1} />
               {/* Photo 2 (Weighted Biases) — swapped to shorter slot */}

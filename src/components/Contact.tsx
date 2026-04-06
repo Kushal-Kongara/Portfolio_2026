@@ -60,31 +60,25 @@ export default function Contact() {
   };
 
   return (
-    <section id="contact" className="relative w-full bg-[#111111] text-[#ffff00] py-16 flex justify-center border-t-8 border-[#111111] overflow-hidden font-sans">
-      <div className="relative z-10 w-full max-w-4xl px-8">
+    <section id="contact" className="relative w-full bg-[#111111] text-[#ffff00] py-12 flex justify-center border-t-8 border-[#111111] overflow-hidden font-sans">
+      <div className="relative z-10 w-full max-w-3xl px-4">
 
         {/* The heading (Unified Typography - Smaller) */}
-        <div className="text-center mb-10 space-y-4">
-            <div className="inline-flex items-center gap-3 bg-white border-[2.5px] border-black px-4 py-1 shadow-[4px_4px_0px_#ffff00]">
-                <span className="w-2 h-2 bg-[#ffff00] animate-pulse" />
-                <p className="text-black text-[11px] font-black tracking-[0.4em] uppercase">
-                    SYSTEM.LOG / CONTACT
-                </p>
-            </div>
-            <h2
-              className="text-white font-black uppercase leading-none tracking-tighter"
-              style={{
-                fontFamily: "var(--font-dm-sans), sans-serif",
-                fontSize: "clamp(2.5rem, 8vw, 4.5rem)",
-                letterSpacing: "-0.06em"
-              }}
-            >
-              GET IN <span className="text-[#ffff00]">TOUCH</span>
-            </h2>
+        <div className="text-center mb-8 space-y-4">
+          <h2
+            className="text-white font-black uppercase leading-none tracking-tighter"
+            style={{
+              fontFamily: "var(--font-dm-sans), sans-serif",
+              fontSize: "clamp(2.5rem, 8vw, 4rem)",
+              letterSpacing: "-0.06em"
+            }}
+          >
+            GET IN <span className="text-[#ffff00]">TOUCH</span>
+          </h2>
         </div>
 
         {/* The original two-column layout - Compact */}
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-12">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-10">
 
           {/* Left Column - Contact Info */}
           <motion.div
@@ -111,7 +105,7 @@ export default function Contact() {
 
             {/* Cal.com Schedule Button (Neo-Brutalist Style) */}
             <div className="pt-2">
-              <p className="text-[#ffff00]/50 text-[10px] uppercase mb-3 tracking-widest font-black">Prefer a direct sync?</p>
+              <p className="text-[#ffff00]/50 text-[10px] uppercase mb-4 tracking-widest font-black">Prefer a direct sync?</p>
               <button
                 data-cal-namespace="30min"
                 data-cal-link="kushalkongara/30min"
@@ -168,7 +162,7 @@ export default function Contact() {
 
               {status.type && (
                 <p className={`text-[10px] font-black tracking-widest uppercase ${status.type === 'success' ? 'text-green-400' : 'text-red-400'}`}>
-                   STATUS: {status.message}
+                  STATUS: {status.message}
                 </p>
               )}
 
@@ -187,7 +181,7 @@ export default function Contact() {
         </div>
 
         {/* Footer */}
-        <footer className="mt-24 pt-8 border-t border-white/10 flex flex-col md:flex-row items-center justify-between gap-6 text-[10px] font-black text-[#ffff00]/40 uppercase tracking-[0.3em]">
+        <footer className="mt-16 pt-8 border-t border-white/10 flex flex-col md:flex-row items-center justify-between gap-6 text-[10px] font-black text-[#ffff00]/40 uppercase tracking-[0.3em]">
           <p>© {new Date().getFullYear()} KUSHAL_KONGARA // SYSTEM_LOG</p>
           <nav className="flex gap-8">
             <a href="#about" className="hover:text-white transition-colors">About</a>

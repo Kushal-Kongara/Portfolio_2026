@@ -4,7 +4,6 @@ import { Analytics } from "@vercel/analytics/next";
 import dynamic from "next/dynamic";
 import "./globals.css";
 
-const SpotifyWidget = dynamic(() => import("@/components/SpotifyWidget"), { ssr: false });
 const ScrollProgress = dynamic(() => import("@/components/ScrollProgress"), { ssr: false });
 const CommandPalette = dynamic(() => import("@/components/CommandPalette"), { ssr: false });
 
@@ -43,7 +42,6 @@ export default function RootLayout({
         <ScrollProgress />
         <CommandPalette />
         {children}
-        <SpotifyWidget />
         <Analytics />
       </body>
     </html>

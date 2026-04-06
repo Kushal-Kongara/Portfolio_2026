@@ -4,9 +4,9 @@ import { useState, useRef, useEffect, useMemo } from "react";
 import { motion, useScroll, useTransform } from "framer-motion";
 import Image from "next/image";
 import SectionWrapper from "./SectionWrapper";
-import { about, events, photoStories, type PhotoStory } from "@/lib/constants";
-import { GitHubSticker, AWSSticker, SaveSticker } from "./HackathonStickers";
 import { SiSpotify } from "react-icons/si";
+import { FaLinkedin, FaGithub, FaXTwitter } from "react-icons/fa6";
+import { about, experiences, events, photoStories, type PhotoStory } from "@/lib/constants";
 
 function MomentCard({ story, className = "", delay = 0 }: { story: PhotoStory; className?: string; delay?: number }) {
   const [imgError, setImgError] = useState(false);
@@ -728,97 +728,131 @@ export default function About() {
             ABOUT ME
           </motion.h2>
 
-          <div className="flex flex-col lg:flex-row gap-10 lg:gap-16 items-center justify-between mb-4">
-            {/* Left: ID Badge container */}
-            <motion.div 
-               initial={{ opacity: 0, y: 50 }}
-               whileInView={{ opacity: 1, y: 0 }}
-               viewport={{ once: true, amount: 0.3 }}
-               transition={{ duration: 0.8, delay: 0.2 }}
-               className="w-full lg:w-[45%] flex justify-center lg:justify-center relative z-10"
-            >
-              <IDBadge />
-            </motion.div>
-
-            {/* Right: Intro Text inside Retro Window */}
-            <motion.div
-              initial={{ opacity: 0, scale: 0.95, y: 30 }}
-              whileInView={{ opacity: 1, scale: 1, y: 0 }}
-              viewport={{ once: true, amount: 0.3 }}
-              transition={{ type: "spring", bounce: 0.3, duration: 1, delay: 0.4 }}
-              className="w-full lg:w-[55%] bg-white border-[3px] border-black shadow-[8px_8px_0px_0px_rgba(0,0,0,1)] hover:shadow-[12px_12px_0px_0px_rgba(0,0,0,1)] hover:-translate-y-1 hover:-translate-x-1 transition-all duration-300 flex flex-col relative z-10"
-            >
-              {/* Window Top Bar */}
-              <div className="w-full bg-[#0cae67] border-b-[3px] border-black px-3 py-2 flex justify-between items-center gap-2">
-                <span className="text-white text-[10px] font-black tracking-wider uppercase flex items-center gap-1.5">
-                  <span className="w-1.5 h-1.5 rounded-full bg-white animate-pulse inline-block" />
-                  kushal@sf:~ · open to work
-                </span>
-                <div className="flex items-center gap-2">
-                  <div className="w-6 h-6 bg-white border-[2px] border-black flex items-center justify-center font-bold text-black text-xs leading-none pt-1 cursor-default hover:bg-gray-100 transition-colors">_</div>
-                  <div className="w-6 h-6 bg-white border-[2px] border-black flex items-center justify-center font-bold text-black text-[10px] cursor-default hover:bg-gray-100 transition-colors">□</div>
-                  <div className="w-6 h-6 bg-white border-[2px] border-black flex items-center justify-center font-bold text-black text-sm leading-none cursor-default hover:bg-gray-100 transition-colors">×</div>
-                </div>
-              </div>
-
-              {/* Window Content */}
-              <div className="p-5 md:p-6 space-y-4">
-                {about.intro.map((paragraph, i) => (
-                  <p
-                    key={i}
-                    className="text-black text-sm md:text-base leading-relaxed font-medium"
-                  >
-                    {paragraph.split(/(\*\*[^*]+\*\*)/g).map((part, j) =>
-                      part.startsWith("**") && part.endsWith("**") ? (
-                        <span key={j} className="text-[#ff5500] font-black">
-                          {part.slice(2, -2)}
-                        </span>
-                      ) : (
-                        part
-                      )
-                    )}
-                  </p>
-                ))}
-
-                {/* Spotify Now Playing / Last Played */}
-                {spotify && (
-                  <div className="border-t-[3px] border-black pt-4 mt-2">
-                    <a
-                      href={spotify.songUrl}
-                      target="_blank"
-                      rel="noreferrer"
-                      className="flex items-center gap-3 group"
-                    >
-                      <SiSpotify className="text-[#1DB954] text-2xl shrink-0" />
-                      <div className="flex-1 min-w-0">
-                        <p className="text-[9px] font-black uppercase tracking-widest text-black/40 leading-none mb-1">
-                          {spotify.isPlaying ? "Now Playing" : "Last Played"}
-                        </p>
-                        <p className="text-black font-black text-sm leading-tight truncate group-hover:text-[#ff5500] transition-colors">
-                          {spotify.title}
-                        </p>
-                        <p className="text-black/50 text-xs font-medium truncate">{spotify.artist}</p>
-                      </div>
-                      {/* Animated bars */}
-                      <div className="flex items-end gap-[2px] shrink-0">
-                        {[1, 0.5, 0.8, 0.3].map((h, i) => (
-                          <motion.span
-                            key={i}
-                            className="w-[3px] bg-[#1DB954] rounded-full"
-                            animate={spotify.isPlaying
-                              ? { scaleY: [h, 1, h * 0.4, 1, h] }
-                              : { scaleY: 0.3 }
-                            }
-                            transition={{ duration: 1.2, repeat: Infinity, delay: i * 0.15 }}
-                            style={{ height: 16, transformOrigin: "bottom", display: "inline-block" }}
-                          />
-                        ))}
-                      </div>
+          <div className="flex flex-col lg:flex-row gap-12 items-start justify-between mb-24 relative z-10 mt-12 w-full max-w-[1200px] mx-auto">
+            
+            {/* LEFT COLUMN: Neo-Brutalist Profile Card (Yellow) */}
+            <div className="w-full lg:w-[48%] flex flex-col gap-6">
+              <motion.div 
+                 initial={{ opacity: 0, x: -50 }}
+                 whileInView={{ opacity: 1, x: 0 }}
+                 viewport={{ once: true }}
+                 className="bg-[#fcd34d] border-[3px] border-black p-8 shadow-[10px_10px_0px_#000] relative overflow-hidden"
+              >
+                {/* Social Icons Top Right */}
+                <div className="absolute top-6 right-6 flex gap-3">
+                  {[
+                    { id: "ln", icon: <FaLinkedin />, href: "https://www.linkedin.com/in/kushal-kongara/" },
+                    { id: "gh", icon: <FaGithub />, href: "https://github.com/Kushal-Kongara" },
+                    { id: "tw", icon: <FaXTwitter />, href: "https://twitter.com/kushalkongara" }
+                  ].map((s, i) => (
+                    <a key={i} href={s.href} target="_blank" rel="noreferrer" className="w-9 h-9 bg-white border-[2px] border-black flex items-center justify-center shadow-[3px_3px_0px_#000] text-sm hover:translate-x-[2px] hover:translate-y-[2px] hover:shadow-none transition-all">
+                      {s.icon}
                     </a>
+                  ))}
+                </div>
+
+                <div className="space-y-6">
+                  <div>
+                    <h3 className="text-4xl md:text-5xl font-black text-black tracking-tighter uppercase leading-none">Kushal Kongara</h3>
+                    <p className="text-black/60 font-bold text-sm tracking-widest mt-2 uppercase">kkushal2509@gmail.com</p>
                   </div>
-                )}
+
+                  {/* Stats Grid */}
+                  <div className="grid grid-cols-4 gap-3 py-2">
+                    {[
+                      { val: "5+", label: "exp" },
+                      { val: "10+", label: "hacks" },
+                      { val: "15+", label: "projs" },
+                      { val: "500+", label: "git" }
+                    ].map((stat, i) => (
+                      <div key={i} className="bg-white/50 border-[2px] border-black p-3 flex flex-col items-center justify-center shadow-[3px_3px_0px_#000] aspect-square text-center">
+                        <span className="text-lg font-black text-black leading-none">{stat.val}</span>
+                        <span className="text-[8px] font-black uppercase text-black/50 mt-1">{stat.label}</span>
+                      </div>
+                    ))}
+                  </div>
+
+                  <div className="space-y-4">
+                    {about.intro.map((para, i) => (
+                      <p key={i} className="text-black font-bold text-xs md:text-sm leading-relaxed">
+                        {para}
+                      </p>
+                    ))}
+                  </div>
+
+                  {/* Spotify Recently Played Mini Integration */}
+                  {spotify && (
+                    <div className="bg-white/30 border-[2.5px] border-black p-4 flex items-center gap-4 shadow-[4px_4px_0px_#000]">
+                      <div className="relative w-10 h-10 flex-shrink-0">
+                         <SiSpotify className="text-[#1DB954] w-full h-full" />
+                      </div>
+                      <div className="min-w-0">
+                        <p className="text-[8px] font-black uppercase text-black/40 tracking-widest leading-none mb-1">
+                          {spotify.isPlaying ? "NOW_SYNCING" : "LAST_SESSION"}
+                        </p>
+                        <p className="text-black font-black text-[11px] truncate leading-tight uppercase">{spotify.title}</p>
+                        <p className="text-black/50 text-[10px] font-bold truncate uppercase">{spotify.artist}</p>
+                      </div>
+                    </div>
+                  )}
+
+                  <div className="flex gap-4 pt-4">
+                    <button className="flex-1 bg-black text-white px-6 py-4 font-black uppercase tracking-widest text-[10px] border-[2.5px] border-black shadow-[5px_5px_0px_#fff] hover:shadow-none hover:translate-x-[2px] hover:translate-y-[2px] transition-all flex items-center justify-center gap-2">
+                      <span className="w-1.5 h-1.5 bg-green-500 rounded-full animate-pulse" />
+                      Contact_Us
+                    </button>
+                    <button className="flex-1 bg-white text-black px-6 py-4 font-black uppercase tracking-widest text-[10px] border-[2.5px] border-black shadow-[5px_5px_0px_#000] hover:shadow-none hover:translate-x-[2px] hover:translate-y-[2px] transition-all">
+                      Portfolio
+                    </button>
+                  </div>
+                </div>
+              </motion.div>
+              
+              {/* Multiverse ID Badge (Integrated footer) */}
+              <div className="scale-75 origin-top opacity-50 hover:opacity-100 transition-opacity">
+                 <IDBadge />
               </div>
-            </motion.div>
+            </div>
+
+            {/* RIGHT COLUMN: Experience Timeline (White) */}
+            <div className="w-full lg:w-[48%] flex flex-col gap-6">
+              <div className="flex items-center gap-4 mb-2">
+                <div className="w-3 h-3 bg-black" />
+                <h3 className="text-xl font-black text-black tracking-tighter uppercase">CAREER_SYNC</h3>
+                <div className="h-[2px] flex-1 bg-black/10" />
+              </div>
+
+              <div className="space-y-4">
+                {experiences.slice(0, 4).map((exp, i) => (
+                  <motion.div
+                    key={i}
+                    initial={{ opacity: 0, y: 20 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    viewport={{ once: true }}
+                    transition={{ delay: i * 0.1 }}
+                    className="bg-white border-[3px] border-black p-5 shadow-[6px_6px_0px_#000] flex gap-5 group hover:-translate-y-1 transition-all"
+                  >
+                    <div className="w-12 h-12 bg-neutral-50 border-[2.5px] border-black flex items-center justify-center shrink-0 shadow-[4px_4px_0px_#fcd34d]">
+                       <div className="w-5 h-4 border-[2px] border-black relative">
+                          <div className="absolute -top-1.5 left-1/2 -translate-x-1/2 w-2 h-1.5 border-[2px] border-black" />
+                       </div>
+                    </div>
+                    <div className="min-w-0">
+                      <h4 className="text-black font-black text-lg tracking-tight uppercase leading-tight group-hover:text-[#ff5500] transition-colors">{exp.role}</h4>
+                      <p className="text-black/60 font-black text-[10px] uppercase tracking-wider">{exp.company}</p>
+                      <p className="text-black/40 font-bold text-[9px] mt-2 uppercase tracking-tighter">{exp.period}</p>
+                    </div>
+                  </motion.div>
+                ))}
+                
+                <a 
+                  href="#experience" 
+                  className="w-full py-4 border-[3px] border-dotted border-black/10 flex items-center justify-center text-[9px] font-black uppercase tracking-[0.4em] text-black/20 hover:border-black/40 hover:text-black transition-all"
+                >
+                  Fetch_Full_History_Params
+                </a>
+              </div>
+            </div>
           </div>
         </SectionWrapper>
 

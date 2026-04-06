@@ -21,13 +21,13 @@ const caveat = Caveat({
 export const metadata: Metadata = {
   title: "Kushal Kongara | Portfolio",
   description: "Product Designer & Frontend Engineer",
-  icons: {
+    icons: {
     icon: [
-      { url: "/favicon.ico?v=3" },
-      { url: "/icon.png?v=3", type: "image/png" },
+      { url: "/k-letter.gif?v=4" },
+      { url: "/k-letter.png?v=4", type: "image/png" },
     ],
-    shortcut: "/favicon.ico?v=3",
-    apple: "/apple-touch-icon.png?v=3",
+    shortcut: "/k-letter.png?v=4",
+    apple: "/k-letter.png?v=4",
   },
 };
 

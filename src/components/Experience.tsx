@@ -109,7 +109,7 @@ export default function Experience() {
   ];
 
   return (
-    <section id="experience" className="relative w-full bg-white py-24 overflow-hidden border-y-[3px] border-black">
+    <section id="experience" className="relative w-full bg-white py-24 overflow-hidden border-y-[3px] border-black pb-64">
       {/* Technical Grid Backdrop */}
       <div className="absolute inset-0 pointer-events-none opacity-[0.06]">
         <svg width="100%" height="100%">
@@ -148,7 +148,7 @@ export default function Experience() {
         </div>
 
         {/* Bento Grid (Colorful Windowed) */}
-        <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 gap-8 auto-rows-[200px]">
+        <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 gap-8 md:auto-rows-[200px]">
 
           {/* Tenure Window */}
           <motion.div
@@ -198,29 +198,6 @@ export default function Experience() {
             </div>
           </motion.div>
 
-          {/* Toolkit Manifest Window */}
-          <motion.div
-            initial={{ opacity: 0, x: 30 }}
-            whileInView={{ opacity: 1, x: 0 }}
-            transition={{ delay: 0.2 }}
-            className="md:col-span-1 md:row-span-2 bg-[#f0f9ff] border-[3px] border-black shadow-[8px_8px_0px_#000] flex flex-col"
-          >
-            <div className="bg-[#1a1a1a] px-4 py-2 border-b-[3px] border-black text-[10px] font-black text-neutral-400 uppercase tracking-widest flex items-center gap-2">
-               <span className="w-2.5 h-2.5 bg-[#0ea5e9] rounded-xs" /> TOOLS_MANIFEST
-            </div>
-            <div className="grid grid-cols-3 gap-5 p-8 flex-1 bg-white">
-              {skillIcons.map((skill, i) => (
-                <motion.div
-                  key={i}
-                  whileHover={{ scale: 1.2, rotate: -8, boxShadow: "4px 4px 0px #000" }}
-                  className={`flex items-center justify-center text-5xl rounded-2xl bg-white border-[2px] border-black aspect-square transition-all shadow-[4px_4px_0px_rgba(0,0,0,0.1)] ${skill.color}`}
-                >
-                  {skill.icon}
-                </motion.div>
-              ))}
-            </div>
-          </motion.div>
-
           {/* Efficiency Metric Window */}
           <motion.div
             initial={{ opacity: 0, y: 30 }}
@@ -237,6 +214,34 @@ export default function Experience() {
                 </h3>
                 <p className="text-white/90 font-black text-xs uppercase leading-tight italic tracking-tighter">Infrastructure Efficiency Boosted Via API Refactor.</p>
              </div>
+          </motion.div>
+
+          {/* Scale Detail Window */}
+          <motion.div
+            initial={{ opacity: 0, x: 30 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            transition={{ delay: 0.2 }}
+            className="md:col-span-2 md:row-span-1 bg-white border-[3px] border-black shadow-[8px_8px_0px_#000] flex flex-col overflow-hidden"
+          >
+            <div className="bg-[#1a1a1a] px-4 py-2 border-b-[3px] border-black text-[10px] font-black text-neutral-400 uppercase tracking-widest flex items-center gap-2">
+               <span className="w-2.5 h-2.5 bg-[#f59e0b] rounded-xs" /> SCALE_DISTRIBUTION
+            </div>
+            <div className="p-8 flex items-center justify-between gap-6 h-full bg-[#f0f9ff]">
+              <div>
+                <h3 className="text-5xl font-black text-black tracking-tighter leading-none mb-1">
+                  <CountUp to={5} suffix="K+" delay={0.5} />
+                </h3>
+                <p className="text-black font-black text-xs uppercase italic tracking-tighter">Daily Requests Handled at L&T Finance</p>
+              </div>
+              <div className="bg-white border-[2.5px] border-black p-4 shadow-[4px_4px_0px_#000]">
+                <div className="flex gap-1 mb-2">
+                  {[...Array(6)].map((_, i) => (
+                    <div key={i} className={`h-3 w-1.5 ${i < 4 ? 'bg-black' : 'bg-black/10'}`} />
+                  ))}
+                </div>
+                <div className="text-[10px] font-black text-black">99.9% UPTIME</div>
+              </div>
+            </div>
           </motion.div>
 
           {/* UI Optimization Window */}
@@ -257,7 +262,7 @@ export default function Experience() {
              </div>
           </motion.div>
 
-          {/* Timeline Persistence Log Window */}
+          {/* Timeline & Toolkit Persistence Log Window */}
           <motion.div
             initial={{ opacity: 0, y: 50 }}
             whileInView={{ opacity: 1, y: 0 }}
@@ -269,12 +274,30 @@ export default function Experience() {
                  <span className="w-3 h-3 bg-red-500 animate-pulse border border-black" />
                  CAREER_PERSISTENCE_LOG.db
                </span>
-               <div className="flex items-center gap-3 text-[10px] font-black text-neutral-500 bg-white/5 px-4 py-1 border border-white/10">
-                 RECORD_VERSION: 2.0.26
+               <div className="flex items-center gap-4">
+                 <div className="hidden md:flex items-center gap-3 text-[10px] font-black text-neutral-500 bg-white/5 px-4 py-1 border border-white/10 italic">
+                   TOOLS_MANIFEST.json
+                 </div>
+                 <div className="text-[10px] font-black text-neutral-500 bg-white/5 px-4 py-1 border border-white/10">
+                   RECORD_VERSION: 2.0.26
+                 </div>
                </div>
             </div>
 
-            <div className="p-12 space-y-10">
+            <div className="p-12 space-y-12">
+              {/* Integrated Toolkit Manifest */}
+              <div className="grid grid-cols-4 md:grid-cols-6 lg:grid-cols-12 gap-4 pb-12 border-b-[3px] border-black">
+                {skillIcons.map((skill, i) => (
+                  <motion.div
+                    key={i}
+                    whileHover={{ scale: 1.15, rotate: -5, boxShadow: "4px 4px 0px #000" }}
+                    className={`flex items-center justify-center text-4xl p-3 rounded-xl bg-white border-[2.5px] border-black transition-all shadow-[4px_4px_0px_rgba(0,0,0,0.1)] ${skill.color}`}
+                  >
+                    {skill.icon}
+                  </motion.div>
+                ))}
+              </div>
+
               <div className="flex flex-col gap-8">
                 <div className="flex flex-wrap gap-1.5 md:gap-2 justify-center md:justify-start">
                   {[

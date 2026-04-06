@@ -5,7 +5,6 @@ import Experience from "@/components/Experience";
 import Projects from "@/components/Projects";
 import Contact from "@/components/Contact";
 import Nav from "@/components/Nav";
-import BoredBanner from "@/components/BoredBanner";
 import GameHub from "@/components/GameHub";
 
 export default function Home() {
@@ -22,7 +21,6 @@ export default function Home() {
         <GameHub />
 
         <Projects />
-        <BoredBanner />
         <Contact />
       </main>
     </>

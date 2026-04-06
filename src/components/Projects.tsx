@@ -49,112 +49,123 @@ function ProjectCard({
     <motion.div
       layout
       onClick={onToggle}
-      className={`relative w-full bg-white border-[3px] border-black transition-all duration-300 ${isExpanded ? 'z-50' : 'z-10'}`}
+      className={`relative w-full bg-white border-[2.5px] border-black transition-all duration-300 ${isExpanded ? 'z-50 lg:col-span-4 sm:col-span-2' : 'z-10 col-span-1'}`}
       style={{ 
-        boxShadow: isExpanded ? "12px 12px 0px #ff5500" : "8px 8px 0px #ff5500",
+        boxShadow: isExpanded ? "12px 12px 0px #000" : "6px 6px 0px #000",
         cursor: "pointer"
       }}
-      whileHover={{ y: -4, boxShadow: "12px 12px 0px #ff5500" }}
-      transition={{ type: "spring", stiffness: 300, damping: 25 }}
+      whileHover={{ y: -6, boxShadow: "14px 14px 0px #000" }}
+      transition={{ type: "spring", stiffness: 400, damping: 30 }}
     >
-      {/* Card header */}
-      <div className="flex items-center justify-between px-4 pt-3 pb-2 border-b-[2px] border-black">
-        <span
-          className="font-black text-xs tracking-widest text-black/40"
-          style={{ fontFamily: "monospace" }}
-        >
-          {num}
-        </span>
-        {isExpanded ? (
-          <button
-            onClick={(e) => { e.stopPropagation(); onToggle(); }}
-            className="w-5 h-5 bg-black text-white flex items-center justify-center hover:bg-[#ff5500] transition-colors"
+      {/* OS-Style Window Header (Vibrant Pink) */}
+      <div className="flex items-center justify-between px-4 py-2 bg-[#ff86b2] border-b-[2.5px] border-black">
+        <div className="flex items-center gap-3">
+            <span className="font-bold text-[10px] tracking-tight text-black flex items-center gap-2 uppercase">
+                <span className="w-2.5 h-2.5 bg-white border border-black rounded-xs" />
+                PROJECT_INFO_{num}
+            </span>
+        </div>
+        <div className="flex items-center gap-1">
+          <div className="w-4 h-4 border border-black bg-white flex items-center justify-center font-bold text-[10px] text-black">_</div>
+          <div className="w-4 h-4 border border-black bg-white flex items-center justify-center">
+            <div className="w-2 h-2 border border-black" />
+          </div>
+          <div 
+            className={`w-4 h-4 border border-black flex items-center justify-center font-bold text-[9px] ${isExpanded ? 'bg-red-400 text-white' : 'bg-white text-black'}`}
           >
-            <FiX size={10} strokeWidth={3} />
-          </button>
-        ) : (
-          <FiPlus size={12} className="text-black/30" />
-        )}
+            ✕
+          </div>
+        </div>
       </div>
 
-      {/* Image container */}
+      {/* Internal Content Area */}
       <motion.div
         layout
-        className="relative w-full overflow-hidden bg-neutral-100"
-        style={{ height: isExpanded ? "220px" : "180px" }}
+        className="relative overflow-hidden bg-neutral-100 border-b-[2.5px] border-black"
+        style={{ height: isExpanded ? "420px" : "180px" }}
       >
         {project.image ? (
           <Image
             src={project.image}
             alt={project.title}
             fill
-            className="object-cover"
+            className="object-cover transition-all duration-500"
             draggable={false}
           />
         ) : (
-          <div className="w-full h-full bg-neutral-200" />
+          <div className="w-full h-full bg-neutral-100" />
         )}
+        
+        {/* Technical Metadata Badge */}
+        <div className="absolute bottom-3 left-3 bg-[#ccff00] border border-black px-2 py-0.5 font-bold text-[9px] uppercase tracking-widest text-black shadow-[3px_3px_0px_#000]">
+           REF_{index * 12 + 400}
+        </div>
       </motion.div>
 
-      {/* Title row */}
-      <div className="px-4 pt-3 pb-2">
+      {/* Project Title Row */}
+      <div className="px-5 py-4 flex justify-between items-center bg-white">
         <h3
-          className="font-black uppercase leading-none text-black tracking-tighter"
+          className="font-black uppercase leading-none text-black tracking-tight"
           style={{
-            fontFamily: "Impact, system-ui, sans-serif",
-            fontSize: "clamp(1.2rem, 2vw, 1.6rem)",
+            fontFamily: "var(--font-dm-sans), sans-serif",
+            fontSize: "clamp(1.1rem, 2vw, 1.4rem)",
+            letterSpacing: "-0.02em"
           }}
         >
           {project.title}
         </h3>
+        {!isExpanded && <div className="text-black font-black text-xs">[ OPEN ]</div>}
       </div>
 
-      {/* Expanded content */}
+      {/* Expanded Details */}
       <AnimatePresence>
         {isExpanded && (
           <motion.div
             initial={{ opacity: 0, height: 0 }}
             animate={{ opacity: 1, height: "auto" }}
             exit={{ opacity: 0, height: 0 }}
-            transition={{ duration: 0.3, ease: "circOut" }}
-            className="overflow-hidden"
+            transition={{ duration: 0.3, ease: [0.22, 1, 0.36, 1] }}
+            className="overflow-hidden bg-white"
           >
-            <div className="px-4 pb-5 space-y-4 border-t-[2px] border-black/10 pt-4">
-              {/* Impact */}
-              <p className="text-black/70 text-xs md:text-sm leading-relaxed font-medium">
-                {project.impact}
-              </p>
-
-              {/* Metric */}
-              <div className="inline-flex items-center gap-1.5 bg-black text-white px-3 py-1.5 text-[10px] font-black tracking-widest uppercase">
-                <span className="text-[#ff5500]">↑</span>
-                {project.metric}
+            <div className="p-8 space-y-6 border-t-[2.5px] border-black max-w-5xl mx-auto">
+              {/* Vibrant Impact Description */}
+              <div className="bg-[#ffff00] border-[2.5px] border-black p-6 shadow-[6px_6px_0px_#000]">
+                <p className="text-black text-sm md:text-base leading-relaxed font-black uppercase tracking-tight italic">
+                    {project.impact}
+                </p>
               </div>
 
-              {/* Tech pills */}
-              <div className="flex flex-wrap gap-2">
+              <div className="flex items-center gap-4">
+                <div className="bg-black text-white px-4 py-2 text-[10px] font-bold tracking-widest uppercase border border-black text-center">
+                   OUTPUT: {project.metric}
+                </div>
+                <div className="flex-1 h-[2px] bg-black" />
+              </div>
+
+              {/* Colorful Tech Stack */}
+              <div className="flex flex-wrap gap-2 pt-2">
                 {project.tech.map((t) => (
                   <div
                     key={t}
-                    className="flex items-center gap-1.5 px-2.5 py-1 border border-black/20 text-[10px] font-black uppercase tracking-wider text-black/60"
+                    className="flex items-center gap-2 px-4 py-2 bg-white border-[2px] border-black text-[10px] font-black uppercase tracking-tight text-black shadow-[3px_3px_0px_rgba(0,0,0,0.1)] hover:shadow-none transition-all"
                   >
-                    <span className="text-[11px]">{getTechIcon(t)}</span>
+                    <span className="text-[12px]">{getTechIcon(t)}</span>
                     {t}
                   </div>
                 ))}
               </div>
 
-              {/* Links */}
-              <div className="flex gap-3 pt-2">
+              {/* Professional Links */}
+              <div className="flex gap-4 pt-6">
                 {project.link !== "#" && (
                   <a
                     href={project.link}
                     target="_blank"
                     rel="noreferrer"
                     onClick={(e) => e.stopPropagation()}
-                    className="flex items-center gap-2 px-4 py-2 bg-black text-white text-[10px] font-black uppercase tracking-widest hover:bg-[#ff5500] transition-all hover:scale-105"
+                    className="flex items-center gap-3 px-8 py-4 bg-black text-white text-[11px] font-bold uppercase tracking-widest hover:bg-[#ff86b2] hover:text-black transition-all border-[2.5px] border-black shadow-[8px_8px_0px_#ff86b2] hover:shadow-none translate-y-0 active:translate-y-[2px]"
                   >
-                    Live Site <FiArrowUpRight size={12} strokeWidth={3} />
+                    LAUNCH_EXPERIENCE <FiArrowUpRight size={16} strokeWidth={3} />
                   </a>
                 )}
                 {project.code !== "#" && (
@@ -163,9 +174,9 @@ function ProjectCard({
                     target="_blank"
                     rel="noreferrer"
                     onClick={(e) => e.stopPropagation()}
-                    className="flex items-center gap-2 px-4 py-2 border-[2px] border-black text-black text-[10px] font-black uppercase tracking-widest hover:bg-black hover:text-white transition-all hover:scale-105"
+                    className="flex items-center gap-3 px-8 py-4 bg-[#ccff00] text-black text-[11px] font-bold uppercase tracking-widest hover:bg-black hover:text-[#ccff00] transition-all border-[2.5px] border-black shadow-[8px_8px_0px_#000] hover:shadow-none translate-y-0 active:translate-y-[2px]"
                   >
-                    Code <FiGithub size={12} strokeWidth={3} />
+                    GET_SOURCE_CODE <FiGithub size={16} strokeWidth={3} />
                   </a>
                 )}
               </div>
@@ -186,41 +197,60 @@ export default function Projects() {
   };
 
   return (
-    <div id="projects" className="w-full bg-[#0f0f0f] relative overflow-hidden py-24">
-      {/* Dot grid background */}
-      <div
-        className="absolute inset-0 pointer-events-none opacity-[0.12]"
-        style={{
-          backgroundImage: "radial-gradient(circle, #ffffff 1px, transparent 1px)",
-          backgroundSize: "28px 28px",
-        }}
-      />
+    <div id="projects" className="w-full bg-[#edf2ff] relative overflow-hidden py-24 border-t-[3px] border-black pb-48">
+      {/* Subtle Linear Technical Grid */}
+      <div className="absolute inset-0 pointer-events-none opacity-[0.08]">
+        <svg width="100%" height="100%">
+          <pattern
+            id="technicalGrid"
+            width="80"
+            height="80"
+            patternUnits="userSpaceOnUse"
+          >
+            <path
+              d="M 80 0 L 0 0 0 80"
+              fill="none"
+              stroke="black"
+              strokeWidth="2"
+            />
+          </pattern>
+          <rect width="100%" height="100%" fill="url(#technicalGrid)" />
+        </svg>
+      </div>
 
       <div className="max-w-7xl mx-auto px-6 md:px-12 relative z-10">
-        {/* Header Section */}
-        <div className="flex flex-col md:flex-row md:items-end justify-between mb-16 gap-6">
-          <div className="space-y-4">
-            <p className="text-[#ff5500] text-[10px] font-black tracking-[0.5em] uppercase font-mono">
-              Selected Work
-            </p>
+        {/* Header Section (Colorful/Massive) */}
+        <div className="flex flex-col md:flex-row md:items-start justify-between mb-24 gap-12 border-b-[3px] border-black pb-12">
+          <div className="space-y-6">
+            <div className="inline-flex items-center gap-3 bg-white border-[2.5px] border-black px-4 py-1 shadow-[4px_4px_0px_#000]">
+                <span className="w-2 h-2 bg-red-500 animate-pulse" />
+                <p className="text-black text-[11px] font-black tracking-[0.4em] uppercase">
+                    SYSTEM.LOG / PROJECTS
+                </p>
+            </div>
             <h2
-              className="text-white font-black uppercase leading-[0.8] tracking-tighter"
+              className="text-black font-black uppercase leading-none tracking-tighter drop-shadow-[8px_8px_0px_rgba(255,134,178,0.3)]"
               style={{
-                fontFamily: "Impact, system-ui, sans-serif",
-                fontSize: "clamp(3.5rem, 10vw, 8rem)",
+                fontFamily: "var(--font-dm-sans), sans-serif",
+                fontSize: "clamp(4.5rem, 12vw, 8rem)",
+                letterSpacing: "-0.06em"
               }}
             >
-              PROJECTS
+              SELECTED <br />
+              <span className="text-[#ff86b2]">PROJECTS</span>
             </h2>
           </div>
           
-          <div className="flex items-center gap-4 text-white/30 text-[10px] font-black uppercase tracking-widest font-mono border-l-2 border-[#ff5500] pl-6 h-fit py-2">
-            Click project cards to reveal details
+          <div className="flex flex-col gap-6 max-w-sm pt-4">
+            <div className="h-[3px] w-20 bg-black" />
+            <p className="text-black text-sm font-black uppercase leading-relaxed tracking-tight bg-white border-[2.5px] border-black p-4 shadow-[6px_6px_0px_#000]">
+               Curating high-impact digital experiences through rigorous engineering and aesthetic precision.
+            </p>
           </div>
         </div>
 
-        {/* Project Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-8 lg:gap-12">
+        {/* Project Grid - 4 Columns and Focused Expansion */}
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-10">
           {displayProjects.map((project, i) => (
             <ProjectCard
               key={i}
@@ -230,18 +260,6 @@ export default function Projects() {
               onToggle={() => toggleExpand(i)}
             />
           ))}
-        </div>
-
-        {/* Bottom indicator */}
-        <div className="mt-20 flex justify-center">
-            <div className="h-[2px] w-24 bg-white/10 relative overflow-hidden">
-                <motion.div 
-                    initial={{ x: "-100%" }}
-                    animate={{ x: "100%" }}
-                    transition={{ repeat: Infinity, duration: 2, ease: "linear" }}
-                    className="absolute inset-0 bg-[#ff5500]" 
-                />
-            </div>
         </div>
       </div>
     </div>

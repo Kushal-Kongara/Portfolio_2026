@@ -5,56 +5,33 @@ import { motion } from "framer-motion";
 import SectionWrapper from "./SectionWrapper";
 import {
     SiReact, SiJavascript, SiTypescript, SiTailwindcss,
-    SiNodedotjs, SiNextdotjs, SiPostgresql, SiMongodb,
-    SiOpenai, SiDocker, SiGithubactions,
-    SiPython, SiMeta,
-    SiHtml5, SiCss, SiRedux, SiExpress, SiGraphql, SiMysql, SiFirebase, SiVercel, SiGithub, SiFigma, SiPostman, SiJira
+    SiNodedotjs, SiNextdotjs, SiPostgresql, SiGraphql, 
+    SiMysql, SiDocker, SiRedux, SiGithub, SiPostman, 
+    SiKubernetes, SiLangchain
 } from "react-icons/si";
 import { HiCode } from "react-icons/hi";
 import { FaRobot, FaAws } from "react-icons/fa";
 
 const crosswordWords = [
-    // Frontend (Horizontal emphasis)
-    { r: 2, c: 1, dir: "h", word: "JAVASCRIPT", num: 1, color: "#F7DF1E", category: "frontend", icon: <SiJavascript /> },
-    { r: 0, c: 6, dir: "v", word: "TYPESCRIPT", num: 2, color: "#3178C6", category: "frontend", icon: <SiTypescript /> },
-    { r: 2, c: 12, dir: "h", word: "REACT", num: 3, color: "#61DAFB", category: "frontend", icon: <SiReact /> },
-    { r: 4, c: 9, dir: "h", word: "NEXTJS", num: 4, color: "#FFFFFF", category: "frontend", icon: <SiNextdotjs /> },
-    { r: 0, c: 19, dir: "v", word: "HTML5", num: 5, color: "#E34F26", category: "frontend", icon: <SiHtml5 /> },
-    { r: 2, c: 17, dir: "v", word: "CSS3", num: 6, color: "#1572B6", category: "frontend", icon: <SiCss /> },
-    { r: 6, c: 5, dir: "h", word: "TAILWIND", num: 7, color: "#06B6D4", category: "frontend", icon: <SiTailwindcss /> },
-    { r: 4, c: 3, dir: "v", word: "REDUX", num: 8, color: "#764ABC", category: "frontend", icon: <SiRedux /> },
-
-    // Backend
-    { r: 8, c: 1, dir: "h", word: "NODEJS", num: 9, color: "#339933", category: "backend", icon: <SiNodedotjs /> },
-    { r: 6, c: 4, dir: "v", word: "EXPRESS", num: 10, color: "#FFFFFF", category: "backend", icon: <SiExpress /> },
-    { r: 10, c: 3, dir: "h", word: "RESTAPIS", num: 11, color: "#008080", category: "backend", icon: <HiCode /> },
-    { r: 9, c: 12, dir: "v", word: "GRAPHQL", num: 12, color: "#E10098", category: "backend", icon: <SiGraphql /> },
-
-    // Databases
-    { r: 12, c: 0, dir: "h", word: "MONGODB", num: 13, color: "#47A248", category: "db", icon: <SiMongodb /> },
-    { r: 8, c: 15, dir: "v", word: "POSTGRESQL", num: 14, color: "#4169E1", category: "db", icon: <SiPostgresql /> },
-    { r: 12, c: 10, dir: "h", word: "MYSQL", num: 15, color: "#4479A1", category: "db", icon: <SiMysql /> },
-    { r: 7, c: 22, dir: "v", word: "FIREBASE", num: 16, color: "#FFCA28", category: "db", icon: <SiFirebase /> },
-
-    // Cloud / DevOps
-    { r: 0, c: 25, dir: "h", word: "AWS", num: 17, color: "#FF9900", category: "cloud", icon: <FaAws /> },
-    { r: 12, c: 24, dir: "h", word: "VERCEL", num: 18, color: "#FFFFFF", category: "cloud", icon: <SiVercel /> },
-    { r: 10, c: 20, dir: "h", word: "DOCKER", num: 19, color: "#2496ED", category: "cloud", icon: <SiDocker /> },
-    { r: 2, c: 28, dir: "v", word: "GITHUBACTIONS", num: 20, color: "#2088FF", category: "cloud", icon: <SiGithubactions /> },
-    { r: 4, c: 31, dir: "v", word: "CICD", num: 21, color: "#FFFFFF", category: "cloud", icon: <HiCode /> },
-
-    // AI
-    { r: 5, c: 25, dir: "v", word: "OPENAI", num: 22, color: "#412991", category: "ai", icon: <SiOpenai /> },
-    { r: 4, c: 23, dir: "h", word: "LLM", num: 23, color: "#8E75C2", category: "ai", icon: <FaRobot /> },
-    { r: 7, c: 26, dir: "h", word: "RAG", num: 24, color: "#3B82F6", category: "ai", icon: <SiMeta /> },
-    { r: 8, c: 30, dir: "v", word: "PROMPT", num: 25, color: "#D4AF37", category: "ai", icon: <FaRobot /> },
-    { r: 0, c: 14, dir: "v", word: "PYTHON", num: 26, color: "#3776AB", category: "ai", icon: <SiPython /> },
-
-    // Tools
-    { r: 1, c: 11, dir: "h", word: "GITHUB", num: 27, color: "#FFFFFF", category: "tools", icon: <SiGithub /> },
-    { r: 9, c: 7, dir: "v", word: "FIGMA", num: 28, color: "#F24E1E", category: "tools", icon: <SiFigma /> },
-    { r: 0, c: 0, dir: "v", word: "POSTMAN", num: 29, color: "#FF6C37", category: "tools", icon: <SiPostman /> },
-    { r: 10, c: 14, dir: "h", word: "JIRA", num: 30, color: "#0052CC", category: "tools", icon: <SiJira /> },
+    { r: 2, c: 5, word: "JAVASCRIPT", dir: "h", num: 1, icon: <SiJavascript />, color: "#000000" },
+    { r: 0, c: 9, word: "POSTGRESQL", dir: "v", num: 2, icon: <SiPostgresql />, color: "#000000" }, // S at (2,9)
+    { r: 9, c: 3, word: "GRAPHQL", dir: "h", num: 3, icon: <SiGraphql />, color: "#000000" },       // L at (9,9)
+    { r: 2, c: 14, word: "TYPESCRIPT", dir: "v", num: 4, icon: <SiTypescript />, color: "#000000" }, // T at (2,14)
+    { r: 8, c: 14, word: "REACT", dir: "h", num: 5, icon: <SiReact />, color: "#000000" },          // R at (8,14)
+    { r: 5, c: 18, word: "NEXT", dir: "v", num: 6, icon: <SiNextdotjs />, color: "#000000" },       // T at (8,18)
+    { r: 5, c: 18, word: "TAILWIND", dir: "h", num: 7, icon: <SiTailwindcss />, color: "#000000" }, // T at (5,18)
+    { r: 5, c: 25, word: "DOCKER", dir: "v", num: 8, icon: <SiDocker />, color: "#000000" },        // D at (5,25)
+    { r: 6, c: 24, word: "NODE", dir: "h", num: 9, icon: <SiNodedotjs />, color: "#000000" },        // O at (6,25)
+    { r: 5, c: 27, word: "REDUX", dir: "v", num: 10, icon: <SiRedux />, color: "#000000" },        // E at (6,27)
+    { r: 9, c: 18, word: "KUBERNETES", dir: "h", num: 11, icon: <SiKubernetes />, color: "#000000" }, // X at (9,27)? No. REDUX X is at r:9, c:27
+                                                                                                    // KUBERNETES ends at c:27? 18+9=27. Correct.
+    { r: 0, c: 22, word: "POSTMAN", dir: "v", num: 12, icon: <SiPostman />, color: "#000000" },
+    { r: 1, c: 26, word: "AWS", dir: "h", num: 13, icon: <FaAws />, color: "#000000" },
+    { r: 0, c: 20, word: "MYSQL", dir: "h", num: 14, icon: <SiMysql />, color: "#000000" },
+    { r: 5, c: 3, word: "RESTAPI", dir: "h", num: 15, icon: <HiCode />, color: "#000000" },
+    { r: 13, c: 7, word: "LANGRAPH", dir: "h", num: 16, icon: <SiLangchain />, color: "#000000" },
+    { r: 6, c: 8, word: "RAG", dir: "v", num: 17, icon: <FaRobot />, color: "#000000" },
+    { r: 1, c: 4, word: "GITHUB", dir: "v", num: 18, icon: <SiGithub />, color: "#000000" },
 ];
 
 export default function TechStack() {
@@ -66,139 +43,162 @@ export default function TechStack() {
     const grid: ({ char: string, num?: number, color: string, icon?: React.ReactNode, category?: string } | null)[][] =
         Array.from({ length: ROWS }, () => Array(COLS).fill(null));
 
-    crosswordWords.forEach(({ r, c, dir, word, num, color, icon, category }) => {
-        for (let i = 0; i < word.length; i++) {
+    crosswordWords.forEach(({ r, c, dir, word, num, color, icon }) => {
+        const capsWord = word.toUpperCase();
+        for (let i = 0; i < capsWord.length; i++) {
             const currR = dir === "v" ? r + i : r;
             const currC = dir === "h" ? c + i : c;
             if (currR < ROWS && currC < COLS) {
                 const existing = grid[currR][currC];
                 grid[currR][currC] = {
-                    char: word[i],
+                    char: capsWord[i],
                     num: (i === 0 || existing?.num) ? (existing?.num || num) : undefined,
                     color: color,
-                    icon: (i === 0 || existing?.icon) ? (existing?.icon || icon) : undefined,
-                    category: category
+                    icon: (i === 0 || existing?.icon) ? (existing?.icon || icon) : undefined
                 };
             }
         }
     });
 
-    const getGlowColor = (num: number | undefined) => {
-        if (!num) return "rgba(255,255,255,0.1)";
-        const word = crosswordWords.find(w => w.num === num);
-        return word ? word.color : "rgba(255,255,255,0.1)";
-    };
+    const CrossedCircle = () => (
+        <div className="w-2/3 h-2/3 border border-black/20 rounded-full relative flex items-center justify-center opacity-30">
+            <div className="absolute w-[1px] h-full bg-black/20 rotate-45" />
+            <div className="absolute w-[1px] h-full bg-black/20 -rotate-45" />
+        </div>
+    );
 
     return (
-        <div id="tech-stack" className="w-full bg-[#FAFAF5] font-sans text-black py-24 md:py-32 relative overflow-hidden selection:bg-black/10 selection:text-black">
-            {/* Subtle clean paper texture */}
-            <div className="absolute inset-0 opacity-[0.03] pointer-events-none bg-[url('https://www.transparenttextures.com/patterns/paper-fibers.png')]" />
+        <div id="tech-stack" className="w-full bg-[#EAEAEA] font-mono text-black py-24 md:py-32 relative overflow-hidden selection:bg-black selection:text-white">
+            {/* Pronounced grain/paper texture */}
+            <div className="absolute inset-0 opacity-[0.08] pointer-events-none mix-blend-multiply bg-[url('https://www.transparenttextures.com/patterns/concrete-wall-2.png')]" />
+            <div className="absolute inset-0 opacity-[0.05] pointer-events-none bg-[url('https://www.transparenttextures.com/patterns/pinstriped-suit.png')]" />
 
-            <SectionWrapper id="tech-stack-inner" className="max-w-[1400px] px-8 md:px-20 mx-auto relative z-10 flex flex-col items-center">
+            <SectionWrapper id="tech-stack-inner" className="max-w-[1450px] px-4 md:px-12 mx-auto relative z-10 flex flex-col items-center">
+                
+                {/* PILOT Style Header elements */}
+                <div className="w-full flex justify-between items-center mb-12 px-10">
+                    <div className="text-[14px] font-bold tracking-widest flex items-center gap-4 uppercase">
+                        <span className="w-2 h-2 border border-black rounded-full" />
+                        Technical Archive
+                    </div>
+                    <div className="flex items-center gap-12 font-bold tracking-tighter text-sm">
+                        <span>#2026.V1</span>
+                        <div className="w-10 h-[2px] bg-black" />
+                    </div>
+                </div>
 
-                {/* Header - Minimalist & Premium (Light Theme) */}
-                <div className="mb-24 w-full text-center">
-                    <div className="inline-block group">
-                        <div className="text-[10px] font-black uppercase tracking-[0.8em] text-black/30 mb-4 flex items-center justify-center gap-4 group-hover:text-black/50 transition-colors">
-                            <span className="w-12 h-[1px] bg-black/10 group-hover:bg-blue-500/30 transition-all" />
-                            Technical Recognition // v2.6
-                            <span className="w-12 h-[1px] bg-black/10 group-hover:bg-purple-500/30 transition-all" />
+                <div className="relative w-full flex items-start justify-center gap-8 md:gap-16">
+                    
+                    {/* Vertical Title (simplify style) */}
+                    <div className="h-full flex flex-col justify-start pt-12">
+                        <div 
+                            className="text-[4rem] md:text-[6.5rem] lg:text-[7.5rem] font-bold tracking-tighter leading-none whitespace-nowrap rotate-180 selection:bg-white selection:text-black"
+                            style={{ 
+                                writingMode: 'vertical-rl',
+                                textOrientation: 'mixed',
+                                fontFamily: 'Impact, sans-serif'
+                            }}
+                        >
+                            TECH STACK.
                         </div>
-                        <h2 className="text-7xl md:text-9xl font-black uppercase tracking-tighter leading-none [font-family:Impact,sans-serif]" style={{ transform: "scaleY(1.1)" }}>
-                            TECH <span className="text-black/10">#STACK</span>
-                        </h2>
                     </div>
-                </div>
 
-                {/* The Horizontally Aligned VIBRANT Grid (Black background maintained) */}
-                <div className="relative w-full flex justify-center mb-24 transition-all duration-700">
-                    <div
-                        className="grid border-[3px] border-black bg-black rounded-2xl p-4 md:p-10 shadow-[0_30px_70px_rgba(0,0,0,0.15),inset_0_1px_1px_rgba(255,255,255,0.05)]"
-                        style={{
-                            gridTemplateColumns: `repeat(${COLS}, minmax(0, 1fr))`,
-                            width: '100%',
-                            maxWidth: '1250px',
-                            aspectRatio: `${COLS} / ${ROWS}`
-                        }}
-                    >
-                        {grid.map((row, rIdx) => (
-                            row.map((cell, cIdx) => {
-                                const isCurrentHovered = hoveredWord && crosswordWords.find(w => w.num === hoveredWord)?.word.split('').some((_, i) => {
-                                    const w = crosswordWords.find(w => w.num === hoveredWord);
-                                    if (!w) return false;
-                                    const curR = w.dir === "v" ? w.r + i : w.r;
-                                    const curC = w.dir === "h" ? w.c + i : w.c;
-                                    return curR === rIdx && curC === cIdx;
-                                });
+                    {/* The Grid */}
+                    <div className="flex-1 max-w-[1100px]">
+                        <div
+                            className="grid border-[2px] border-black bg-black p-[2px] shadow-[15px_15px_0px_rgba(0,0,0,1)]"
+                            style={{
+                                gridTemplateColumns: `repeat(${COLS}, minmax(0, 1fr))`,
+                                width: '100%',
+                                aspectRatio: `${COLS} / ${ROWS}`
+                            }}
+                        >
+                            {grid.map((row, rIdx) => (
+                                row.map((cell, cIdx) => {
+                                    const isCurrentHovered = hoveredWord && crosswordWords.find(w => w.num === hoveredWord)?.word.toUpperCase().split('').some((_, i) => {
+                                        const w = crosswordWords.find(w => w.num === hoveredWord);
+                                        if (!w) return false;
+                                        const curR = w.dir === "v" ? w.r + i : w.r;
+                                        const curC = w.dir === "h" ? w.c + i : w.c;
+                                        return curR === rIdx && curC === cIdx;
+                                    });
 
-                                return (
-                                    <div
-                                        key={`${rIdx}-${cIdx}`}
-                                        className={`relative border-[0.5px] border-white/[0.05] flex items-center justify-center transition-all duration-500 rounded-[5px] md:rounded-[8px]
-                                                   ${cell ? 'group/cell bg-white/[0.05] shadow-[0_1px_0_rgba(255,255,255,0.05)]' : 'bg-transparent'}
-                                                   ${isCurrentHovered ? 'z-30 scale-[1.12] md:scale-[1.15] bg-white/[0.15] ring-2 ring-white/20' : ''}`}
-                                        style={isCurrentHovered ? { 
-                                            boxShadow: `0 0 40px ${getGlowColor(hoveredWord)}50, inset 0 1px 2px rgba(255,255,255,0.2)`,
-                                            backgroundColor: `${getGlowColor(hoveredWord)}20`
-                                        } : cell ? {
-                                            backgroundColor: `${cell.color}08`,
-                                            borderColor: `${cell.color}20`
-                                        } : {}}
-                                    >
-                                        {cell ? (
-                                            <>
-                                                <span
-                                                    className="text-[2.2vw] md:text-[14px] font-bold tracking-tighter select-none transition-all duration-300"
-                                                    style={{ 
-                                                        color: isCurrentHovered ? '#FFFFFF' : cell.color, 
-                                                        fontSize: 'clamp(7px, 1.2vw, 16px)',
-                                                        textShadow: `0 0 8px ${cell.color}50`
-                                                    }}
-                                                >
-                                                    {cell.char}
-                                                </span>
-                                                {cell.num && (
-                                                    <span className="absolute top-0.5 right-0.5 md:right-1.5 text-[0.9vw] md:text-[7px] font-black leading-none text-white/20" style={{ fontSize: 'clamp(3px, 0.5vw, 8px)' }}>
-                                                        {cell.num}
+                                    // Add some decorative crossed circles in empty spots
+                                    const isDecorative = !cell && (rIdx % 5 === 0 && cIdx % 8 === 0 || (rIdx === 0 && cIdx === 0) || (rIdx === 0 && cIdx === COLS-1));
+
+                                    return (
+                                        <div
+                                            key={`${rIdx}-${cIdx}`}
+                                            className={`relative border-[0.5px] border-black/10 flex items-center justify-center transition-all duration-300
+                                                       ${cell ? 'bg-white' : 'bg-black'}
+                                                       ${isCurrentHovered ? 'z-30 scale-[1.05] shadow-xl' : ''}`}
+                                            onMouseEnter={() => cell?.num && setHoveredWord(cell.num)}
+                                            onMouseLeave={() => setHoveredWord(null)}
+                                        >
+                                            {cell ? (
+                                                <>
+                                                    <span
+                                                        className="text-[1.8vw] md:text-[18px] font-black tracking-tighter select-none"
+                                                        style={{ color: '#000000' }}
+                                                    >
+                                                        {cell.char}
                                                     </span>
-                                                )}
-                                            </>
-                                        ) : null}
-                                    </div>
-                                );
-                            })
-                        ))}
+                                                    {cell.num && (
+                                                        <span className="absolute top-[1px] left-[2px] text-[0.8vw] md:text-[8px] font-black leading-none text-black">
+                                                            {cell.num}
+                                                        </span>
+                                                    )}
+                                                    {isCurrentHovered && cell.icon && (
+                                                        <div className="absolute inset-0 bg-black/5 flex items-center justify-center pointer-events-none">
+                                                            <div className="scale-[1.5] opacity-10 blur-[1px]">
+                                                                {cell.icon}
+                                                            </div>
+                                                        </div>
+                                                    )}
+                                                </>
+                                            ) : isDecorative ? (
+                                                <CrossedCircle />
+                                            ) : null}
+                                        </div>
+                                    );
+                                })
+                            ))}
+                        </div>
+
+                        {/* PILOT style footer annotation */}
+                        <div className="w-full flex justify-end gap-12 mt-12 font-mono text-[10px] md:text-[12px] opacity-70">
+                            <div className="max-w-[200px]">
+                                <span className="font-bold block mb-1">PILOT #1</span>
+                                An Anthology of Professional Technologies curated for Modern Web Architecture, 2026.
+                            </div>
+                            <div className="w-24 h-[1px] bg-black self-end" />
+                        </div>
                     </div>
                 </div>
 
-                {/* Aesthetic VIBRANT Icon Vault (Optimized for White Background) */}
-                <div className="w-full">
-                    <div className="text-[10px] font-black uppercase tracking-[0.5em] mb-16 text-black/20 text-center flex items-center justify-center gap-8">
-                        <span className="w-16 h-[1px] bg-gradient-to-r from-transparent to-black/5" />
-                        Premium Technological Archive
-                        <span className="w-16 h-[1px] bg-gradient-to-l from-transparent to-black/5" />
-                    </div>
-                    <div className="flex flex-wrap justify-center gap-6 md:gap-14">
+                {/* Simplified Icon Vault (styled for B&W) */}
+                <div className="w-full mt-32 border-t-2 border-black pt-16">
+                    <div className="flex flex-wrap justify-center gap-6 md:gap-10">
                         {crosswordWords.map((word, idx) => (
                             <motion.div
                                 key={`vault-${idx}`}
-                                initial={{ opacity: 0, y: 20 }}
-                                whileInView={{ opacity: 1, y: 0 }}
-                                transition={{ duration: 0.5, delay: idx * 0.01 }}
+                                initial={{ opacity: 0 }}
+                                whileInView={{ opacity: 1 }}
+                                transition={{ duration: 0.3, delay: idx * 0.05 }}
                                 viewport={{ once: true }}
-                                className="flex flex-col items-center gap-3"
+                                className="flex flex-col items-center gap-2 group cursor-crosshair"
                                 onMouseEnter={() => setHoveredWord(word.num)}
                                 onMouseLeave={() => setHoveredWord(null)}
                             >
                                 <div 
-                                    className="p-4 md:p-6 bg-white/70 backdrop-blur-xl border border-black/5 rounded-[22px] transition-all duration-300 shadow-[0_10px_25px_rgba(0,0,0,0.05),inset_0_1px_1px_rgba(255,255,255,1)] flex items-center justify-center relative overflow-hidden"
+                                    className={`p-3 md:p-5 border-2 border-black bg-white transition-all duration-300 shadow-[4px_4px_0px_rgba(0,0,0,1)] group-hover:-translate-y-1 group-hover:bg-black group-hover:text-white group-hover:shadow-[8px_8px_0px_rgba(0,0,0,1)] ${hoveredWord === word.num ? 'bg-black text-white' : ''}`}
                                 >
-                                    <div className="text-3xl md:text-5xl transition-all duration-300" style={{ color: word.color }}>
+                                    <div className="text-2xl md:text-4xl transition-all duration-300">
                                       {word.icon}
                                     </div>
                                 </div>
                                 <div className="text-center">
-                                    <span className="text-[9px] font-black uppercase tracking-[0.2em] opacity-40" style={{ color: word.color }}>
+                                    <span className="text-[8px] font-black uppercase tracking-[0.1em]">
                                       {word.word}
                                     </span>
                                 </div>

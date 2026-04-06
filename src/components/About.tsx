@@ -550,7 +550,7 @@ function IDBadge() {
 }
 
 
-function GalleryCard({ story, style, delay = 0 }: { story: PhotoStory; style?: React.CSSProperties; delay?: number }) {
+function GalleryCard({ story, style, delay = 0, objectPosition = "center" }: { story: PhotoStory; style?: React.CSSProperties; delay?: number; objectPosition?: string }) {
   const [imgError, setImgError] = useState(false);
 
   return (
@@ -562,40 +562,86 @@ function GalleryCard({ story, style, delay = 0 }: { story: PhotoStory; style?: R
       className="relative overflow-hidden rounded-2xl bg-neutral-900 group cursor-default"
       style={style}
     >
-      {/* Photo */}
       {!imgError && story.image && (
         <Image
           src={story.image}
           alt={story.imageAlt}
           fill
           className="object-cover transition-transform duration-700 ease-out group-hover:scale-105"
+          style={{ objectPosition }}
           sizes="(max-width: 768px) 50vw, 33vw"
           onError={() => setImgError(true)}
         />
       )}
-
-      {/* Always-on subtle gradient at bottom */}
       <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/10 to-transparent" />
-
-      {/* Hover overlay — slides up */}
-      <div className="absolute inset-0 bg-black/50 opacity-0 group-hover:opacity-100 transition-opacity duration-400" />
-
-      {/* Content — always visible at bottom */}
-      <div className="absolute bottom-0 left-0 right-0 p-4 translate-y-1 group-hover:translate-y-0 transition-transform duration-400">
+      <div className="absolute inset-0 bg-black/50 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+      <div className="absolute bottom-0 left-0 right-0 p-4 translate-y-1 group-hover:translate-y-0 transition-transform duration-300">
         {story.title && (
-          <p className="text-white font-black text-sm md:text-base leading-tight">
-            {story.title}
-          </p>
+          <p className="text-white font-black text-sm leading-tight">{story.title}</p>
         )}
         {story.context && (
-          <p className="text-white/60 text-xs mt-1 leading-snug opacity-0 group-hover:opacity-100 transition-opacity duration-300 delay-75 line-clamp-2">
+          <p className="text-white/60 text-xs mt-1 leading-snug opacity-0 group-hover:opacity-100 transition-opacity duration-300 line-clamp-2">
             {story.context}
           </p>
         )}
       </div>
+    </motion.div>
+  );
+}
 
-      {/* Orange accent dot top-left */}
-      <div className="absolute top-3 left-3 w-2 h-2 rounded-full bg-[#ff5500] opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+function VideoCard({ style, delay = 0 }: { style?: React.CSSProperties; delay?: number }) {
+  const videoRef = useRef<HTMLVideoElement>(null);
+  const [muted, setMuted] = useState(true);
+
+  const toggleMute = (e: React.MouseEvent) => {
+    e.stopPropagation();
+    const newMuted = !muted;
+    setMuted(newMuted);
+    if (videoRef.current) videoRef.current.muted = newMuted;
+  };
+
+  return (
+    <motion.div
+      initial={{ opacity: 0, scale: 0.97 }}
+      whileInView={{ opacity: 1, scale: 1 }}
+      viewport={{ once: true, amount: 0.1 }}
+      transition={{ duration: 0.6, delay, ease: [0.16, 1, 0.3, 1] }}
+      className="relative overflow-hidden rounded-2xl bg-neutral-900 group cursor-default"
+      style={style}
+    >
+      <video
+        ref={videoRef}
+        src="/Video1.mp4"
+        autoPlay
+        muted
+        loop
+        playsInline
+        className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
+      />
+      <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/10 to-transparent" />
+      <div className="absolute inset-0 bg-black/50 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+
+      {/* Title */}
+      <div className="absolute bottom-0 left-0 right-0 p-4 translate-y-1 group-hover:translate-y-0 transition-transform duration-300">
+        <p className="text-white font-black text-sm leading-tight">Hackathon Moments</p>
+      </div>
+
+      {/* Mute toggle — visible on hover */}
+      <button
+        onClick={toggleMute}
+        className="absolute top-3 right-3 flex items-center justify-center w-7 h-7 rounded-full bg-black/60 backdrop-blur-sm text-white opacity-0 group-hover:opacity-100 transition-opacity duration-300 hover:bg-black/80"
+        title={muted ? "Unmute" : "Mute"}
+      >
+        {muted ? (
+          <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="white">
+            <path d="M16.5 12A4.5 4.5 0 0 0 14 7.97v2.21l2.45 2.45c.03-.2.05-.41.05-.63zm2.5 0c0 .94-.2 1.82-.54 2.64l1.51 1.51A8.796 8.796 0 0 0 21 12c0-4.28-2.99-7.86-7-8.77v2.06c2.89.86 5 3.54 5 6.71zM4.27 3 3 4.27 7.73 9H3v6h4l5 5v-6.73l4.25 4.25c-.67.52-1.42.93-2.25 1.18v2.06A8.99 8.99 0 0 0 17.73 18l1.27 1.27L20.27 18 5.27 3 4.27 3zM12 4 9.91 6.09 12 8.18V4z"/>
+          </svg>
+        ) : (
+          <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="white">
+            <path d="M3 9v6h4l5 5V4L7 9H3zm13.5 3A4.5 4.5 0 0 0 14 7.97v8.05c1.48-.73 2.5-2.25 2.5-4.02zM14 3.23v2.06c2.89.86 5 3.54 5 6.71s-2.11 5.85-5 6.71v2.06c4.01-.91 7-4.49 7-8.77 0-4.28-2.99-7.86-7-8.77z"/>
+          </svg>
+        )}
+      </button>
     </motion.div>
   );
 }
@@ -794,7 +840,7 @@ export default function About() {
                 <p className="text-[#ff5500] text-[10px] font-black tracking-[0.4em] uppercase mb-3">Selected Moments</p>
                 <h2
                   className="text-white font-black uppercase leading-none"
-                  style={{ fontFamily: "Impact, system-ui, sans-serif", fontSize: "clamp(3.5rem, 9vw, 7.5rem)" }}
+                  style={{ fontFamily: "Impact, system-ui, sans-serif", fontSize: "clamp(2.2rem, 5vw, 4rem)" }}
                 >
                   Events &<br />Hackathons
                 </h2>
@@ -802,7 +848,7 @@ export default function About() {
 
               {/* Right meta */}
               <div className="flex flex-col items-start md:items-end gap-2 shrink-0">
-                <span className="text-[#ff5500] font-black leading-none" style={{ fontSize: "clamp(3rem, 6vw, 5rem)", fontFamily: "Impact" }}>
+                <span className="text-[#ff5500] font-black leading-none" style={{ fontSize: "clamp(2rem, 4vw, 3.5rem)", fontFamily: "Impact" }}>
                   0{photoStories.filter(p => p.image).length}
                 </span>
                 <p className="text-white/30 text-[10px] font-black uppercase tracking-[0.3em]">moments captured</p>
@@ -821,16 +867,18 @@ export default function About() {
             >
               {/* Photo 0 — large hero, 5 wide × 2 tall */}
               <GalleryCard story={photoStories[0]} style={{ gridColumn: "1 / 6", gridRow: "1 / 3" }} delay={0} />
-              {/* Photo 1 — 4 wide × 1 tall */}
-              <GalleryCard story={photoStories[1]} style={{ gridColumn: "6 / 10", gridRow: "1 / 2" }} delay={0.05} />
-              {/* Photo 2 — 3 wide × 2 tall */}
-              <GalleryCard story={photoStories[2]} style={{ gridColumn: "10 / 13", gridRow: "1 / 3" }} delay={0.1} />
-              {/* Photo 3 — 4 wide × 1 tall */}
-              <GalleryCard story={photoStories[3]} style={{ gridColumn: "6 / 10", gridRow: "2 / 3" }} delay={0.15} />
-              {/* Photos 4 5 6 — bottom row, equal thirds */}
-              <GalleryCard story={photoStories[4]} style={{ gridColumn: "1 / 5", gridRow: "3 / 4" }} delay={0.2} />
-              <GalleryCard story={photoStories[5]} style={{ gridColumn: "5 / 9", gridRow: "3 / 4" }} delay={0.25} />
-              <GalleryCard story={photoStories[6]} style={{ gridColumn: "9 / 13", gridRow: "3 / 4" }} delay={0.3} />
+              {/* Photo 1 (AWS) — move image down so faces show */}
+              <GalleryCard story={photoStories[1]} objectPosition="center 70%" style={{ gridColumn: "6 / 10", gridRow: "1 / 2" }} delay={0.05} />
+              {/* Photo 3 (Met Harnoor) — swapped to tall slot */}
+              <GalleryCard story={photoStories[3]} style={{ gridColumn: "10 / 13", gridRow: "1 / 3" }} delay={0.1} />
+              {/* Photo 2 (Weighted Biases) — swapped to shorter slot */}
+              <GalleryCard story={photoStories[2]} style={{ gridColumn: "6 / 10", gridRow: "2 / 3" }} delay={0.15} />
+              {/* Bottom row — 4 equal items of span 3 */}
+              <GalleryCard story={photoStories[4]} style={{ gridColumn: "1 / 4", gridRow: "3 / 4" }} delay={0.2} />
+              <GalleryCard story={photoStories[5]} style={{ gridColumn: "4 / 7", gridRow: "3 / 4" }} delay={0.25} />
+              <GalleryCard story={photoStories[6]} style={{ gridColumn: "7 / 10", gridRow: "3 / 4" }} delay={0.3} />
+              {/* Video — smaller, last slot */}
+              <VideoCard style={{ gridColumn: "10 / 13", gridRow: "3 / 4" }} delay={0.35} />
             </div>
 
             {/* Mobile — simple 2-col grid */}

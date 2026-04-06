@@ -276,25 +276,27 @@ export default function Experience() {
                </span>
                <div className="flex items-center gap-4">
                  <div className="hidden md:flex items-center gap-3 text-[10px] font-black text-neutral-500 bg-white/5 px-4 py-1 border border-white/10 italic">
-                   TOOLS_MANIFEST.json
+                   TECH_STATUS_MODULES.json
                  </div>
                  <div className="text-[10px] font-black text-neutral-500 bg-white/5 px-4 py-1 border border-white/10">
-                   RECORD_VERSION: 2.0.26
+                   SYSTEM_ACTIVE_v2.0
                  </div>
                </div>
             </div>
 
             <div className="p-8 md:p-12 space-y-12">
-              {/* Integrated Toolkit Manifest - Properly Aligned */}
-              <div className="flex flex-wrap justify-center gap-4 pb-12 border-b-[3px] border-black">
-                {skillIcons.map((skill, i) => (
+              {/* Integrated Tech Status Squares - Properly Aligned */}
+              <div className="flex flex-wrap justify-between gap-4 pb-12 border-b-[3px] border-black px-4">
+                {[
+                  "#61DAFB", "#000000", "#3178C6", "#339933", "#06B6D4", "#4169E1", 
+                  "#FF9900", "#2496ED", "#2088FF", "#02569B", "#555555", "#22C55E"
+                ].map((color, i) => (
                   <motion.div
                     key={i}
-                    whileHover={{ scale: 1.1, rotate: -5, boxShadow: "4px 4px 0px #000" }}
-                    className={`flex items-center justify-center text-4xl w-14 h-14 md:w-16 md:h-16 rounded-xl bg-white border-[2.5px] border-black transition-all shadow-[4px_4px_0px_rgba(0,0,0,0.1)] ${skill.color}`}
-                  >
-                    <span className="p-2">{skill.icon}</span>
-                  </motion.div>
+                    whileHover={{ scale: 1.2, rotate: 12 }}
+                    style={{ backgroundColor: color }}
+                    className="w-10 h-10 md:w-12 md:h-12 border-[2.5px] border-black shadow-[4px_4px_0px_rgba(0,0,0,0.1)] transition-all cursor-crosshair"
+                  />
                 ))}
               </div>
 

@@ -6,6 +6,7 @@ import "./globals.css";
 
 const ScrollProgress = dynamic(() => import("@/components/ScrollProgress"), { ssr: false });
 const CommandPalette = dynamic(() => import("@/components/CommandPalette"), { ssr: false });
+const SplashWrapper = dynamic(() => import("@/components/SplashWrapper"), { ssr: false });
 
 const dmSans = DM_Sans({
   subsets: ["latin"],
@@ -39,6 +40,7 @@ export default function RootLayout({
   return (
     <html lang="en" className={`${dmSans.variable} ${caveat.variable}`}>
       <body className="min-h-screen bg-white font-sans antialiased">
+        <SplashWrapper />
         <ScrollProgress />
         <CommandPalette />
         {children}

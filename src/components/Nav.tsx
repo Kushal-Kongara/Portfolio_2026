@@ -14,9 +14,13 @@ export default function Nav() {
       <nav className="max-w-6xl mx-auto px-6 py-4 flex items-center justify-between">
         <a
           href="#hero"
-          className="text-black font-bold text-lg tracking-tight hover:text-orange-base transition-colors"
+          className="text-black font-bold text-lg tracking-tight hover:text-orange-base transition-colors flex items-center gap-2.5"
         >
           Portfolio
+          <span className="flex items-center gap-1.5 bg-green-50 border border-green-200 text-green-700 text-[9px] font-black uppercase tracking-widest px-2 py-0.5 rounded-full">
+            <span className="w-1.5 h-1.5 rounded-full bg-green-500 animate-pulse inline-block" />
+            Open to work
+          </span>
         </a>
         <ul className="flex items-center gap-8">
           {navLinks.map((link) => (

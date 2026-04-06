@@ -5,6 +5,8 @@ import dynamic from "next/dynamic";
 import "./globals.css";
 
 const SpotifyWidget = dynamic(() => import("@/components/SpotifyWidget"), { ssr: false });
+const ScrollProgress = dynamic(() => import("@/components/ScrollProgress"), { ssr: false });
+const CommandPalette = dynamic(() => import("@/components/CommandPalette"), { ssr: false });
 
 const dmSans = DM_Sans({
   subsets: ["latin"],
@@ -38,6 +40,8 @@ export default function RootLayout({
   return (
     <html lang="en" className={`${dmSans.variable} ${caveat.variable}`}>
       <body className="min-h-screen bg-white font-sans antialiased">
+        <ScrollProgress />
+        <CommandPalette />
         {children}
         <SpotifyWidget />
         <Analytics />

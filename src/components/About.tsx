@@ -624,10 +624,16 @@ export default function About() {
               className="w-full lg:w-[55%] bg-white border-[3px] border-black shadow-[8px_8px_0px_0px_rgba(0,0,0,1)] hover:shadow-[12px_12px_0px_0px_rgba(0,0,0,1)] hover:-translate-y-1 hover:-translate-x-1 transition-all duration-300 flex flex-col relative z-10"
             >
               {/* Window Top Bar */}
-              <div className="w-full bg-[#0cae67] border-b-[3px] border-black px-3 py-2 flex justify-end items-center gap-2">
-                <div className="w-6 h-6 bg-white border-[2px] border-black flex items-center justify-center font-bold text-black text-xs leading-none pt-1 cursor-default hover:bg-gray-100 transition-colors">_</div>
-                <div className="w-6 h-6 bg-white border-[2px] border-black flex items-center justify-center font-bold text-black text-[10px] cursor-default hover:bg-gray-100 transition-colors">□</div>
-                <div className="w-6 h-6 bg-white border-[2px] border-black flex items-center justify-center font-bold text-black text-sm leading-none cursor-default hover:bg-gray-100 transition-colors">×</div>
+              <div className="w-full bg-[#0cae67] border-b-[3px] border-black px-3 py-2 flex justify-between items-center gap-2">
+                <span className="text-white text-[10px] font-black tracking-wider uppercase flex items-center gap-1.5">
+                  <span className="w-1.5 h-1.5 rounded-full bg-white animate-pulse inline-block" />
+                  kushal@sf:~ · open to work
+                </span>
+                <div className="flex items-center gap-2">
+                  <div className="w-6 h-6 bg-white border-[2px] border-black flex items-center justify-center font-bold text-black text-xs leading-none pt-1 cursor-default hover:bg-gray-100 transition-colors">_</div>
+                  <div className="w-6 h-6 bg-white border-[2px] border-black flex items-center justify-center font-bold text-black text-[10px] cursor-default hover:bg-gray-100 transition-colors">□</div>
+                  <div className="w-6 h-6 bg-white border-[2px] border-black flex items-center justify-center font-bold text-black text-sm leading-none cursor-default hover:bg-gray-100 transition-colors">×</div>
+                </div>
               </div>
 
               {/* Window Content */}
@@ -690,6 +696,35 @@ export default function About() {
             </motion.div>
           </div>
         </SectionWrapper>
+
+        {/* Fun Facts Ticker */}
+        {(() => {
+          const facts = [
+            "☕ Coffee before code",
+            "🚀 Built first app at 19",
+            "🌏 India → San Francisco",
+            "♟️ Chess enthusiast",
+            "✦ UI obsessed",
+            "⚡ 5+ years shipping products",
+            "🤖 AI builder",
+            "🎯 Clean code advocate",
+            "🌊 Weekend hiker",
+            "📚 Always learning",
+          ];
+          const repeated = [...facts, ...facts];
+          return (
+            <div className="w-full overflow-hidden border-y border-black/8 py-3 bg-white relative z-10">
+              <div className="flex animate-ticker whitespace-nowrap">
+                {repeated.map((fact, i) => (
+                  <span key={i} className="inline-flex items-center gap-3 px-6 text-[11px] font-medium text-black/40">
+                    {fact}
+                    <span className="text-[#ff5500] font-black">·</span>
+                  </span>
+                ))}
+              </div>
+            </div>
+          );
+        })()}
       </div>
 
         {/* Events & Hackathons - Premium Bento Grid */}

@@ -6,6 +6,7 @@ import Image from "next/image";
 import SectionWrapper from "./SectionWrapper";
 import { about, events, photoStories, type PhotoStory } from "@/lib/constants";
 import { GitHubSticker, AWSSticker, SaveSticker } from "./HackathonStickers";
+import { SiSpotify } from "react-icons/si";
 
 function MomentCard({ story, className = "", delay = 0 }: { story: PhotoStory; className?: string; delay?: number }) {
   const [imgError, setImgError] = useState(false);
@@ -556,6 +557,15 @@ export default function About() {
     offset: ["start end", "end start"],
   });
 
+  const [spotify, setSpotify] = useState<{ isPlaying?: boolean; title?: string; artist?: string; songUrl?: string } | null>(null);
+
+  useEffect(() => {
+    fetch("/api/spotify")
+      .then((r) => r.json())
+      .then((d) => { if (d.configured && d.title) setSpotify(d); })
+      .catch(() => {});
+  }, []);
+
   const bgScale = useTransform(scrollYProgress, [0, 0.5, 1], [1.1, 1, 1.1]);
   const bgOpacity = useTransform(scrollYProgress, [0, 0.2, 0.8, 1], [0, 1, 1, 0]);
 
@@ -638,6 +648,44 @@ export default function About() {
                     )}
                   </p>
                 ))}
+
+                {/* Spotify Now Playing / Last Played */}
+                {spotify && (
+                  <div className="border-t-[3px] border-black pt-4 mt-2">
+                    <a
+                      href={spotify.songUrl}
+                      target="_blank"
+                      rel="noreferrer"
+                      className="flex items-center gap-3 group"
+                    >
+                      <SiSpotify className="text-[#1DB954] text-2xl shrink-0" />
+                      <div className="flex-1 min-w-0">
+                        <p className="text-[9px] font-black uppercase tracking-widest text-black/40 leading-none mb-1">
+                          {spotify.isPlaying ? "Now Playing" : "Last Played"}
+                        </p>
+                        <p className="text-black font-black text-sm leading-tight truncate group-hover:text-[#ff5500] transition-colors">
+                          {spotify.title}
+                        </p>
+                        <p className="text-black/50 text-xs font-medium truncate">{spotify.artist}</p>
+                      </div>
+                      {/* Animated bars */}
+                      <div className="flex items-end gap-[2px] shrink-0">
+                        {[1, 0.5, 0.8, 0.3].map((h, i) => (
+                          <motion.span
+                            key={i}
+                            className="w-[3px] bg-[#1DB954] rounded-full"
+                            animate={spotify.isPlaying
+                              ? { scaleY: [h, 1, h * 0.4, 1, h] }
+                              : { scaleY: 0.3 }
+                            }
+                            transition={{ duration: 1.2, repeat: Infinity, delay: i * 0.15 }}
+                            style={{ height: 16, transformOrigin: "bottom", display: "inline-block" }}
+                          />
+                        ))}
+                      </div>
+                    </a>
+                  </div>
+                )}
               </div>
             </motion.div>
           </div>

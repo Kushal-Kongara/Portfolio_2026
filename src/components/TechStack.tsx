@@ -13,25 +13,24 @@ import { HiCode } from "react-icons/hi";
 import { FaRobot, FaAws } from "react-icons/fa";
 
 const crosswordWords = [
-    { r: 2, c: 5, word: "JAVASCRIPT", dir: "h", num: 1, icon: <SiJavascript />, color: "#000000" },
-    { r: 0, c: 9, word: "POSTGRESQL", dir: "v", num: 2, icon: <SiPostgresql />, color: "#000000" }, // S at (2,9)
-    { r: 9, c: 3, word: "GRAPHQL", dir: "h", num: 3, icon: <SiGraphql />, color: "#000000" },       // L at (9,9)
-    { r: 2, c: 14, word: "TYPESCRIPT", dir: "v", num: 4, icon: <SiTypescript />, color: "#000000" }, // T at (2,14)
-    { r: 8, c: 14, word: "REACT", dir: "h", num: 5, icon: <SiReact />, color: "#000000" },          // R at (8,14)
-    { r: 5, c: 18, word: "NEXT", dir: "v", num: 6, icon: <SiNextdotjs />, color: "#000000" },       // T at (8,18)
-    { r: 5, c: 18, word: "TAILWIND", dir: "h", num: 7, icon: <SiTailwindcss />, color: "#000000" }, // T at (5,18)
-    { r: 5, c: 25, word: "DOCKER", dir: "v", num: 8, icon: <SiDocker />, color: "#000000" },        // D at (5,25)
-    { r: 6, c: 24, word: "NODE", dir: "h", num: 9, icon: <SiNodedotjs />, color: "#000000" },        // O at (6,25)
-    { r: 5, c: 27, word: "REDUX", dir: "v", num: 10, icon: <SiRedux />, color: "#000000" },        // E at (6,27)
-    { r: 9, c: 18, word: "KUBERNETES", dir: "h", num: 11, icon: <SiKubernetes />, color: "#000000" }, // X at (9,27)? No. REDUX X is at r:9, c:27
-                                                                                                    // KUBERNETES ends at c:27? 18+9=27. Correct.
-    { r: 0, c: 22, word: "POSTMAN", dir: "v", num: 12, icon: <SiPostman />, color: "#000000" },
-    { r: 1, c: 26, word: "AWS", dir: "h", num: 13, icon: <FaAws />, color: "#000000" },
-    { r: 0, c: 20, word: "MYSQL", dir: "h", num: 14, icon: <SiMysql />, color: "#000000" },
-    { r: 5, c: 3, word: "RESTAPI", dir: "h", num: 15, icon: <HiCode />, color: "#000000" },
-    { r: 13, c: 7, word: "LANGRAPH", dir: "h", num: 16, icon: <SiLangchain />, color: "#000000" },
-    { r: 6, c: 8, word: "RAG", dir: "v", num: 17, icon: <FaRobot />, color: "#000000" },
-    { r: 1, c: 4, word: "GITHUB", dir: "v", num: 18, icon: <SiGithub />, color: "#000000" },
+    { r: 2, c: 5, word: "JAVASCRIPT", dir: "h", num: 1, icon: <SiJavascript />, color: "#F7DF1E" },
+    { r: 0, c: 9, word: "POSTGRESQL", dir: "v", num: 2, icon: <SiPostgresql />, color: "#4169E1" },
+    { r: 9, c: 3, word: "GRAPHQL", dir: "h", num: 3, icon: <SiGraphql />, color: "#E10098" },
+    { r: 2, c: 14, word: "TYPESCRIPT", dir: "v", num: 4, icon: <SiTypescript />, color: "#3178C6" },
+    { r: 8, c: 14, word: "REACT", dir: "h", num: 5, icon: <SiReact />, color: "#61DAFB" },
+    { r: 5, c: 18, word: "NEXT", dir: "v", num: 6, icon: <SiNextdotjs />, color: "#000000" },
+    { r: 5, c: 18, word: "TAILWIND", dir: "h", num: 7, icon: <SiTailwindcss />, color: "#06B6D4" },
+    { r: 5, c: 25, word: "DOCKER", dir: "v", num: 8, icon: <SiDocker />, color: "#2496ED" },
+    { r: 6, c: 24, word: "NODE", dir: "h", num: 9, icon: <SiNodedotjs />, color: "#339933" },
+    { r: 5, c: 27, word: "REDUX", dir: "v", num: 10, icon: <SiRedux />, color: "#764ABC" },
+    { r: 9, c: 18, word: "KUBERNETES", dir: "h", num: 11, icon: <SiKubernetes />, color: "#326CE5" },
+    { r: 0, c: 22, word: "POSTMAN", dir: "v", num: 12, icon: <SiPostman />, color: "#FF6C37" },
+    { r: 1, c: 26, word: "AWS", dir: "h", num: 13, icon: <FaAws />, color: "#FF9900" },
+    { r: 0, c: 20, word: "MYSQL", dir: "h", num: 14, icon: <SiMysql />, color: "#4479A1" },
+    { r: 5, c: 3, word: "RESTAPI", dir: "h", num: 15, icon: <HiCode />, color: "#ff5500" },
+    { r: 13, c: 7, word: "LANGRAPH", dir: "h", num: 16, icon: <SiLangchain />, color: "#00A67E" },
+    { r: 6, c: 8, word: "RAG", dir: "v", num: 17, icon: <FaRobot />, color: "#7B2FBE" },
+    { r: 1, c: 4, word: "GITHUB", dir: "v", num: 18, icon: <SiGithub />, color: "#24292E" },
 ];
 
 export default function TechStack() {
@@ -139,7 +138,7 @@ export default function TechStack() {
                                                 <>
                                                     <span
                                                         className="text-[1.8vw] md:text-[18px] font-black tracking-tighter select-none"
-                                                        style={{ color: '#000000' }}
+                                                        style={{ color: cell.color }}
                                                     >
                                                         {cell.char}
                                                     </span>
@@ -190,10 +189,11 @@ export default function TechStack() {
                                 onMouseEnter={() => setHoveredWord(word.num)}
                                 onMouseLeave={() => setHoveredWord(null)}
                             >
-                                <div 
-                                    className={`p-3 md:p-5 border-2 border-black bg-white transition-all duration-300 shadow-[4px_4px_0px_rgba(0,0,0,1)] group-hover:-translate-y-1 group-hover:bg-black group-hover:text-white group-hover:shadow-[8px_8px_0px_rgba(0,0,0,1)] ${hoveredWord === word.num ? 'bg-black text-white' : ''}`}
+                                <div
+                                    className="p-3 md:p-5 border-2 border-black bg-white transition-all duration-300 shadow-[4px_4px_0px_rgba(0,0,0,1)] group-hover:-translate-y-1 group-hover:shadow-[8px_8px_0px_rgba(0,0,0,1)]"
+                                    style={hoveredWord === word.num ? { backgroundColor: `${word.color}22`, borderColor: word.color } : {}}
                                 >
-                                    <div className="text-2xl md:text-4xl transition-all duration-300">
+                                    <div className="text-2xl md:text-4xl transition-all duration-300" style={{ color: word.color }}>
                                       {word.icon}
                                     </div>
                                 </div>

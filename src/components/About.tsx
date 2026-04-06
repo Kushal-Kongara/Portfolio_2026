@@ -550,6 +550,56 @@ function IDBadge() {
 }
 
 
+function GalleryCard({ story, style, delay = 0 }: { story: PhotoStory; style?: React.CSSProperties; delay?: number }) {
+  const [imgError, setImgError] = useState(false);
+
+  return (
+    <motion.div
+      initial={{ opacity: 0, scale: 0.97 }}
+      whileInView={{ opacity: 1, scale: 1 }}
+      viewport={{ once: true, amount: 0.1 }}
+      transition={{ duration: 0.6, delay, ease: [0.16, 1, 0.3, 1] }}
+      className="relative overflow-hidden rounded-2xl bg-neutral-900 group cursor-default"
+      style={style}
+    >
+      {/* Photo */}
+      {!imgError && story.image && (
+        <Image
+          src={story.image}
+          alt={story.imageAlt}
+          fill
+          className="object-cover transition-transform duration-700 ease-out group-hover:scale-105"
+          sizes="(max-width: 768px) 50vw, 33vw"
+          onError={() => setImgError(true)}
+        />
+      )}
+
+      {/* Always-on subtle gradient at bottom */}
+      <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/10 to-transparent" />
+
+      {/* Hover overlay — slides up */}
+      <div className="absolute inset-0 bg-black/50 opacity-0 group-hover:opacity-100 transition-opacity duration-400" />
+
+      {/* Content — always visible at bottom */}
+      <div className="absolute bottom-0 left-0 right-0 p-4 translate-y-1 group-hover:translate-y-0 transition-transform duration-400">
+        {story.title && (
+          <p className="text-white font-black text-sm md:text-base leading-tight">
+            {story.title}
+          </p>
+        )}
+        {story.context && (
+          <p className="text-white/60 text-xs mt-1 leading-snug opacity-0 group-hover:opacity-100 transition-opacity duration-300 delay-75 line-clamp-2">
+            {story.context}
+          </p>
+        )}
+      </div>
+
+      {/* Orange accent dot top-left */}
+      <div className="absolute top-3 left-3 w-2 h-2 rounded-full bg-[#ff5500] opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+    </motion.div>
+  );
+}
+
 export default function About() {
   const sectionRef = useRef<HTMLDivElement>(null);
   const { scrollYProgress } = useScroll({
@@ -727,78 +777,73 @@ export default function About() {
         })()}
       </div>
 
-        {/* Events & Hackathons - Premium Bento Grid */}
-        <section id="events" className="w-full bg-[#f8f8f8] pb-24 pt-12 overflow-hidden flex flex-col">
-          <div className="w-full max-w-[1400px] mx-auto px-2 md:px-4 lg:px-8">
-            
-            {/* The Bento Grid */}
-            <motion.div 
-              initial={{ opacity: 0, y: 40 }}
+        {/* Events & Hackathons — Dark Editorial Gallery */}
+        <section id="events" className="w-full bg-[#0a0a0a] overflow-hidden">
+
+          {/* Header */}
+          <div className="max-w-[1400px] mx-auto px-6 md:px-10 pt-20 pb-12">
+            <motion.div
+              initial={{ opacity: 0, y: 30 }}
               whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, amount: 0.1 }}
-              transition={{ duration: 0.8, ease: "easeOut" }}
-              className="grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-6 auto-rows-[180px] md:auto-rows-[220px] lg:auto-rows-[250px] overflow-hidden"
+              viewport={{ once: true }}
+              transition={{ duration: 0.7 }}
+              className="flex flex-col md:flex-row md:items-end md:justify-between gap-6 border-b border-white/10 pb-10"
             >
-              
-              {/* Row 1 */}
-              <div className="col-span-1 row-span-1">
-                {photoStories[0] && <MomentCard story={photoStories[0]} delay={0.1} className="rounded-3xl" />}
-              </div>
-              <div className="col-span-1 row-span-1">
-                {photoStories[1] && <MomentCard story={photoStories[1]} delay={0.2} className="rounded-3xl" />}
-              </div>
-              <div className="col-span-1 row-span-1 hidden md:block">
-                <AWSSticker />
-              </div>
-              <div className="col-span-1 row-span-1">
-                {photoStories[2] && <MomentCard story={photoStories[2]} delay={0.3} className="rounded-3xl" />}
+              {/* Title */}
+              <div>
+                <p className="text-[#ff5500] text-[10px] font-black tracking-[0.4em] uppercase mb-3">Selected Moments</p>
+                <h2
+                  className="text-white font-black uppercase leading-none"
+                  style={{ fontFamily: "Impact, system-ui, sans-serif", fontSize: "clamp(3.5rem, 9vw, 7.5rem)" }}
+                >
+                  Events &<br />Hackathons
+                </h2>
               </div>
 
-              {/* Row 2 - Feature Row */}
-              <div className="col-span-2 md:col-span-1 row-span-1 order-2 md:order-none">
-                <div className="w-full h-full relative rounded-3xl overflow-hidden bg-black flex items-center justify-center p-0">
-                  <Image 
-                    src="https://media1.giphy.com/media/v1.Y2lkPTc5MGI3NjExdng2cnZwazN4NTBiYm5uMGcwbHJlamlvd3g4cXc3cjhxMTFwdGt0cSZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/qmGZhRFjhAAy5d5WGX/giphy.gif" 
-                    alt="Hackathon GIF" 
-                    fill 
-                    className="object-cover"
-                    unoptimized
-                  />
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/40 to-transparent" />
-                </div>
+              {/* Right meta */}
+              <div className="flex flex-col items-start md:items-end gap-2 shrink-0">
+                <span className="text-[#ff5500] font-black leading-none" style={{ fontSize: "clamp(3rem, 6vw, 5rem)", fontFamily: "Impact" }}>
+                  0{photoStories.filter(p => p.image).length}
+                </span>
+                <p className="text-white/30 text-[10px] font-black uppercase tracking-[0.3em]">moments captured</p>
+                <p className="text-white/20 text-[10px] font-black uppercase tracking-[0.2em]">2022 — 2025</p>
               </div>
-
-              <div className="col-span-2 row-span-1 bg-white rounded-3xl border-[3px] border-black shadow-[8px_8px_0px_#000] flex flex-col items-center justify-center p-2 text-center group transition-all hover:bg-gray-50 hover:-translate-y-1 hover:-translate-x-1 order-1 md:order-none relative overflow-hidden">
-                {/* Decorative background pattern */}
-                <div className="absolute inset-0 opacity-[0.03] pointer-events-none" style={{ backgroundImage: "url('data:image/svg+xml,%3Csvg width=\\'20\\' height=\\'20\\' viewBox=\\'0 0 20 20\\' xmlns=\\'http://www.w3.org/2000/svg\\'%3E%3Cg fill=\\'%23000000\\' fill-opacity=\\'1\\' fill-rule=\\'evenodd\\'%3E%3Ccircle cx=\\'3\\' cy=\\'3\\' r=\\'1\\'/%3E%3Ccircle cx=\\'13\\' cy=\\'13\\' r=\\'1\\'/%3E%3C/g%3E%3C/svg%3E')" }} />
-                
-                <h3 className="text-3xl md:text-5xl lg:text-6xl font-black text-black uppercase tracking-tight [font-family:Impact,sans-serif] leading-[0.9] mb-0 relative z-10 w-full px-4">
-                  EVENTS &<br /> HACKATHONS
-                </h3>
-              </div>
-
-              <div className="col-span-1 row-span-1 order-3 md:order-none">
-                <GitHubSticker />
-              </div>
-
-              {/* Row 3 */}
-              <div className="col-span-1 row-span-1">
-                {photoStories[3] && <MomentCard story={photoStories[3]} delay={0.4} className="rounded-3xl" />}
-              </div>
-              <div className="col-span-1 row-span-1">
-                {photoStories[5] && <MomentCard story={photoStories[5]} delay={0.5} className="rounded-3xl" />}
-              </div>
-              <div className="col-span-1 row-span-1">
-                {photoStories[4] && <MomentCard story={photoStories[4]} delay={0.6} className="rounded-3xl" />}
-              </div>
-              <div className="col-span-1 row-span-1 hidden md:flex">
-                <SaveSticker />
-              </div>
-              <div className="col-span-1 row-span-1 flex md:hidden">
-                <AWSSticker />
-              </div>
-
             </motion.div>
+          </div>
+
+          {/* Mosaic Grid */}
+          <div className="max-w-[1400px] mx-auto px-6 md:px-10 pb-20">
+
+            {/* Desktop mosaic — explicit 12-col placement */}
+            <div
+              className="hidden md:grid gap-3"
+              style={{ gridTemplateColumns: "repeat(12, 1fr)", gridTemplateRows: "repeat(3, 240px)" }}
+            >
+              {/* Photo 0 — large hero, 5 wide × 2 tall */}
+              <GalleryCard story={photoStories[0]} style={{ gridColumn: "1 / 6", gridRow: "1 / 3" }} delay={0} />
+              {/* Photo 1 — 4 wide × 1 tall */}
+              <GalleryCard story={photoStories[1]} style={{ gridColumn: "6 / 10", gridRow: "1 / 2" }} delay={0.05} />
+              {/* Photo 2 — 3 wide × 2 tall */}
+              <GalleryCard story={photoStories[2]} style={{ gridColumn: "10 / 13", gridRow: "1 / 3" }} delay={0.1} />
+              {/* Photo 3 — 4 wide × 1 tall */}
+              <GalleryCard story={photoStories[3]} style={{ gridColumn: "6 / 10", gridRow: "2 / 3" }} delay={0.15} />
+              {/* Photos 4 5 6 — bottom row, equal thirds */}
+              <GalleryCard story={photoStories[4]} style={{ gridColumn: "1 / 5", gridRow: "3 / 4" }} delay={0.2} />
+              <GalleryCard story={photoStories[5]} style={{ gridColumn: "5 / 9", gridRow: "3 / 4" }} delay={0.25} />
+              <GalleryCard story={photoStories[6]} style={{ gridColumn: "9 / 13", gridRow: "3 / 4" }} delay={0.3} />
+            </div>
+
+            {/* Mobile — simple 2-col grid */}
+            <div className="grid md:hidden grid-cols-2 gap-3 auto-rows-[200px]">
+              {photoStories.filter(p => p.image).map((story, i) => (
+                <GalleryCard
+                  key={i}
+                  story={story}
+                  delay={i * 0.05}
+                  style={i === 0 ? { gridColumn: "1 / 3" } : {}}
+                />
+              ))}
+            </div>
           </div>
         </section>
     </>

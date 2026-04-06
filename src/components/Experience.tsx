@@ -3,8 +3,6 @@
 import { motion, useMotionValue, useTransform, useSpring, useInView } from "framer-motion";
 import { useEffect, useState, useRef } from "react";
 import { experiences } from "@/lib/constants";
-import WakaTimeBar from "./WakaTimeBar";
-import GitHubActivity from "./GitHubActivity";
 import {
   FiArrowUpRight,
   FiClock,
@@ -362,12 +360,6 @@ export default function Experience() {
             </div>
           </motion.div>
 
-        </div>
-
-        {/* Live Activity Row: WakaTime + GitHub */}
-        <div className="mt-10 grid grid-cols-1 md:grid-cols-2 gap-6">
-          <WakaTimeBar />
-          <GitHubActivity />
         </div>
 
       </div>

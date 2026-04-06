@@ -68,7 +68,7 @@ export default function TechStack() {
     );
 
     return (
-        <div id="tech-stack" className="w-full bg-[#EAEAEA] font-mono text-black py-24 md:py-32 relative overflow-hidden selection:bg-black selection:text-white">
+        <div id="tech-stack" className="w-full bg-[#EAEAEA] font-mono text-black pb-24 md:pb-32 relative overflow-hidden selection:bg-black selection:text-white">
             {/* Pronounced grain/paper texture */}
             <div className="absolute inset-0 opacity-[0.08] pointer-events-none mix-blend-multiply bg-[url('https://www.transparenttextures.com/patterns/concrete-wall-2.png')]" />
             <div className="absolute inset-0 opacity-[0.05] pointer-events-none bg-[url('https://www.transparenttextures.com/patterns/pinstriped-suit.png')]" />

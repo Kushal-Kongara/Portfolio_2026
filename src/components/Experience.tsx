@@ -109,7 +109,7 @@ export default function Experience() {
   ];
 
   return (
-    <section id="experience" className="relative w-full bg-white py-24 overflow-hidden border-y-[3px] border-black pb-64">
+    <section id="experience" className="relative w-full bg-white py-24 overflow-hidden border-y-[3px] border-black">
       {/* Technical Grid Backdrop */}
       <div className="absolute inset-0 pointer-events-none opacity-[0.06]">
         <svg width="100%" height="100%">

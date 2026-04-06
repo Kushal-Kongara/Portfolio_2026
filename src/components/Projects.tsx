@@ -44,6 +44,10 @@ function ProjectCard({
   onToggle,
 }: ProjectCardProps) {
   const num = String(index + 1).padStart(2, "0");
+  
+  // Dynamic project colors: Orange, Green, Blue
+  const colors = ["#ff9d00", "#10b981", "#3b82f6"];
+  const accentColor = colors[index % colors.length];
 
   return (
     <motion.div
@@ -57,8 +61,8 @@ function ProjectCard({
       whileHover={{ y: -6, boxShadow: "14px 14px 0px #000" }}
       transition={{ type: "spring", stiffness: 400, damping: 30 }}
     >
-      {/* OS-Style Window Header (Vibrant Pink) */}
-      <div className="flex items-center justify-between px-4 py-2 bg-[#ff86b2] border-b-[2.5px] border-black">
+      {/* OS-Style Window Header (Dynamic Color) */}
+      <div className="flex items-center justify-between px-4 py-2 border-b-[2.5px] border-black" style={{ backgroundColor: accentColor }}>
         <div className="flex items-center gap-3">
             <span className="font-bold text-[10px] tracking-tight text-black flex items-center gap-2 uppercase">
                 <span className="w-2.5 h-2.5 bg-white border border-black rounded-xs" />
@@ -97,7 +101,7 @@ function ProjectCard({
         )}
         
         {/* Technical Metadata Badge */}
-        <div className="absolute bottom-3 left-3 bg-[#ccff00] border border-black px-2 py-0.5 font-bold text-[9px] uppercase tracking-widest text-black shadow-[3px_3px_0px_#000]">
+        <div className="absolute bottom-3 left-3 bg-white border border-black px-2 py-0.5 font-bold text-[9px] uppercase tracking-widest text-black shadow-[3px_3px_0px_#000]">
            REF_{index * 12 + 400}
         </div>
       </motion.div>
@@ -155,7 +159,7 @@ function ProjectCard({
                 ))}
               </div>
 
-              {/* Professional Links */}
+              {/* Neo-Brutalist Buttons */}
               <div className="flex gap-4 pt-6">
                 {project.link !== "#" && (
                   <a
@@ -163,7 +167,7 @@ function ProjectCard({
                     target="_blank"
                     rel="noreferrer"
                     onClick={(e) => e.stopPropagation()}
-                    className="flex items-center gap-3 px-8 py-4 bg-black text-white text-[11px] font-bold uppercase tracking-widest hover:bg-[#ff86b2] hover:text-black transition-all border-[2.5px] border-black shadow-[8px_8px_0px_#ff86b2] hover:shadow-none translate-y-0 active:translate-y-[2px]"
+                    className="flex items-center gap-3 px-8 py-4 bg-black text-white text-[11px] font-bold uppercase tracking-widest transition-all border-[2.5px] border-black shadow-[8px_8px_0px_#000] hover:shadow-none translate-y-0 active:translate-y-[2px]"
                   >
                     LAUNCH_EXPERIENCE <FiArrowUpRight size={16} strokeWidth={3} />
                   </a>
@@ -174,7 +178,8 @@ function ProjectCard({
                     target="_blank"
                     rel="noreferrer"
                     onClick={(e) => e.stopPropagation()}
-                    className="flex items-center gap-3 px-8 py-4 bg-[#ccff00] text-black text-[11px] font-bold uppercase tracking-widest hover:bg-black hover:text-[#ccff00] transition-all border-[2.5px] border-black shadow-[8px_8px_0px_#000] hover:shadow-none translate-y-0 active:translate-y-[2px]"
+                    className="flex items-center gap-3 px-8 py-4 text-black text-[11px] font-bold uppercase tracking-widest transition-all border-[2.5px] border-black shadow-[8px_8px_0px_#000] hover:shadow-none translate-y-0 active:translate-y-[2px]"
+                    style={{ backgroundColor: accentColor }}
                   >
                     GET_SOURCE_CODE <FiGithub size={16} strokeWidth={3} />
                   </a>
@@ -229,15 +234,19 @@ export default function Projects() {
                 </p>
             </div>
             <h2
-              className="text-black font-black uppercase leading-none tracking-tighter drop-shadow-[8px_8px_0px_rgba(255,134,178,0.3)]"
+              className="text-black font-black uppercase leading-none tracking-tighter"
               style={{
                 fontFamily: "var(--font-dm-sans), sans-serif",
-                fontSize: "clamp(4.5rem, 12vw, 8rem)",
+                fontSize: "clamp(3.5rem, 10vw, 6rem)",
                 letterSpacing: "-0.06em"
               }}
             >
               SELECTED <br />
-              <span className="text-[#ff86b2]">PROJECTS</span>
+              <span className="flex gap-4">
+                <span className="text-[#ff9d00]">PRO</span>
+                <span className="text-[#10b981]">JEC</span>
+                <span className="text-[#3b82f6]">TS</span>
+              </span>
             </h2>
           </div>
           

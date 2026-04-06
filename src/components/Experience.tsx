@@ -123,7 +123,7 @@ export default function Experience() {
       <div className="max-w-7xl mx-auto px-6 relative z-10">
         
         {/* Title Header (Systemic Style) */}
-        <div className="flex flex-col md:flex-row md:items-start justify-between mb-24 gap-12 border-b-[3px] border-black pb-12">
+        <div className="flex flex-col md:flex-row md:items-start justify-between mb-16 gap-12 border-b-[3px] border-black pb-12">
           <div className="space-y-6">
             <div className="inline-flex items-center gap-3 bg-white border-[2.5px] border-black px-4 py-1 shadow-[4px_4px_0px_#000]">
                 <span className="w-2 h-2 bg-[#0ea5e9] animate-pulse" />
@@ -134,7 +134,7 @@ export default function Experience() {
             <h2 className="text-black font-black uppercase leading-[0.8] tracking-tighter"
               style={{
                 fontFamily: "var(--font-dm-sans), sans-serif",
-                fontSize: "clamp(4.5rem, 12vw, 8rem)",
+                fontSize: "clamp(3.5rem, 10vw, 6rem)",
                 letterSpacing: "-0.06em"
               }}
             >
@@ -142,13 +142,13 @@ export default function Experience() {
               <span className="text-[#0ea5e9]">HIGHLIGHTS</span>
             </h2>
           </div>
-          <p className="text-black max-w-sm font-black uppercase text-sm border-l-4 border-black pl-6 pt-4 leading-relaxed bg-[#ffff00] p-4 shadow-[6px_6px_0px_#000] italic">
+          <p className="text-black max-w-sm font-black uppercase text-xs border-l-4 border-black pl-6 pt-4 leading-relaxed bg-[#ffff00] p-4 shadow-[6px_6px_0px_#000] italic">
             Measuring engineering impact through systemic growth, architecture, and professional leadership across multiple tech environments.
           </p>
         </div>
 
         {/* Bento Grid (Colorful Windowed) */}
-        <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 gap-8 md:auto-rows-[200px]">
+        <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 gap-8 md:auto-rows-[180px]">
 
           {/* Tenure Window */}
           <motion.div
@@ -166,10 +166,10 @@ export default function Experience() {
                </div>
             </div>
             <div className="p-10 flex flex-col justify-center flex-1 relative">
-              <h3 className="text-9xl font-black text-white leading-none tracking-tighter mb-4">
+              <h3 className="text-8xl font-black text-white leading-none tracking-tighter mb-4">
                 <CountUp to={5} suffix="+" />
               </h3>
-              <p className="text-white text-2xl font-black leading-tight uppercase italic tracking-tighter">Years of Building <br />Software At Scale.</p>
+              <p className="text-white text-xl font-black leading-tight uppercase italic tracking-tighter">Years of Building <br />Software At Scale.</p>
               <FiClock className="absolute top-1/2 right-4 -translate-y-1/2 text-white/5 text-9xl font-black select-none pointer-events-none rotate-12" />
             </div>
           </motion.div>
@@ -184,12 +184,12 @@ export default function Experience() {
             <div className="bg-[#1a1a1a] px-4 py-2 border-b-[3px] border-black text-[10px] font-black text-neutral-400 uppercase tracking-widest flex items-center gap-2">
                <span className="w-2.5 h-2.5 bg-emerald-500 rounded-xs" /> OATMEAL_AI_RESULT_01
             </div>
-            <div className="p-10 flex items-center justify-between gap-8 h-full bg-[#ccff00]">
+            <div className="p-8 flex items-center justify-between gap-8 h-full bg-[#ccff00]">
               <div className="space-y-2">
-                <h3 className="text-7xl font-black text-black tracking-tighter leading-none">
+                <h3 className="text-6xl font-black text-black tracking-tighter leading-none">
                   <CountUp to={45} suffix="%" delay={0.2} />
                 </h3>
-                <p className="text-black font-black text-xl uppercase tracking-tighter italic">Faster Load Times Post-Architectural Audit</p>
+                <p className="text-black font-black text-lg uppercase tracking-tighter italic">Faster Load Times Post-Architectural Audit</p>
               </div>
               <div className="hidden lg:flex flex-col gap-3">
                 <div className="bg-black text-[#ccff00] px-4 py-2 text-[10px] font-black uppercase border-[2px] border-black shadow-[4px_4px_0px_#000]">MIGRATION_STABLE</div>
@@ -209,7 +209,7 @@ export default function Experience() {
                 DISPATCHTRACK_METRIC_34
              </div>
              <div className="p-8 flex flex-col justify-between h-full">
-                <h3 className="text-5xl font-black text-white tracking-tighter leading-none mb-1 shadow-black/20">
+                <h3 className="text-4xl font-black text-white tracking-tighter leading-none mb-1 shadow-black/20">
                   <CountUp to={25} suffix="%" delay={0.4} />
                 </h3>
                 <p className="text-white/90 font-black text-xs uppercase leading-tight italic tracking-tighter">Infrastructure Efficiency Boosted Via API Refactor.</p>
@@ -228,7 +228,7 @@ export default function Experience() {
             </div>
             <div className="p-8 flex items-center justify-between gap-6 h-full bg-[#f0f9ff]">
               <div>
-                <h3 className="text-5xl font-black text-black tracking-tighter leading-none mb-1">
+                <h3 className="text-4xl font-black text-black tracking-tighter leading-none mb-1">
                   <CountUp to={5} suffix="K+" delay={0.5} />
                 </h3>
                 <p className="text-black font-black text-xs uppercase italic tracking-tighter">Daily Requests Handled at L&T Finance</p>
@@ -255,99 +255,18 @@ export default function Experience() {
                 SAAYAM_UX_DATA_09
              </div>
              <div className="p-8 flex flex-col justify-between h-full text-black">
-                <h3 className="text-5xl font-black tracking-tighter leading-none mb-1">
+                <h3 className="text-4xl font-black tracking-tighter leading-none mb-1">
                   <CountUp to={30} suffix="%" delay={0.5} />
                 </h3>
                 <p className="text-black/80 font-black text-xs uppercase leading-tight italic tracking-tighter">UI Engagement Increase Through System Overhaul.</p>
              </div>
           </motion.div>
 
-          {/* Timeline & Toolkit Persistence Log Window */}
-          <motion.div
-            initial={{ opacity: 0, y: 50 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.5 }}
-            className="md:col-span-3 lg:col-span-4 bg-white border-[3px] border-black shadow-[10px_10px_0px_#000] flex flex-col mt-12 overflow-hidden"
-          >
-            <div className="bg-[#1a1a1a] px-6 md:px-8 py-4 border-b-[3px] border-black flex flex-col md:flex-row justify-between items-center gap-4">
-               <span className="text-[11px] font-black text-neutral-300 uppercase tracking-[0.4em] flex items-center gap-3">
-                 <span className="w-3 h-3 bg-red-500 animate-pulse border border-black" />
-                 CAREER_PERSISTENCE_LOG.db
-               </span>
-               <div className="flex items-center gap-4">
-                 <div className="hidden md:flex items-center gap-3 text-[10px] font-black text-neutral-500 bg-white/5 px-4 py-1 border border-white/10 italic">
-                   TECH_STATUS_MODULES.json
-                 </div>
-                 <div className="text-[10px] font-black text-neutral-500 bg-white/5 px-4 py-1 border border-white/10">
-                   SYSTEM_ACTIVE_v2.0
-                 </div>
-               </div>
-            </div>
-
-            <div className="p-8 md:p-12 space-y-12">
-              {/* Integrated Tech Status Squares - Properly Aligned */}
-              <div className="flex flex-wrap justify-between gap-4 pb-12 border-b-[3px] border-black px-4">
-                {[
-                  "#61DAFB", "#000000", "#3178C6", "#339933", "#06B6D4", "#4169E1", 
-                  "#FF9900", "#2496ED", "#2088FF", "#02569B", "#555555", "#22C55E"
-                ].map((color, i) => (
-                  <motion.div
-                    key={i}
-                    whileHover={{ scale: 1.2, rotate: 12 }}
-                    style={{ backgroundColor: color }}
-                    className="w-10 h-10 md:w-12 md:h-12 border-[2.5px] border-black shadow-[4px_4px_0px_rgba(0,0,0,0.1)] transition-all cursor-crosshair"
-                  />
-                ))}
-              </div>
-
-              {/* Activity Grid - Properly Aligned */}
-              <div className="flex flex-col gap-10">
-                <div className="flex flex-wrap gap-1.5 md:gap-2 justify-center bg-neutral-50/50 p-6 border-[2px] border-black/5 rounded-sm">
-                  {[
-                    ...Array(72).fill({ name: "DispatchTrack", color: "#0ea5e9" }),
-                    ...Array(72).fill({ name: "SFBU (Masters)", color: "#8b5cf6" }),
-                    ...Array(15).fill({ name: "Saayam", color: "#f59e0b" }),
-                    ...Array(66).fill({ name: "Oatmeal AI", color: "#10b981" })
-                  ].map((month, i) => (
-                    <motion.div
-                      key={i}
-                      initial={{ opacity: 0, scale: 0.5 }}
-                      whileInView={{ opacity: 1, scale: 1 }}
-                      viewport={{ once: true }}
-                      transition={{ delay: 0.001 * i, duration: 0.1 }}
-                      style={{ backgroundColor: month.color }}
-                      className="w-3 h-3 md:w-3.5 md:h-3.5 rounded-[1px] cursor-help hover:brightness-125 transition-all border border-black/10 shadow-[2px_2px_0px_rgba(0,0,0,0.1)]"
-                      title={month.name}
-                    />
-                  ))}
-                </div>
-                
-                <div className="flex justify-between items-center text-[11px] font-black text-black uppercase tracking-[0.3em] px-2">
-                  <span className="bg-white border-2 border-black px-4 py-1 shadow-[4px_4px_0px_#000]">Dec 2020</span>
-                  <div className="flex-1 mx-4 md:mx-8 h-[3px] bg-black" />
-                  <span className="bg-[#ccff00] border-2 border-black px-4 py-1 shadow-[4px_4px_0px_#000]">PRESENT_STABLE</span>
-                </div>
-              </div>
-
-              {/* Legend with Dynamic Markers - Properly Aligned */}
-              <div className="grid grid-cols-2 md:grid-cols-4 gap-8 pt-8 border-t-[3px] border-black">
-                {[
-                  { name: "DispatchTrack", color: "#0ea5e9", year: "2020-22" },
-                  { name: "S.F. Bay Univ.", color: "#8b5cf6", year: "2023-24" },
-                  { name: "Saayam", color: "#f59e0b", year: "2024" },
-                  { name: "Oatmeal AI", color: "#10b981", year: "2024-Present" }
-                ].map((item, i) => (
-                  <div key={i} className="flex flex-col gap-3 group px-2">
-                    <div className="flex items-center gap-4">
-                      <div className="w-4 h-4 border-2 border-black shadow-[3px_3px_0px_#000] rotate-45 group-hover:rotate-0 transition-transform flex-shrink-0" style={{ backgroundColor: item.color }} />
-                      <span className="text-[12px] font-black text-black uppercase tracking-tighter truncate">{item.name}</span>
-                    </div>
-                    <span className="text-[10px] font-black text-neutral-400 uppercase tracking-[0.2em] pl-8">{item.year}</span>
-                  </div>
-                ))}
-              </div>
-            </div>
-          </motion.div>
+        </div>
+      </div>
+    </section>
+  );
+}
 
         </div>
       </div>

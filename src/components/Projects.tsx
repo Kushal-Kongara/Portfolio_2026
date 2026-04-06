@@ -1,6 +1,7 @@
 "use client";
 
-import { motion } from "framer-motion";
+import { useRef } from "react";
+import { motion, useScroll, useTransform } from "framer-motion";
 import { projects } from "@/lib/constants";
 import Image from "next/image";
 import { FiArrowUpRight, FiGithub } from "react-icons/fi";
@@ -10,12 +11,8 @@ import {
   SiRedis, SiPostgresql, SiPython, SiFastapi, SiHuggingface
 } from "react-icons/si";
 
-const THEME_COLORS = [
-  { bg: "#fde047", text: "#000000", accent: "#000000" },
-  { bg: "#3b82f6", text: "#ffffff", accent: "#fde047" },
-  { bg: "#2dd4bf", text: "#000000", accent: "#000000" },
-  { bg: "#a855f7", text: "#ffffff", accent: "#ffffff" },
-];
+// Accent color per project (used for title + number highlight)
+const ACCENTS = ["#fde047", "#60a5fa", "#2dd4bf", "#c084fc"];
 
 const getTechIcon = (name: string) => {
   const n = name.toLowerCase();
@@ -36,112 +33,199 @@ const getTechIcon = (name: string) => {
   return null;
 };
 
-const ProjectSection = ({ project, index }: { project: any; index: number }) => {
-  const colors = THEME_COLORS[index % THEME_COLORS.length];
-  const isAlt = index % 2 !== 0;
+const ProjectSlide = ({ project, index, total }: { project: any; index: number; total: number }) => {
+  const ref = useRef<HTMLElement>(null);
+  const accent = ACCENTS[index % ACCENTS.length];
+
+  const { scrollYProgress } = useScroll({
+    target: ref,
+    offset: ["start start", "end start"],
+  });
+
+  // Image parallax — moves slower than scroll
+  const imageY = useTransform(scrollYProgress, [0, 1], ["0%", "25%"]);
+  // Content fades out as you scroll away
+  const contentOpacity = useTransform(scrollYProgress, [0, 0.6], [1, 0]);
+  const contentY = useTransform(scrollYProgress, [0, 0.6], [0, -40]);
+
+  const num = String(index + 1).padStart(2, "0");
 
   return (
     <section
-      style={{
-        backgroundColor: colors.bg,
-        clipPath: index === 0
-          ? "polygon(0 0, 100% 0, 100% 98%, 0 100%)"
-          : index === projects.length - 1
-            ? "polygon(0 0, 100% 0, 100% 100%, 0 100%)"
-            : "polygon(0 2%, 100% 0, 100% 98%, 0 100%)"
-      }}
-      className={`relative py-14 md:py-20 px-6 overflow-hidden ${index !== 0 ? "-mt-6 md:-mt-8" : ""}`}
+      ref={ref}
+      className="relative h-screen w-full overflow-hidden flex items-end"
     >
-      {/* Background Index Number */}
-      <span
-        style={{ color: colors.text, opacity: 0.1 }}
-        className={`absolute text-[12rem] md:text-[18rem] font-black pointer-events-none select-none z-0 ${isAlt ? "left-5" : "right-5"}`}
+      {/* Full-bleed parallax image */}
+      <motion.div
+        className="absolute inset-0 scale-[1.15] origin-center"
+        style={{ y: imageY }}
       >
-        {index + 1}
-      </span>
+        {project.image ? (
+          <Image
+            src={project.image}
+            alt={project.title}
+            fill
+            className="object-cover"
+            priority={index === 0}
+          />
+        ) : (
+          <div className="w-full h-full bg-neutral-900" />
+        )}
+      </motion.div>
 
-      <div className="max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-16 items-center relative z-10">
+      {/* Gradient overlay — dark at bottom, accent tint at top */}
+      <div
+        className="absolute inset-0"
+        style={{
+          background: `linear-gradient(to top, rgba(0,0,0,0.92) 0%, rgba(0,0,0,0.55) 45%, rgba(0,0,0,0.15) 100%)`,
+        }}
+      />
+      {/* Subtle accent color bleed from bottom-left */}
+      <div
+        className="absolute bottom-0 left-0 w-[40%] h-[30%] pointer-events-none"
+        style={{
+          background: `radial-gradient(ellipse at bottom left, ${accent}22 0%, transparent 70%)`,
+        }}
+      />
 
-        {/* INFO COLUMN */}
-        <motion.div
-          initial={{ opacity: 0, x: isAlt ? 20 : -20 }}
-          whileInView={{ opacity: 1, x: 0 }}
-          viewport={{ once: true }}
-          className={`flex flex-col ${isAlt ? "md:order-2" : "md:order-1"}`}
+      {/* Project number — top right, huge and faded */}
+      <motion.div
+        className="absolute top-8 right-8 md:top-12 md:right-12 select-none pointer-events-none"
+        initial={{ opacity: 0, x: 20 }}
+        whileInView={{ opacity: 1, x: 0 }}
+        viewport={{ once: true }}
+        transition={{ duration: 0.7, delay: 0.1 }}
+      >
+        <span
+          className="font-black leading-none"
+          style={{
+            fontFamily: "Impact, system-ui, sans-serif",
+            fontSize: "clamp(5rem, 12vw, 10rem)",
+            color: accent,
+            opacity: 0.15,
+          }}
         >
-          <div className="mb-6">
-            <span className="text-xl md:text-3xl font-black uppercase tracking-[0.3em] opacity-30 block mb-1" style={{ color: colors.text }}>PROJECTS</span>
-            <h3 className="text-4xl md:text-6xl lg:text-7xl font-black text-black uppercase tracking-tighter leading-none [font-family:Impact,sans-serif]" style={{ color: colors.text, transform: "scaleY(1.1)" }}>
-              {project.title}
-            </h3>
-          </div>
+          {num}
+        </span>
+      </motion.div>
 
-          <div className="max-w-md">
-            <p className="text-xl md:text-2xl font-bold leading-tight mb-8" style={{ color: colors.text, opacity: 0.9 }}>
-              {project.impact}
-            </p>
+      {/* Project counter top-left */}
+      <motion.div
+        className="absolute top-8 left-8 md:top-12 md:left-12 flex items-center gap-3"
+        initial={{ opacity: 0, y: -10 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true }}
+        transition={{ duration: 0.5 }}
+      >
+        <span className="text-white/40 text-[10px] font-black tracking-[0.3em] uppercase">
+          {num} / {String(total).padStart(2, "0")}
+        </span>
+        {/* Thin accent line */}
+        <div className="w-12 h-[2px]" style={{ backgroundColor: accent }} />
+        <span className="text-white/40 text-[10px] font-black tracking-[0.3em] uppercase">
+          Projects
+        </span>
+      </motion.div>
 
-            <div className="flex flex-col gap-2 mb-8">
-              <span className="text-xs font-black uppercase tracking-[0.2em] opacity-60" style={{ color: colors.text }}>Impact Metric</span>
-              <p className="text-3xl md:text-4xl font-black tracking-tight" style={{ color: colors.text }}>
-                {project.metric}
-              </p>
-            </div>
+      {/* Main content — pinned to bottom */}
+      <motion.div
+        style={{ opacity: contentOpacity, y: contentY }}
+        className="relative z-10 w-full px-8 md:px-16 pb-12 md:pb-16"
+      >
+        <div className="max-w-5xl">
+          {/* Label */}
+          <motion.p
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.5, delay: 0.1 }}
+            className="text-white/50 text-[10px] font-black tracking-[0.4em] uppercase mb-3"
+          >
+            Selected Work
+          </motion.p>
 
-            <div className="flex flex-wrap gap-2">
-              {project.tech.map((t: string) => (
-                <div key={t} className="flex items-center gap-2 px-3 py-1.5 border-2 rounded-lg transition-transform hover:scale-105" style={{ borderColor: colors.text, color: colors.text }}>
-                  <span className="text-lg">{getTechIcon(t)}</span>
-                  <span className="text-[10px] font-black uppercase tracking-widest">{t}</span>
-                </div>
-              ))}
-            </div>
-          </div>
-        </motion.div>
-
-        {/* IMAGE COLUMN */}
-        <motion.div
-          initial={{ opacity: 0, scale: 0.95 }}
-          whileInView={{ opacity: 1, scale: 1 }}
-          viewport={{ once: true }}
-          className={`relative ${isAlt ? "md:order-1" : "md:order-2"}`}
-        >
-          <div
-            className="relative aspect-video rounded-3xl overflow-hidden shadow-[20px_20px_60px_rgba(0,0,0,0.2)] border-b-8 group"
+          {/* Title */}
+          <motion.h2
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.7, delay: 0.15, ease: [0.16, 1, 0.3, 1] }}
+            className="font-black uppercase leading-none mb-4"
             style={{
-              borderColor: colors.text,
-              perspective: "1000px",
-              transform: isAlt ? "rotateY(8deg) scale(0.98)" : "rotateY(-8deg) scale(0.98)"
+              fontFamily: "Impact, system-ui, sans-serif",
+              fontSize: "clamp(3rem, 9vw, 8rem)",
+              color: accent,
+              transform: "scaleY(1.1)",
             }}
           >
-            {project.image ? (
-              <Image
-                src={project.image}
-                alt={project.title}
-                fill
-                className="object-cover transition-transform duration-700 group-hover:scale-105"
-              />
-            ) : (
-              <div className="w-full h-full bg-black/10 flex items-center justify-center">
-                <span className="text-black/20 font-black italic">PREVIEW</span>
-              </div>
-            )}
+            {project.title}
+          </motion.h2>
 
-            <div className="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center gap-4 backdrop-blur-sm">
-              {project.link !== "#" && (
-                <a href={project.link} target="_blank" className="p-4 bg-white rounded-full hover:scale-110 transition-transform">
-                  <FiArrowUpRight className="text-2xl text-black" />
-                </a>
-              )}
-              {project.code !== "#" && (
-                <a href={project.code} target="_blank" className="p-4 bg-white rounded-full hover:scale-110 transition-transform">
-                  <FiGithub className="text-2xl text-black" />
-                </a>
-              )}
+          {/* Impact + metric row */}
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.6, delay: 0.25 }}
+            className="flex flex-col sm:flex-row sm:items-end gap-3 sm:gap-8 mb-6"
+          >
+            <p className="text-white/80 text-base md:text-lg font-medium leading-snug max-w-md">
+              {project.impact}
+            </p>
+            <div className="shrink-0 border-l-2 pl-6 hidden sm:block" style={{ borderColor: accent }}>
+              <p className="text-[10px] font-black text-white/40 uppercase tracking-widest mb-1">Impact</p>
+              <p className="text-white font-black text-lg md:text-xl leading-tight">{project.metric}</p>
             </div>
-          </div>
-        </motion.div>
-      </div>
+          </motion.div>
+
+          {/* Bottom row — tech + links */}
+          <motion.div
+            initial={{ opacity: 0, y: 15 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.5, delay: 0.35 }}
+            className="flex flex-wrap items-center gap-3"
+          >
+            {/* Tech pills */}
+            {project.tech.map((t: string) => (
+              <div
+                key={t}
+                className="flex items-center gap-1.5 px-3 py-1.5 rounded-full border text-white/70 text-[10px] font-black uppercase tracking-widest"
+                style={{ borderColor: "rgba(255,255,255,0.15)" }}
+              >
+                <span className="text-sm">{getTechIcon(t)}</span>
+                {t}
+              </div>
+            ))}
+
+            {/* Divider */}
+            <div className="w-px h-6 bg-white/20 mx-1 hidden sm:block" />
+
+            {/* Links */}
+            {project.link !== "#" && (
+              <a
+                href={project.link}
+                target="_blank"
+                rel="noreferrer"
+                className="flex items-center gap-2 px-4 py-2 rounded-full font-black text-[11px] uppercase tracking-widest transition-all hover:scale-105"
+                style={{ backgroundColor: accent, color: "#000" }}
+              >
+                Live <FiArrowUpRight />
+              </a>
+            )}
+            {project.code !== "#" && (
+              <a
+                href={project.code}
+                target="_blank"
+                rel="noreferrer"
+                className="flex items-center gap-2 px-4 py-2 rounded-full border font-black text-[11px] uppercase tracking-widest text-white hover:bg-white/10 transition-all border-white/30"
+              >
+                Code <FiGithub />
+              </a>
+            )}
+          </motion.div>
+        </div>
+      </motion.div>
     </section>
   );
 };
@@ -150,12 +234,10 @@ export default function Projects() {
   const displayProjects = projects.slice(0, 4);
 
   return (
-    <div id="projects" className="w-full relative">
-      <div className="flex flex-col">
-        {displayProjects.map((project, i) => (
-          <ProjectSection key={i} project={project} index={i} />
-        ))}
-      </div>
+    <div id="projects" className="w-full">
+      {displayProjects.map((project, i) => (
+        <ProjectSlide key={i} project={project} index={i} total={displayProjects.length} />
+      ))}
     </div>
   );
 }

@@ -242,11 +242,7 @@ export default function Projects() {
               }}
             >
               SELECTED <br />
-              <span className="flex gap-4">
-                <span className="text-[#ff9d00]">PRO</span>
-                <span className="text-[#10b981]">JEC</span>
-                <span className="text-[#3b82f6]">TS</span>
-              </span>
+              <span className="text-[#3b82f6]">PROJECTS</span>
             </h2>
           </div>
           

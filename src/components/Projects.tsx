@@ -1,18 +1,15 @@
 "use client";
 
-import { useRef } from "react";
-import { motion, useScroll, useTransform } from "framer-motion";
+import { useRef, useState } from "react";
+import { motion, useMotionValue, AnimatePresence } from "framer-motion";
 import { projects } from "@/lib/constants";
 import Image from "next/image";
-import { FiArrowUpRight, FiGithub } from "react-icons/fi";
+import { FiArrowUpRight, FiGithub, FiX, FiMove } from "react-icons/fi";
 import {
   SiReact, SiNextdotjs, SiThreedotjs, SiFramer, SiGreensock,
   SiOpenai, SiTailwindcss, SiPrisma, SiNodedotjs,
   SiRedis, SiPostgresql, SiPython, SiFastapi, SiHuggingface
 } from "react-icons/si";
-
-// Accent color per project (used for title + number highlight)
-const ACCENTS = ["#fde047", "#60a5fa", "#2dd4bf", "#c084fc"];
 
 const getTechIcon = (name: string) => {
   const n = name.toLowerCase();
@@ -33,211 +30,314 @@ const getTechIcon = (name: string) => {
   return null;
 };
 
-const ProjectSlide = ({ project, index, total }: { project: any; index: number; total: number }) => {
-  const ref = useRef<HTMLElement>(null);
-  const accent = ACCENTS[index % ACCENTS.length];
+// Initial scatter positions (x offset, y offset from board origin, rotation)
+const INITIAL_POSITIONS = [
+  { x: 40,  y: 50,  rotate: -3 },
+  { x: 380, y: 20,  rotate:  2.5 },
+  { x: 160, y: 310, rotate: -1.5 },
+  { x: 560, y: 260, rotate:  3.5 },
+];
 
-  const { scrollYProgress } = useScroll({
-    target: ref,
-    offset: ["start start", "end start"],
-  });
-
-  // Image parallax — moves slower than scroll
-  const imageY = useTransform(scrollYProgress, [0, 1], ["0%", "25%"]);
-  // Content fades out as you scroll away
-  const contentOpacity = useTransform(scrollYProgress, [0, 0.6], [1, 0]);
-  const contentY = useTransform(scrollYProgress, [0, 0.6], [0, -40]);
-
+function DraggableCard({
+  project,
+  index,
+  boardRef,
+  expandedId,
+  setExpandedId,
+}: {
+  project: typeof projects[0];
+  index: number;
+  boardRef: React.RefObject<HTMLDivElement | null>;
+  expandedId: number | null;
+  setExpandedId: (id: number | null) => void;
+}) {
   const num = String(index + 1).padStart(2, "0");
+  const init = INITIAL_POSITIONS[index];
+  const x = useMotionValue(init.x);
+  const y = useMotionValue(init.y);
+  const isExpanded = expandedId === index;
+
+  // Track drag distance to distinguish click vs drag
+  const dragStartPos = useRef({ x: 0, y: 0 });
+  const didDrag = useRef(false);
+
+  const handleDragStart = () => {
+    dragStartPos.current = { x: x.get(), y: y.get() };
+    didDrag.current = false;
+  };
+
+  const handleDrag = () => {
+    const dx = Math.abs(x.get() - dragStartPos.current.x);
+    const dy = Math.abs(y.get() - dragStartPos.current.y);
+    if (dx > 5 || dy > 5) didDrag.current = true;
+  };
+
+  const handleClick = () => {
+    if (didDrag.current) return;
+    setExpandedId(isExpanded ? null : index);
+  };
 
   return (
-    <section
-      ref={ref}
-      className="relative h-screen w-full overflow-hidden flex items-end"
+    <motion.div
+      drag
+      dragConstraints={boardRef}
+      dragElastic={0.08}
+      dragTransition={{ bounceStiffness: 400, bounceDamping: 30 }}
+      onDragStart={handleDragStart}
+      onDrag={handleDrag}
+      onClick={handleClick}
+      style={{
+        x,
+        y,
+        rotate: init.rotate,
+        position: "absolute",
+        zIndex: isExpanded ? 50 : 10,
+        cursor: isExpanded ? "default" : "grab",
+      }}
+      whileDrag={{
+        scale: 1.04,
+        rotate: 0,
+        zIndex: 60,
+        cursor: "grabbing",
+        boxShadow: "14px 14px 0px #ff5500",
+      }}
+      animate={isExpanded ? { scale: 1.02, rotate: 0 } : { scale: 1 }}
+      transition={{ type: "spring", stiffness: 300, damping: 25 }}
+      className="w-[260px] md:w-[300px] bg-white border-[3px] border-black select-none"
+      style2={{ boxShadow: "8px 8px 0px #ff5500" }}
     >
-      {/* Full-bleed parallax image */}
-      <motion.div
-        className="absolute inset-0 scale-[1.15] origin-center"
-        style={{ y: imageY }}
-      >
-        {project.image ? (
-          <Image
-            src={project.image}
-            alt={project.title}
-            fill
-            className="object-cover"
-            priority={index === 0}
-          />
-        ) : (
-          <div className="w-full h-full bg-neutral-900" />
-        )}
-      </motion.div>
-
-      {/* Gradient overlay — dark at bottom, accent tint at top */}
-      <div
-        className="absolute inset-0"
-        style={{
-          background: `linear-gradient(to top, rgba(0,0,0,0.92) 0%, rgba(0,0,0,0.55) 45%, rgba(0,0,0,0.15) 100%)`,
-        }}
-      />
-      {/* Subtle accent color bleed from bottom-left */}
-      <div
-        className="absolute bottom-0 left-0 w-[40%] h-[30%] pointer-events-none"
-        style={{
-          background: `radial-gradient(ellipse at bottom left, ${accent}22 0%, transparent 70%)`,
-        }}
-      />
-
-      {/* Project number — top right, huge and faded */}
-      <motion.div
-        className="absolute top-8 right-8 md:top-12 md:right-12 select-none pointer-events-none"
-        initial={{ opacity: 0, x: 20 }}
-        whileInView={{ opacity: 1, x: 0 }}
-        viewport={{ once: true }}
-        transition={{ duration: 0.7, delay: 0.1 }}
-      >
-        <span
-          className="font-black leading-none"
-          style={{
-            fontFamily: "Impact, system-ui, sans-serif",
-            fontSize: "clamp(5rem, 12vw, 10rem)",
-            color: accent,
-            opacity: 0.15,
-          }}
-        >
-          {num}
-        </span>
-      </motion.div>
-
-      {/* Project counter top-left */}
-      <motion.div
-        className="absolute top-8 left-8 md:top-12 md:left-12 flex items-center gap-3"
-        initial={{ opacity: 0, y: -10 }}
-        whileInView={{ opacity: 1, y: 0 }}
-        viewport={{ once: true }}
-        transition={{ duration: 0.5 }}
-      >
-        <span className="text-white/40 text-[10px] font-black tracking-[0.3em] uppercase">
-          {num} / {String(total).padStart(2, "0")}
-        </span>
-        {/* Thin accent line */}
-        <div className="w-12 h-[2px]" style={{ backgroundColor: accent }} />
-        <span className="text-white/40 text-[10px] font-black tracking-[0.3em] uppercase">
-          Projects
-        </span>
-      </motion.div>
-
-      {/* Main content — pinned to bottom */}
-      <motion.div
-        style={{ opacity: contentOpacity, y: contentY }}
-        className="relative z-10 w-full px-8 md:px-16 pb-12 md:pb-16"
-      >
-        <div className="max-w-5xl">
-          {/* Label */}
-          <motion.p
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.5, delay: 0.1 }}
-            className="text-white/50 text-[10px] font-black tracking-[0.4em] uppercase mb-3"
+      <div style={{ boxShadow: isExpanded ? "14px 14px 0px #ff5500" : "8px 8px 0px #ff5500" }}>
+        {/* Card header */}
+        <div className="flex items-center justify-between px-4 pt-3 pb-2 border-b-[2px] border-black">
+          <span
+            className="font-black text-xs tracking-widest text-black/40"
+            style={{ fontFamily: "monospace" }}
           >
-            Selected Work
-          </motion.p>
+            {num}
+          </span>
+          {isExpanded ? (
+            <button
+              onClick={(e) => { e.stopPropagation(); setExpandedId(null); }}
+              className="w-5 h-5 bg-black text-white flex items-center justify-center hover:bg-[#ff5500] transition-colors"
+            >
+              <FiX size={10} strokeWidth={3} />
+            </button>
+          ) : (
+            <FiMove size={12} className="text-black/30" />
+          )}
+        </div>
 
-          {/* Title */}
-          <motion.h2
-            initial={{ opacity: 0, y: 30 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.7, delay: 0.15, ease: [0.16, 1, 0.3, 1] }}
-            className="font-black uppercase leading-none mb-4"
+        {/* Image */}
+        <div
+          className="relative w-full overflow-hidden bg-neutral-100"
+          style={{ height: isExpanded ? "140px" : "180px", transition: "height 0.3s ease" }}
+        >
+          {project.image ? (
+            <Image
+              src={project.image}
+              alt={project.title}
+              fill
+              className="object-cover"
+              draggable={false}
+            />
+          ) : (
+            <div className="w-full h-full bg-neutral-200" />
+          )}
+        </div>
+
+        {/* Title row */}
+        <div className="px-4 pt-3 pb-2">
+          <h3
+            className="font-black uppercase leading-none text-black tracking-tighter"
             style={{
               fontFamily: "Impact, system-ui, sans-serif",
-              fontSize: "clamp(3rem, 9vw, 8rem)",
-              color: accent,
-              transform: "scaleY(1.1)",
+              fontSize: "clamp(1.1rem, 2vw, 1.4rem)",
             }}
           >
             {project.title}
-          </motion.h2>
-
-          {/* Impact + metric row */}
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.6, delay: 0.25 }}
-            className="flex flex-col sm:flex-row sm:items-end gap-3 sm:gap-8 mb-6"
-          >
-            <p className="text-white/80 text-base md:text-lg font-medium leading-snug max-w-md">
-              {project.impact}
-            </p>
-            <div className="shrink-0 border-l-2 pl-6 hidden sm:block" style={{ borderColor: accent }}>
-              <p className="text-[10px] font-black text-white/40 uppercase tracking-widest mb-1">Impact</p>
-              <p className="text-white font-black text-lg md:text-xl leading-tight">{project.metric}</p>
-            </div>
-          </motion.div>
-
-          {/* Bottom row — tech + links */}
-          <motion.div
-            initial={{ opacity: 0, y: 15 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.5, delay: 0.35 }}
-            className="flex flex-wrap items-center gap-3"
-          >
-            {/* Tech pills */}
-            {project.tech.map((t: string) => (
-              <div
-                key={t}
-                className="flex items-center gap-1.5 px-3 py-1.5 rounded-full border text-white/70 text-[10px] font-black uppercase tracking-widest"
-                style={{ borderColor: "rgba(255,255,255,0.15)" }}
-              >
-                <span className="text-sm">{getTechIcon(t)}</span>
-                {t}
-              </div>
-            ))}
-
-            {/* Divider */}
-            <div className="w-px h-6 bg-white/20 mx-1 hidden sm:block" />
-
-            {/* Links */}
-            {project.link !== "#" && (
-              <a
-                href={project.link}
-                target="_blank"
-                rel="noreferrer"
-                className="flex items-center gap-2 px-4 py-2 rounded-full font-black text-[11px] uppercase tracking-widest transition-all hover:scale-105"
-                style={{ backgroundColor: accent, color: "#000" }}
-              >
-                Live <FiArrowUpRight />
-              </a>
-            )}
-            {project.code !== "#" && (
-              <a
-                href={project.code}
-                target="_blank"
-                rel="noreferrer"
-                className="flex items-center gap-2 px-4 py-2 rounded-full border font-black text-[11px] uppercase tracking-widest text-white hover:bg-white/10 transition-all border-white/30"
-              >
-                Code <FiGithub />
-              </a>
-            )}
-          </motion.div>
+          </h3>
         </div>
-      </motion.div>
-    </section>
+
+        {/* Expanded content */}
+        <AnimatePresence>
+          {isExpanded && (
+            <motion.div
+              initial={{ opacity: 0, height: 0 }}
+              animate={{ opacity: 1, height: "auto" }}
+              exit={{ opacity: 0, height: 0 }}
+              transition={{ duration: 0.25, ease: "easeInOut" }}
+              className="overflow-hidden"
+            >
+              <div className="px-4 pb-4 space-y-3 border-t-[2px] border-black/10 pt-3">
+                {/* Impact */}
+                <p className="text-black/70 text-[11px] leading-relaxed font-medium">
+                  {project.impact}
+                </p>
+
+                {/* Metric */}
+                <div className="inline-flex items-center gap-1.5 bg-black text-white px-2 py-1 text-[9px] font-black tracking-widest uppercase">
+                  <span className="text-[#ff5500]">↑</span>
+                  {project.metric}
+                </div>
+
+                {/* Tech pills */}
+                <div className="flex flex-wrap gap-1.5">
+                  {project.tech.map((t) => (
+                    <div
+                      key={t}
+                      className="flex items-center gap-1 px-2 py-0.5 border border-black/20 text-[9px] font-black uppercase tracking-wider text-black/60"
+                    >
+                      <span className="text-[10px]">{getTechIcon(t)}</span>
+                      {t}
+                    </div>
+                  ))}
+                </div>
+
+                {/* Links */}
+                <div className="flex gap-2 pt-1">
+                  {project.link !== "#" && (
+                    <a
+                      href={project.link}
+                      target="_blank"
+                      rel="noreferrer"
+                      onClick={(e) => e.stopPropagation()}
+                      className="flex items-center gap-1 px-3 py-1.5 bg-black text-white text-[9px] font-black uppercase tracking-widest hover:bg-[#ff5500] transition-colors"
+                    >
+                      Live <FiArrowUpRight size={10} strokeWidth={3} />
+                    </a>
+                  )}
+                  {project.code !== "#" && (
+                    <a
+                      href={project.code}
+                      target="_blank"
+                      rel="noreferrer"
+                      onClick={(e) => e.stopPropagation()}
+                      className="flex items-center gap-1 px-3 py-1.5 border-[2px] border-black text-black text-[9px] font-black uppercase tracking-widest hover:bg-black hover:text-white transition-colors"
+                    >
+                      Code <FiGithub size={10} strokeWidth={3} />
+                    </a>
+                  )}
+                </div>
+              </div>
+            </motion.div>
+          )}
+        </AnimatePresence>
+      </div>
+    </motion.div>
   );
-};
+}
 
 export default function Projects() {
   const displayProjects = projects.slice(0, 4);
+  const boardRef = useRef<HTMLDivElement>(null);
+  const [expandedId, setExpandedId] = useState<number | null>(null);
 
   return (
-    <div id="projects" className="w-full">
-      {displayProjects.map((project, i) => (
-        <ProjectSlide key={i} project={project} index={i} total={displayProjects.length} />
-      ))}
+    <div id="projects" className="w-full bg-[#0f0f0f] relative overflow-hidden" style={{ minHeight: "860px" }}>
+      {/* Dot grid background */}
+      <div
+        className="absolute inset-0 pointer-events-none opacity-[0.18]"
+        style={{
+          backgroundImage: "radial-gradient(circle, #ffffff 1px, transparent 1px)",
+          backgroundSize: "28px 28px",
+        }}
+      />
+
+      {/* Header */}
+      <div className="relative z-10 px-8 md:px-14 pt-14 pb-6 flex items-end justify-between">
+        <div>
+          <p className="text-white/30 text-[10px] font-black tracking-[0.4em] uppercase font-mono mb-2">
+            Selected Work
+          </p>
+          <h2
+            className="text-white font-black uppercase leading-none"
+            style={{
+              fontFamily: "Impact, system-ui, sans-serif",
+              fontSize: "clamp(3rem, 7vw, 6rem)",
+              WebkitTextStroke: "1px rgba(255,255,255,0.15)",
+            }}
+          >
+            PROJECTS
+          </h2>
+        </div>
+        <p className="text-white/20 text-[10px] font-mono tracking-widest uppercase hidden md:block self-end pb-2">
+          drag to rearrange · click to expand
+        </p>
+      </div>
+
+      {/* Drag board */}
+      <div
+        ref={boardRef}
+        className="relative hidden md:block"
+        style={{ height: "660px", width: "100%" }}
+      >
+        {displayProjects.map((project, i) => (
+          <DraggableCard
+            key={i}
+            project={project}
+            index={i}
+            boardRef={boardRef}
+            expandedId={expandedId}
+            setExpandedId={setExpandedId}
+          />
+        ))}
+      </div>
+
+      {/* Mobile fallback — stacked vertical list */}
+      <div className="md:hidden px-6 pb-12 space-y-6">
+        {displayProjects.map((project, i) => {
+          const num = String(i + 1).padStart(2, "0");
+          return (
+            <div key={i} className="bg-white border-[3px] border-black" style={{ boxShadow: "6px 6px 0px #ff5500" }}>
+              <div className="flex items-center justify-between px-4 pt-3 pb-2 border-b-[2px] border-black">
+                <span className="font-black text-xs tracking-widest text-black/40 font-mono">{num}</span>
+              </div>
+              <div className="relative w-full h-[200px] bg-neutral-100">
+                {project.image && (
+                  <Image src={project.image} alt={project.title} fill className="object-cover" />
+                )}
+              </div>
+              <div className="px-4 pt-3 pb-2">
+                <h3
+                  className="font-black uppercase leading-none text-black tracking-tighter text-2xl"
+                  style={{ fontFamily: "Impact, system-ui, sans-serif" }}
+                >
+                  {project.title}
+                </h3>
+              </div>
+              <div className="px-4 pb-4 space-y-3 border-t-[2px] border-black/10 pt-3">
+                <p className="text-black/70 text-xs leading-relaxed">{project.impact}</p>
+                <div className="inline-flex items-center gap-1.5 bg-black text-white px-2 py-1 text-[9px] font-black tracking-widest uppercase">
+                  <span className="text-[#ff5500]">↑</span>
+                  {project.metric}
+                </div>
+                <div className="flex flex-wrap gap-1.5">
+                  {project.tech.map((t) => (
+                    <div key={t} className="flex items-center gap-1 px-2 py-0.5 border border-black/20 text-[9px] font-black uppercase tracking-wider text-black/60">
+                      <span className="text-[10px]">{getTechIcon(t)}</span>
+                      {t}
+                    </div>
+                  ))}
+                </div>
+                <div className="flex gap-2 pt-1">
+                  {project.link !== "#" && (
+                    <a href={project.link} target="_blank" rel="noreferrer"
+                      className="flex items-center gap-1 px-3 py-1.5 bg-black text-white text-[9px] font-black uppercase tracking-widest">
+                      Live <FiArrowUpRight size={10} />
+                    </a>
+                  )}
+                  {project.code !== "#" && (
+                    <a href={project.code} target="_blank" rel="noreferrer"
+                      className="flex items-center gap-1 px-3 py-1.5 border-[2px] border-black text-black text-[9px] font-black uppercase tracking-widest">
+                      Code <FiGithub size={10} />
+                    </a>
+                  )}
+                </div>
+              </div>
+            </div>
+          );
+        })}
+      </div>
     </div>
   );
 }

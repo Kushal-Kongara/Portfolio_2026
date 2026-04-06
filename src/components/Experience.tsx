@@ -267,9 +267,9 @@ export default function Experience() {
             initial={{ opacity: 0, y: 50 }}
             whileInView={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.5 }}
-            className="md:col-span-3 lg:col-span-4 bg-white border-[3px] border-black shadow-[10px_10px_0px_#000] flex flex-col mt-12"
+            className="md:col-span-3 lg:col-span-4 bg-white border-[3px] border-black shadow-[10px_10px_0px_#000] flex flex-col mt-12 overflow-hidden"
           >
-            <div className="bg-[#1a1a1a] px-8 py-4 border-b-[3px] border-black flex justify-between items-center">
+            <div className="bg-[#1a1a1a] px-6 md:px-8 py-4 border-b-[3px] border-black flex flex-col md:flex-row justify-between items-center gap-4">
                <span className="text-[11px] font-black text-neutral-300 uppercase tracking-[0.4em] flex items-center gap-3">
                  <span className="w-3 h-3 bg-red-500 animate-pulse border border-black" />
                  CAREER_PERSISTENCE_LOG.db
@@ -284,22 +284,23 @@ export default function Experience() {
                </div>
             </div>
 
-            <div className="p-12 space-y-12">
-              {/* Integrated Toolkit Manifest */}
-              <div className="grid grid-cols-4 md:grid-cols-6 lg:grid-cols-12 gap-4 pb-12 border-b-[3px] border-black">
+            <div className="p-8 md:p-12 space-y-12">
+              {/* Integrated Toolkit Manifest - Properly Aligned */}
+              <div className="flex flex-wrap justify-center gap-4 pb-12 border-b-[3px] border-black">
                 {skillIcons.map((skill, i) => (
                   <motion.div
                     key={i}
-                    whileHover={{ scale: 1.15, rotate: -5, boxShadow: "4px 4px 0px #000" }}
-                    className={`flex items-center justify-center text-4xl p-3 rounded-xl bg-white border-[2.5px] border-black transition-all shadow-[4px_4px_0px_rgba(0,0,0,0.1)] ${skill.color}`}
+                    whileHover={{ scale: 1.1, rotate: -5, boxShadow: "4px 4px 0px #000" }}
+                    className={`flex items-center justify-center text-4xl w-14 h-14 md:w-16 md:h-16 rounded-xl bg-white border-[2.5px] border-black transition-all shadow-[4px_4px_0px_rgba(0,0,0,0.1)] ${skill.color}`}
                   >
-                    {skill.icon}
+                    <span className="p-2">{skill.icon}</span>
                   </motion.div>
                 ))}
               </div>
 
-              <div className="flex flex-col gap-8">
-                <div className="flex flex-wrap gap-1.5 md:gap-2 justify-center md:justify-start">
+              {/* Activity Grid - Properly Aligned */}
+              <div className="flex flex-col gap-10">
+                <div className="flex flex-wrap gap-1.5 md:gap-2 justify-center bg-neutral-50/50 p-6 border-[2px] border-black/5 rounded-sm">
                   {[
                     ...Array(72).fill({ name: "DispatchTrack", color: "#0ea5e9" }),
                     ...Array(72).fill({ name: "SFBU (Masters)", color: "#8b5cf6" }),
@@ -319,14 +320,14 @@ export default function Experience() {
                   ))}
                 </div>
                 
-                <div className="flex justify-between items-center text-[11px] font-black text-black uppercase tracking-[0.3em]">
+                <div className="flex justify-between items-center text-[11px] font-black text-black uppercase tracking-[0.3em] px-2">
                   <span className="bg-white border-2 border-black px-4 py-1 shadow-[4px_4px_0px_#000]">Dec 2020</span>
-                  <div className="flex-1 mx-8 h-[3px] bg-black" />
+                  <div className="flex-1 mx-4 md:mx-8 h-[3px] bg-black" />
                   <span className="bg-[#ccff00] border-2 border-black px-4 py-1 shadow-[4px_4px_0px_#000]">PRESENT_STABLE</span>
                 </div>
               </div>
 
-              {/* Legend with Dynamic Markers */}
+              {/* Legend with Dynamic Markers - Properly Aligned */}
               <div className="grid grid-cols-2 md:grid-cols-4 gap-8 pt-8 border-t-[3px] border-black">
                 {[
                   { name: "DispatchTrack", color: "#0ea5e9", year: "2020-22" },
@@ -334,10 +335,10 @@ export default function Experience() {
                   { name: "Saayam", color: "#f59e0b", year: "2024" },
                   { name: "Oatmeal AI", color: "#10b981", year: "2024-Present" }
                 ].map((item, i) => (
-                  <div key={i} className="flex flex-col gap-3 group">
+                  <div key={i} className="flex flex-col gap-3 group px-2">
                     <div className="flex items-center gap-4">
-                      <div className="w-4 h-4 border-2 border-black shadow-[3px_3px_0px_#000] rotate-45 group-hover:rotate-0 transition-transform" style={{ backgroundColor: item.color }} />
-                      <span className="text-[12px] font-black text-black uppercase tracking-tighter">{item.name}</span>
+                      <div className="w-4 h-4 border-2 border-black shadow-[3px_3px_0px_#000] rotate-45 group-hover:rotate-0 transition-transform flex-shrink-0" style={{ backgroundColor: item.color }} />
+                      <span className="text-[12px] font-black text-black uppercase tracking-tighter truncate">{item.name}</span>
                     </div>
                     <span className="text-[10px] font-black text-neutral-400 uppercase tracking-[0.2em] pl-8">{item.year}</span>
                   </div>

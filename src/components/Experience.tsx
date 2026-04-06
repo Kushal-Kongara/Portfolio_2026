@@ -267,9 +267,3 @@ export default function Experience() {
     </section>
   );
 }
-
-        </div>
-      </div>
-    </section>
-  );
-}

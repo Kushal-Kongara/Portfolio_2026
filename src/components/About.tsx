@@ -559,7 +559,7 @@ function GalleryCard({ story, style, delay = 0, objectPosition = "center" }: { s
       whileInView={{ opacity: 1, scale: 1 }}
       viewport={{ once: true, amount: 0.1 }}
       transition={{ duration: 0.6, delay, ease: [0.16, 1, 0.3, 1] }}
-      className="relative overflow-hidden rounded-2xl bg-neutral-900 group cursor-default"
+      className="relative overflow-hidden bg-neutral-900 group cursor-default border-[2.5px] border-black shadow-[6px_6px_0px_#000] hover:shadow-none hover:translate-x-[3px] hover:translate-y-[3px] transition-all"
       style={style}
     >
       {!imgError && story.image && (
@@ -628,7 +628,7 @@ function VideoCard({ style, delay = 0 }: { style?: React.CSSProperties; delay?: 
       whileInView={{ opacity: 1, scale: 1 }}
       viewport={{ once: true, amount: 0.1 }}
       transition={{ duration: 0.6, delay, ease: [0.16, 1, 0.3, 1] }}
-      className="relative overflow-hidden rounded-2xl bg-neutral-900 group cursor-default"
+      className="relative overflow-hidden bg-neutral-900 group cursor-default border-[2.5px] border-black shadow-[6px_6px_0px_#000] hover:shadow-none hover:translate-x-[3px] hover:translate-y-[3px] transition-all"
       style={style}
     >
       <video
@@ -824,36 +824,61 @@ export default function About() {
 
       </div>
 
-        {/* Events & Hackathons — Dark Editorial Gallery */}
-        <section id="events" className="w-full bg-[#0a0a0a] overflow-hidden">
+        {/* Events & Hackathons — Systemic Gallery */}
+        <section id="events" className="w-full bg-white relative overflow-hidden border-t-[3px] border-black">
+          {/* Subtle Linear Technical Grid */}
+          <div className="absolute inset-0 pointer-events-none opacity-[0.08]">
+            <svg width="100%" height="100%">
+              <pattern id="eventsGrid" width="80" height="80" patternUnits="userSpaceOnUse">
+                <path d="M 80 0 L 0 0 0 80" fill="none" stroke="black" strokeWidth="2" />
+              </pattern>
+              <rect width="100%" height="100%" fill="url(#eventsGrid)" />
+            </svg>
+          </div>
 
           {/* Header */}
-          <div className="max-w-[1400px] mx-auto px-6 md:px-10 pt-20 pb-12">
+          <div className="max-w-[1400px] mx-auto px-6 md:px-10 pt-24 pb-16 relative z-10">
             <motion.div
               initial={{ opacity: 0, y: 30 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.7 }}
-              className="flex flex-col md:flex-row md:items-end md:justify-between gap-6 border-b border-white/10 pb-10"
+              className="flex flex-col md:flex-row md:items-start md:justify-between gap-12 border-b-[3px] border-black pb-12"
             >
-              {/* Title */}
-              <div>
-                <p className="text-[#ff5500] text-[10px] font-black tracking-[0.4em] uppercase mb-3">Selected Moments</p>
+              {/* Title Section */}
+              <div className="space-y-6">
+                <div className="inline-flex items-center gap-3 bg-white border-[2.5px] border-black px-4 py-1 shadow-[4px_4px_0px_#000]">
+                    <span className="w-2 h-2 bg-[#ff5500] animate-pulse" />
+                    <p className="text-black text-[11px] font-black tracking-[0.4em] uppercase">
+                        SYSTEM.LOG / MOMENTS
+                    </p>
+                </div>
                 <h2
-                  className="text-white font-black uppercase leading-none"
-                  style={{ fontFamily: "Impact, system-ui, sans-serif", fontSize: "clamp(2.2rem, 5vw, 4rem)" }}
+                  className="text-black font-black uppercase leading-none tracking-tighter"
+                  style={{
+                    fontFamily: "var(--font-dm-sans), sans-serif",
+                    fontSize: "clamp(3.5rem, 10vw, 6rem)",
+                    letterSpacing: "-0.06em"
+                  }}
                 >
-                  Events &<br />Hackathons
+                  EVENTS &<br />
+                  <span className="text-[#ff5500]">HACKATHONS</span>
                 </h2>
               </div>
 
-              {/* Right meta */}
-              <div className="flex flex-col items-start md:items-end gap-2 shrink-0">
-                <span className="text-[#ff5500] font-black leading-none" style={{ fontSize: "clamp(2rem, 4vw, 3.5rem)", fontFamily: "Impact" }}>
-                  0{photoStories.filter(p => p.image).length}
-                </span>
-                <p className="text-white/30 text-[10px] font-black uppercase tracking-[0.3em]">moments captured</p>
-                <p className="text-white/20 text-[10px] font-black uppercase tracking-[0.2em]">2022 — 2025</p>
+              {/* Status Meta */}
+              <div className="flex items-center gap-8 bg-white border-[3px] border-black p-6 shadow-[8px_8px_0px_#000] rotate-2">
+                <div className="flex flex-col">
+                    <span className="text-4xl font-black text-black leading-none">
+                      0{photoStories.filter(p => p.image).length}
+                    </span>
+                    <p className="text-black/40 text-[9px] font-black uppercase tracking-widest mt-1">CAPS_STORED</p>
+                </div>
+                <div className="w-[2px] h-10 bg-black/10" />
+                <div className="flex flex-col">
+                    <span className="text-xs font-black text-black italic">2022 — 2025</span>
+                    <p className="text-black/40 text-[9px] font-black uppercase tracking-widest mt-1">TIME_DOMAIN</p>
+                </div>
               </div>
             </motion.div>
           </div>

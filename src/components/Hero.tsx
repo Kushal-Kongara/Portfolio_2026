@@ -1,7 +1,7 @@
 "use client";
 /* eslint-disable react/no-unescaped-entities */
 
-import { motion, useScroll, useMotionValueEvent, useTransform, useMotionValue, useSpring } from "framer-motion";
+import { motion, AnimatePresence, useScroll, useMotionValueEvent, useTransform, useMotionValue, useSpring } from "framer-motion";
 import Image from "next/image";
 import { useState, useEffect, useRef } from "react";
 import { FiGithub, FiLinkedin, FiInstagram } from "react-icons/fi";
@@ -13,6 +13,58 @@ export default function Hero() {
   const [isCallActive, setIsCallActive] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const vapiRef = useRef<any>(null);
+
+  // Easter egg state
+  const [easterEgg, setEasterEgg] = useState<'idle' | 'poke' | null>(null);
+  const pokeCountRef = useRef(0);
+  const pokeTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
+  const idleTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
+  const easterEggTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
+
+  // Idle detection — reset on any interaction
+  useEffect(() => {
+    const resetIdle = () => {
+      if (idleTimerRef.current) clearTimeout(idleTimerRef.current);
+      if (easterEgg === 'idle') setEasterEgg(null);
+      idleTimerRef.current = setTimeout(() => {
+        setEasterEgg('idle');
+      }, 20000);
+    };
+
+    resetIdle();
+    window.addEventListener('mousemove', resetIdle);
+    window.addEventListener('keydown', resetIdle);
+    window.addEventListener('mousedown', resetIdle);
+    window.addEventListener('scroll', resetIdle);
+    return () => {
+      if (idleTimerRef.current) clearTimeout(idleTimerRef.current);
+      window.removeEventListener('mousemove', resetIdle);
+      window.removeEventListener('keydown', resetIdle);
+      window.removeEventListener('mousedown', resetIdle);
+      window.removeEventListener('scroll', resetIdle);
+    };
+  }, [easterEgg]);
+
+  // Auto-dismiss easter eggs after 4s
+  const triggerEasterEgg = (type: 'idle' | 'poke') => {
+    setEasterEgg(type);
+    if (easterEggTimerRef.current) clearTimeout(easterEggTimerRef.current);
+    easterEggTimerRef.current = setTimeout(() => setEasterEgg(null), 4000);
+  };
+
+  // Poke handler — 3 clicks within 1.5s triggers easter egg
+  const handleCharacterClick = () => {
+    pokeCountRef.current += 1;
+    if (pokeTimerRef.current) clearTimeout(pokeTimerRef.current);
+    if (pokeCountRef.current >= 3) {
+      pokeCountRef.current = 0;
+      triggerEasterEgg('poke');
+    } else {
+      pokeTimerRef.current = setTimeout(() => {
+        pokeCountRef.current = 0;
+      }, 1500);
+    }
+  };
 
   useEffect(() => {
     (async function () {
@@ -167,6 +219,44 @@ export default function Hero() {
       </motion.div>
 
       {/* Interactive Speech Bubble container (Clickable to start AI agent) */}
+      {/* Easter egg bubble — idle */}
+      <AnimatePresence>
+        {easterEgg === 'idle' && (
+          <motion.div
+            initial={{ scale: 0, opacity: 0, y: 10 }}
+            animate={{ scale: 1, opacity: 1, y: 0 }}
+            exit={{ scale: 0, opacity: 0, y: 10 }}
+            transition={{ type: "spring", stiffness: 300, damping: 20 }}
+            className="absolute bottom-[38%] right-[2%] md:right-[3%] lg:right-[12%] z-50 pointer-events-none"
+          >
+            <div className="bg-white border-[3px] border-black shadow-[4px_4px_0px_#000] px-4 py-3 text-xs font-black text-black max-w-[160px] text-center leading-snug rounded-xl">
+              Hey… you still there? 👋
+              <div className="absolute bottom-[-14px] left-1/2 -translate-x-1/2 w-0 h-0 border-x-[10px] border-x-transparent border-t-[14px] border-t-black" />
+              <div className="absolute bottom-[-10px] left-1/2 -translate-x-1/2 w-0 h-0 border-x-[7px] border-x-transparent border-t-[10px] border-t-white" />
+            </div>
+          </motion.div>
+        )}
+      </AnimatePresence>
+
+      {/* Easter egg bubble — poke */}
+      <AnimatePresence>
+        {easterEgg === 'poke' && (
+          <motion.div
+            initial={{ scale: 0, opacity: 0, rotate: -8 }}
+            animate={{ scale: 1, opacity: 1, rotate: -4 }}
+            exit={{ scale: 0, opacity: 0 }}
+            transition={{ type: "spring", stiffness: 400, damping: 18 }}
+            className="absolute bottom-[42%] right-[2%] md:right-[3%] lg:right-[10%] z-50 pointer-events-none"
+          >
+            <div className="bg-[#ff5500] border-[3px] border-black shadow-[4px_4px_0px_#000] px-4 py-3 text-xs font-black text-white max-w-[160px] text-center leading-snug rounded-xl">
+              Okay okay, stop! 😤
+              <div className="absolute bottom-[-14px] left-1/2 -translate-x-1/2 w-0 h-0 border-x-[10px] border-x-transparent border-t-[14px] border-t-black" />
+              <div className="absolute bottom-[-10px] left-1/2 -translate-x-1/2 w-0 h-0 border-x-[7px] border-x-transparent border-t-[10px] border-t-[#ff5500]" />
+            </div>
+          </motion.div>
+        )}
+      </AnimatePresence>
+
       <motion.div
         initial={{ scale: 0, rotate: 10 }}
         animate={{ scale: 1, rotate: -5 }}
@@ -197,10 +287,14 @@ export default function Hero() {
       {/* Hero Graphic / Characters */}
       <motion.div
         initial={{ y: 100, opacity: 0 }}
-        animate={{ y: 0, opacity: 1 }}
+        animate={easterEgg === 'poke'
+          ? { y: 0, opacity: 1, x: [0, -10, 12, -8, 6, -4, 0], rotate: [0, -3, 3, -2, 2, 0] }
+          : { y: 0, opacity: 1 }
+        }
         style={{ y: charY, opacity: charOpacity, x: mouseCharX, rotateY: mouseCharX, rotateX: mouseCharY }}
-        transition={{ duration: 0.8, delay: 0.5, ease: "easeOut" }}
-        className="absolute bottom-0 right-0 z-20 w-full md:w-[80%] lg:w-[60%] h-[80%] pointer-events-none flex items-end justify-end md:pr-4 lg:pr-8"
+        transition={{ duration: easterEgg === 'poke' ? 0.5 : 0.8, delay: easterEgg === 'poke' ? 0 : 0.5, ease: "easeOut" }}
+        onClick={handleCharacterClick}
+        className="absolute bottom-0 right-0 z-20 w-full md:w-[80%] lg:w-[60%] h-[80%] pointer-events-auto flex items-end justify-end md:pr-4 lg:pr-8 cursor-pointer"
       >
         <div className="relative w-full h-full">
           {!imgError && (

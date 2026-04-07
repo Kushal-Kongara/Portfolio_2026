@@ -808,7 +808,7 @@ export default function About() {
 
                 {/* Spotify Now Playing / Last Played */}
                 {spotify && (
-                  <div className="bg-[#f0f9ff] border-[2.5px] border-black p-4 flex items-center gap-4 shadow-[4px_4px_0px_#000] rotate-1">
+                  <div className="bg-[#f0f9ff] border-[2.5px] border-black p-4 flex items-center gap-4 shadow-[6px_6px_0px_#000]">
                     <div className="relative w-10 h-10 flex-shrink-0">
                         <SiSpotify className="text-[#1DB954] w-full h-full" />
                     </div>

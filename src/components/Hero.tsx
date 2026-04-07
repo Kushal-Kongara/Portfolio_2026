@@ -8,11 +8,16 @@ import { FiGithub, FiLinkedin, FiInstagram } from "react-icons/fi";
 import Vapi from "@vapi-ai/web";
 import { getCalApi } from "@calcom/embed-react";
 
+const COOLDOWN_MS = 3 * 60 * 1000; // 3 minutes
+const COOLDOWN_KEY = "vapi_cooldown_until";
+
 export default function Hero() {
   const [imgError, setImgError] = useState(false);
   const [isCallActive, setIsCallActive] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
+  const [cooldownLeft, setCooldownLeft] = useState(0); // seconds remaining
   const vapiRef = useRef<any>(null);
+  const cooldownIntervalRef = useRef<ReturnType<typeof setInterval> | null>(null);
 
   // Easter egg state
   const [easterEgg, setEasterEgg] = useState<'idle' | 'poke' | null>(null);
@@ -77,6 +82,34 @@ export default function Hero() {
     })();
   }, []);
 
+  const startCooldownTimer = (until: number) => {
+    if (cooldownIntervalRef.current) clearInterval(cooldownIntervalRef.current);
+    const tick = () => {
+      const remaining = Math.ceil((until - Date.now()) / 1000);
+      if (remaining <= 0) {
+        setCooldownLeft(0);
+        if (cooldownIntervalRef.current) clearInterval(cooldownIntervalRef.current);
+      } else {
+        setCooldownLeft(remaining);
+      }
+    };
+    tick();
+    cooldownIntervalRef.current = setInterval(tick, 1000);
+  };
+
+  useEffect(() => {
+    const stored = localStorage.getItem(COOLDOWN_KEY);
+    if (stored) {
+      const until = parseInt(stored, 10);
+      if (until > Date.now()) startCooldownTimer(until);
+      else localStorage.removeItem(COOLDOWN_KEY);
+    }
+    return () => {
+      if (cooldownIntervalRef.current) clearInterval(cooldownIntervalRef.current);
+    };
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
   useEffect(() => {
     vapiRef.current = new Vapi("5e00c6e3-fb53-423d-9c61-125dfd4ca769");
 
@@ -88,6 +121,9 @@ export default function Hero() {
     vapiRef.current.on("call-end", () => {
       setIsCallActive(false);
       setIsLoading(false);
+      const until = Date.now() + COOLDOWN_MS;
+      localStorage.setItem(COOLDOWN_KEY, String(until));
+      startCooldownTimer(until);
     });
 
     vapiRef.current.on("error", (e: any) => {
@@ -101,6 +137,7 @@ export default function Hero() {
         vapiRef.current.stop();
       }
     };
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const { scrollY } = useScroll();
@@ -115,7 +152,7 @@ export default function Hero() {
   });
 
   const toggleCall = async () => {
-    if (isLoading) return;
+    if (isLoading || cooldownLeft > 0) return;
 
     if (isCallActive) {
       setIsLoading(true);
@@ -266,14 +303,21 @@ export default function Hero() {
       >
         <button
           onClick={toggleCall}
-          className={`p-2 md:p-4 rounded-2xl text-[10px] md:text-xs font-black relative cursor-pointer hover:scale-105 transition-all duration-300 max-w-[120px] md:max-w-[170px] flex items-center justify-center text-center leading-snug border-[3px]
-            ${isCallActive ? "bg-white text-green-600 border-green-600 shadow-[4px_4px_0px_#16a34a]" :
-              isLoading ? "bg-white text-orange-500 border-black shadow-[4px_4px_0px_#000]" :
-                hasScrolled ? "bg-black text-white border-white shadow-[4px_4px_0px_#fff]" :
-                  "bg-white text-black border-black shadow-[4px_4px_0px_#000] hover:bg-gray-50"
+          disabled={cooldownLeft > 0}
+          className={`p-2 md:p-4 rounded-2xl text-[10px] md:text-xs font-black relative transition-all duration-300 max-w-[120px] md:max-w-[170px] flex items-center justify-center text-center leading-snug border-[3px]
+            ${cooldownLeft > 0 ? "bg-gray-100 text-gray-400 border-gray-300 shadow-[4px_4px_0px_#ccc] cursor-not-allowed" :
+              isCallActive ? "bg-white text-green-600 border-green-600 shadow-[4px_4px_0px_#16a34a] cursor-pointer hover:scale-105" :
+              isLoading ? "bg-white text-orange-500 border-black shadow-[4px_4px_0px_#000] cursor-pointer" :
+                hasScrolled ? "bg-black text-white border-white shadow-[4px_4px_0px_#fff] cursor-pointer hover:scale-105" :
+                  "bg-white text-black border-black shadow-[4px_4px_0px_#000] hover:bg-gray-50 cursor-pointer hover:scale-105"
             }`}
         >
-          {isLoading ? "Connecting..." : isCallActive ? "Stop AI Agent" : hasScrolled ? `Hey.... don't scroll. Talk to me.` : "Click on me to Activate the voice agent."}
+          {cooldownLeft > 0
+            ? `Cooldown: ${Math.floor(cooldownLeft / 60)}:${String(cooldownLeft % 60).padStart(2, "0")}`
+            : isLoading ? "Connecting..."
+            : isCallActive ? "Stop AI Agent"
+            : hasScrolled ? `Hey.... don't scroll. Talk to me.`
+            : "Click on me to Activate the voice agent."}
 
           {/* Bubble tail pointing left towards character */}
           <div className={`absolute top-1/2 -left-[14px] -translate-y-1/2 w-0 h-0 border-y-[10px] border-y-transparent border-r-[14px] transition-colors duration-300

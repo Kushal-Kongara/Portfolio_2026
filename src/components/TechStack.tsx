@@ -75,7 +75,7 @@ export default function TechStack() {
             <SectionWrapper id="tech-stack-inner" className="max-w-[1450px] px-4 md:px-12 mx-auto relative z-10 flex flex-col items-center">
                 
                 {/* PILOT Style Header elements */}
-                <div className="w-full flex justify-between items-center mb-12 px-10">
+                <div className="hidden md:flex w-full justify-between items-center mb-12 px-10">
                     <div className="text-[14px] font-bold tracking-widest flex items-center gap-4 uppercase">
                         <span className="w-2 h-2 border border-black rounded-full" />
                         Technical Archive
@@ -86,7 +86,13 @@ export default function TechStack() {
                     </div>
                 </div>
 
-                <div className="relative w-full flex items-start justify-center gap-8 md:gap-16">
+                {/* Mobile-only heading */}
+                <div className="block md:hidden text-center mb-8 px-4">
+                  <h2 className="text-4xl font-black uppercase tracking-tighter" style={{ fontFamily: 'Impact, sans-serif' }}>TECH STACK.</h2>
+                  <p className="text-xs font-bold tracking-widest text-black/50 mt-2 uppercase">Technical Archive / 2026</p>
+                </div>
+
+                <div className="hidden md:flex relative w-full items-start justify-center gap-8 md:gap-16">
                     
                     {/* Vertical Title (simplify style) */}
                     <div className="h-full flex flex-col justify-start pt-12">
@@ -176,7 +182,7 @@ export default function TechStack() {
                 </div>
 
                 {/* Simplified Icon Vault (styled for B&W) */}
-                <div className="w-full mt-32 border-t-2 border-black pt-16">
+                <div className="w-full mt-8 md:mt-32 border-t-2 border-black pt-12 md:pt-16">
                     <div className="flex flex-wrap justify-center gap-6 md:gap-10">
                         {crosswordWords.map((word, idx) => (
                             <motion.div

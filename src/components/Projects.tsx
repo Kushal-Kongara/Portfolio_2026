@@ -86,7 +86,7 @@ function ProjectCard({
       <motion.div
         layout
         className="relative overflow-hidden bg-neutral-100 border-b-[2.5px] border-black"
-        style={{ height: isExpanded ? "420px" : "180px" }}
+        style={{ height: isExpanded ? "min(420px, 55vw)" : "min(180px, 35vw)" }}
       >
         {project.image ? (
           <Image
@@ -160,14 +160,14 @@ function ProjectCard({
               </div>
 
               {/* Neo-Brutalist Buttons */}
-              <div className="flex gap-4 pt-6">
+              <div className="flex flex-wrap gap-3 pt-6">
                 {project.link !== "#" && (
                   <a
                     href={project.link}
                     target="_blank"
                     rel="noreferrer"
                     onClick={(e) => e.stopPropagation()}
-                    className="flex items-center gap-3 px-8 py-4 bg-black text-white text-[11px] font-bold uppercase tracking-widest transition-all border-[2.5px] border-black shadow-[8px_8px_0px_#000] hover:shadow-none translate-y-0 active:translate-y-[2px]"
+                    className="flex items-center gap-3 px-4 sm:px-8 py-3 sm:py-4 bg-black text-white text-[11px] font-bold uppercase tracking-widest transition-all border-[2.5px] border-black shadow-[8px_8px_0px_#000] hover:shadow-none translate-y-0 active:translate-y-[2px]"
                   >
                     LAUNCH_EXPERIENCE <FiArrowUpRight size={16} strokeWidth={3} />
                   </a>
@@ -178,7 +178,7 @@ function ProjectCard({
                     target="_blank"
                     rel="noreferrer"
                     onClick={(e) => e.stopPropagation()}
-                    className="flex items-center gap-3 px-8 py-4 text-black text-[11px] font-bold uppercase tracking-widest transition-all border-[2.5px] border-black shadow-[8px_8px_0px_#000] hover:shadow-none translate-y-0 active:translate-y-[2px]"
+                    className="flex items-center gap-3 px-4 sm:px-8 py-3 sm:py-4 text-black text-[11px] font-bold uppercase tracking-widest transition-all border-[2.5px] border-black shadow-[8px_8px_0px_#000] hover:shadow-none translate-y-0 active:translate-y-[2px]"
                     style={{ backgroundColor: accentColor }}
                   >
                     GET_SOURCE_CODE <FiGithub size={16} strokeWidth={3} />
@@ -255,7 +255,7 @@ export default function Projects() {
         </div>
 
         {/* Project Grid - 4 Columns and Focused Expansion */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-10">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6 lg:gap-10">
           {displayProjects.map((project, i) => (
             <ProjectCard
               key={i}

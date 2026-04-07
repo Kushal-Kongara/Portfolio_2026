@@ -1,9 +1,12 @@
 "use client";
 
-import { motion } from "framer-motion";
+import { motion, AnimatePresence } from "framer-motion";
+import { useState } from "react";
 import { navLinks } from "@/lib/constants";
 
 export default function Nav() {
+  const [isOpen, setIsOpen] = useState(false);
+
   return (
     <motion.header
       initial={{ y: -20, opacity: 0 }}
@@ -22,7 +25,9 @@ export default function Nav() {
             Open to work
           </span>
         </a>
-        <ul className="flex items-center gap-8">
+
+        {/* Desktop nav links */}
+        <ul className="hidden md:flex items-center gap-8">
           {navLinks.map((link) => (
             <li key={link.href}>
               <a
@@ -34,7 +39,45 @@ export default function Nav() {
             </li>
           ))}
         </ul>
+
+        {/* Mobile hamburger button */}
+        <button
+          onClick={() => setIsOpen(!isOpen)}
+          className="md:hidden flex flex-col justify-center items-center w-9 h-9 gap-1.5 cursor-pointer"
+          aria-label="Toggle menu"
+        >
+          <span className={`block w-6 h-0.5 bg-black transition-all duration-300 ${isOpen ? 'rotate-45 translate-y-2' : ''}`} />
+          <span className={`block w-6 h-0.5 bg-black transition-all duration-300 ${isOpen ? 'opacity-0' : ''}`} />
+          <span className={`block w-6 h-0.5 bg-black transition-all duration-300 ${isOpen ? '-rotate-45 -translate-y-2' : ''}`} />
+        </button>
       </nav>
+
+      {/* Mobile dropdown menu */}
+      <AnimatePresence>
+        {isOpen && (
+          <motion.div
+            initial={{ opacity: 0, height: 0 }}
+            animate={{ opacity: 1, height: "auto" }}
+            exit={{ opacity: 0, height: 0 }}
+            transition={{ duration: 0.2 }}
+            className="md:hidden overflow-hidden bg-white border-t border-black/10"
+          >
+            <ul className="flex flex-col px-6 py-4 gap-1">
+              {navLinks.map((link) => (
+                <li key={link.href}>
+                  <a
+                    href={link.href}
+                    onClick={() => setIsOpen(false)}
+                    className="block text-black font-medium text-base py-3 hover:text-orange-base transition-colors border-b border-black/5 last:border-0"
+                  >
+                    {link.label}
+                  </a>
+                </li>
+              ))}
+            </ul>
+          </motion.div>
+        )}
+      </AnimatePresence>
     </motion.header>
   );
 }

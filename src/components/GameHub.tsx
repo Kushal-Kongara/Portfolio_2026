@@ -25,7 +25,7 @@ function GameLauncherPopup({ title, warningText, onOpen, accentColor = "#ff4444"
             className="flex flex-col items-center group"
         >
             {/* The Popup Window */}
-            <div className="relative w-[300px] md:w-[340px] bg-[#FDFBF7] border-[4px] border-black shadow-[12px_12px_0px_rgba(0,0,0,0.2)] overflow-hidden rounded-sm">
+            <div className="relative w-full max-w-[300px] md:w-[340px] bg-[#FDFBF7] border-[4px] border-black shadow-[12px_12px_0px_rgba(0,0,0,0.2)] overflow-hidden rounded-sm">
                 {/* Header Bar */}
                 <div className="bg-[#ff4444] border-b-[4px] border-black p-3 flex justify-between items-center bg-stripes-white/10">
                     <span className="text-white font-black uppercase tracking-tighter text-sm md:text-base" style={{ fontFamily: 'Impact, sans-serif' }}>
@@ -70,8 +70,8 @@ export default function GameHub() {
     const [activeGame, setActiveGame] = useState<'survive' | 'lifeweeks' | null>(null);
 
     return (
-        <section 
-            className="relative w-full h-[500px] md:h-[620px] overflow-hidden bg-center flex flex-col pt-10 md:pt-12"
+        <section
+            className="relative w-full min-h-[500px] h-auto md:h-[620px] overflow-hidden bg-center flex flex-col pt-10 md:pt-12 pb-16 md:pb-0"
             style={{ 
                 backgroundImage: "url('/game-hub-bg.png')",
                 backgroundSize: 'cover',
@@ -96,7 +96,7 @@ export default function GameHub() {
             </SectionWrapper>
 
             {/* Launchers Grid - Positioned higher up for the shorter section */}
-            <div className="absolute bottom-[20%] left-1/2 -translate-x-1/2 flex flex-col md:flex-row items-center md:items-end gap-10 md:gap-14 px-6 w-full max-w-6xl justify-center scale-90 md:scale-95">
+            <div className="relative md:absolute md:bottom-[20%] md:left-1/2 md:-translate-x-1/2 flex flex-col md:flex-row items-center md:items-end gap-8 md:gap-14 px-4 w-full max-w-6xl justify-center mt-8 md:mt-0 md:scale-95">
                 
                 {/* Survive CLI Popup */}
                 <GameLauncherPopup 

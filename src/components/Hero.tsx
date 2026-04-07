@@ -177,7 +177,7 @@ export default function Hero() {
       ref={containerRef}
       onMouseMove={handleMouseMove}
       onMouseLeave={handleMouseLeave}
-      className="relative w-full h-[100svh] min-h-[600px] bg-white overflow-hidden flex flex-col justify-between pt-10 pb-16 px-6 lg:px-12 selection:bg-[#ff5500] selection:text-white"
+      className="relative w-full h-[100svh] min-h-[560px] bg-white overflow-hidden flex flex-col justify-between pt-10 pb-16 px-6 lg:px-12 selection:bg-[#ff5500] selection:text-white"
     >
       {/* SVG Filter for Pencil Sketch Effect */}
       <svg width="0" height="0" className="absolute pointer-events-none">
@@ -227,7 +227,7 @@ export default function Hero() {
             animate={{ scale: 1, opacity: 1, y: 0 }}
             exit={{ scale: 0, opacity: 0, y: 10 }}
             transition={{ type: "spring", stiffness: 300, damping: 20 }}
-            className="absolute bottom-[38%] right-[2%] md:right-[3%] lg:right-[12%] z-50 pointer-events-none"
+            className="absolute bottom-[38%] right-[2%] md:right-[3%] lg:right-[12%] z-50 pointer-events-none hidden sm:block"
           >
             <div className="bg-white border-[3px] border-black shadow-[4px_4px_0px_#000] px-4 py-3 text-xs font-black text-black max-w-[160px] text-center leading-snug rounded-xl">
               Hey… you still there? 👋
@@ -246,7 +246,7 @@ export default function Hero() {
             animate={{ scale: 1, opacity: 1, rotate: -4 }}
             exit={{ scale: 0, opacity: 0 }}
             transition={{ type: "spring", stiffness: 400, damping: 18 }}
-            className="absolute bottom-[42%] right-[2%] md:right-[3%] lg:right-[10%] z-50 pointer-events-none"
+            className="absolute bottom-[42%] right-[2%] md:right-[3%] lg:right-[10%] z-50 pointer-events-none hidden sm:block"
           >
             <div className="bg-[#ff5500] border-[3px] border-black shadow-[4px_4px_0px_#000] px-4 py-3 text-xs font-black text-white max-w-[160px] text-center leading-snug rounded-xl">
               Okay okay, stop! 😤
@@ -262,11 +262,11 @@ export default function Hero() {
         animate={{ scale: 1, rotate: -5 }}
         style={{ y: bubbleY, opacity: bubbleOpacity }}
         transition={{ type: "spring", stiffness: 200, delay: 0.8 }}
-        className="absolute top-[35%] right-[2%] md:right-[3%] lg:right-[5%] z-40 pointer-events-auto"
+        className="absolute top-[28%] md:top-[35%] right-[2%] md:right-[3%] lg:right-[5%] z-40 pointer-events-auto"
       >
         <button
           onClick={toggleCall}
-          className={`p-3 md:p-4 rounded-2xl text-xs font-black relative cursor-pointer hover:scale-105 transition-all duration-300 max-w-[150px] md:max-w-[170px] flex items-center justify-center text-center leading-snug border-[3px]
+          className={`p-2 md:p-4 rounded-2xl text-[10px] md:text-xs font-black relative cursor-pointer hover:scale-105 transition-all duration-300 max-w-[120px] md:max-w-[170px] flex items-center justify-center text-center leading-snug border-[3px]
             ${isCallActive ? "bg-white text-green-600 border-green-600 shadow-[4px_4px_0px_#16a34a]" :
               isLoading ? "bg-white text-orange-500 border-black shadow-[4px_4px_0px_#000]" :
                 hasScrolled ? "bg-black text-white border-white shadow-[4px_4px_0px_#fff]" :
@@ -294,7 +294,7 @@ export default function Hero() {
         style={{ y: charY, opacity: charOpacity, x: mouseCharX, rotateY: mouseCharX, rotateX: mouseCharY }}
         transition={{ duration: easterEgg === 'poke' ? 0.5 : 0.8, delay: easterEgg === 'poke' ? 0 : 0.5, ease: "easeOut" }}
         onClick={handleCharacterClick}
-        className="absolute bottom-0 right-0 z-20 w-full md:w-[80%] lg:w-[60%] h-[80%] pointer-events-auto flex items-end justify-end md:pr-4 lg:pr-8 cursor-pointer"
+        className="absolute bottom-0 right-0 z-20 w-full md:w-[80%] lg:w-[60%] h-[80%] pointer-events-auto flex items-end justify-end md:pr-4 lg:pr-8 cursor-pointer opacity-20 sm:opacity-50 md:opacity-100"
       >
         <div className="relative w-full h-full">
           {!imgError && (
@@ -328,13 +328,13 @@ export default function Hero() {
         transition={{ duration: 0.6, delay: 0.4 }}
         className="relative z-20 w-full max-w-7xl mx-auto flex flex-col justify-end h-full pointer-events-none"
       >
-        <div className="flex flex-col sm:flex-row sm:items-center items-start gap-12 lg:gap-32 pointer-events-auto w-full">
-          <p className="max-w-[280px] md:max-w-md text-[#ff5500] text-2xl md:text-3xl leading-relaxed font-bold tracking-tight font-caveat">
+        <div className="flex flex-col sm:flex-row sm:items-center items-start gap-6 sm:gap-12 lg:gap-32 pointer-events-auto w-full">
+          <p className="max-w-[240px] sm:max-w-[280px] md:max-w-md text-[#ff5500] text-xl sm:text-2xl md:text-3xl leading-relaxed font-bold tracking-tight font-caveat">
             &quot;Nothing in life is truly easy or hard only familiar or unfamiliar.&quot;
           </p>
 
           {/* Bold Colorful Pencil Art Social Icons */}
-          <div className="flex items-center gap-5 shrink-0 ml-auto sm:ml-0">
+          <div className="flex items-center gap-3 sm:gap-5 shrink-0 ml-auto sm:ml-0">
             {/* Book a Call pill */}
             <motion.button
               data-cal-namespace="30min"

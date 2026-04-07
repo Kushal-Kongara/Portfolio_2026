@@ -159,9 +159,12 @@ export default function Experience() {
           {/* Timeline Backbone */}
           <div className="absolute left-0 right-0 h-[4px] bg-black/10 top-[55%] -translate-y-1/2 z-0 hidden md:block" />
 
+          {/* Mobile scroll hint */}
+          <p className="block md:hidden text-xs text-black/30 font-black tracking-widest text-center mb-4 uppercase">← Scroll →</p>
+
           {/* Horizontal Scroll Container */}
           <div className="overflow-x-auto pb-12 pt-4 px-6 no-scrollbar relative z-10">
-            <div className="flex gap-10 min-w-max md:px-24">
+            <div className="flex gap-6 md:gap-10 min-w-max md:px-12">
                 {experiences
                 .filter(exp => ["Oatmeal AI", "Saayam", "DispatchTrack"].includes(exp.company))
                 .map((exp, i) => {
@@ -175,7 +178,7 @@ export default function Experience() {
                         whileInView={{ opacity: 1, x: 0 }}
                         viewport={{ once: true }}
                         transition={{ delay: i * 0.2, type: "spring", stiffness: 100 }}
-                        className="relative w-[320px] md:w-[400px] flex-shrink-0"
+                        className="relative w-[280px] sm:w-[320px] md:w-[400px] flex-shrink-0"
                     >
                         {/* Vertical Connector Dot */}
                         <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-4 h-4 bg-white border-[3px] border-black rounded-full z-20 hidden md:block" />
@@ -225,7 +228,7 @@ export default function Experience() {
           <h3 className="text-xl font-black text-black tracking-tighter uppercase">IMPACT_METRICS</h3>
           <div className="h-[2px] flex-1 bg-black/10" />
         </div>
-        <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 gap-8 md:auto-rows-[180px]">
+        <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 gap-4 md:gap-8 md:auto-rows-[180px]">
 
           {/* Tenure Window */}
           <motion.div

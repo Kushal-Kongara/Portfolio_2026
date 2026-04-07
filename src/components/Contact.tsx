@@ -182,7 +182,7 @@ export default function Contact() {
 
         {/* Footer */}
         <footer className="mt-16 pt-8 border-t border-white/10 flex flex-col md:flex-row items-center justify-between gap-6 text-[10px] font-black text-[#ffff00]/40 uppercase tracking-[0.3em]">
-          <p>© {new Date().getFullYear()} KUSHAL_KONGARA // SYSTEM_LOG</p>
+          <p suppressHydrationWarning>© {new Date().getFullYear()} KUSHAL_KONGARA // SYSTEM_LOG</p>
           <nav className="flex gap-8">
             <a href="#about" className="hover:text-white transition-colors">About</a>
             <a href="#experience" className="hover:text-white transition-colors">Experience</a>

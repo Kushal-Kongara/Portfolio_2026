@@ -30,7 +30,7 @@ export const experiences: ExperienceItem[] = [
   {
     company: "Oatmeal AI",
     role: "Full-stack Developer",
-    period: "May 2024 - Present",
+    period: "May 2024 - March 2026",
     location: "Medford, Oregon, United States · Remote",
     bullets: [
       "Led the migration of legacy ASP-based systems to a modern stack using React.js, TypeScript, Tailwind CSS, Node.js, and Next.js, improving maintainability and reducing page-load times by 45%.",
@@ -92,7 +92,7 @@ export const experiences: ExperienceItem[] = [
   {
     company: "DispatchTrack",
     role: "Software Engineer",
-    period: "Dec 2020 - Dec 2022",
+    period: "Dec 2020 - Dec 2021",
     location: "Hyderabad, Telangana, India · Hybrid",
     bullets: [
       "Developed and maintained enterprise logistics applications using JavaScript, React.js, Next.js, Node.js, and Express.js improving delivery scheduling efficiency and user experience.",
@@ -161,8 +161,8 @@ export const projects = [
 // About section: intro + events/hackathons + photo stories
 export const about = {
   intro: [
-    "I’m a software engineer who enjoys turning vague ideas into real products. Most of my time is spent building across the stack shaping interfaces, designing APIs, and figuring out how systems should actually behave once real users start using them.",
-    "I’m especially interested in the space where AI meets practical software, where tools move from demos into things people rely on every day. Outside of writing code, I spend a lot of time experimenting new frameworks, AI models, small side projects, or ideas that may or may not turn into something useful. What keeps me motivated is the process of building, learning, and slowly getting better at solving problems that once looked impossible."
+    "I’m a **software engineer** who enjoys **turning vague ideas into real products**. Most of my time is spent **building across the stack**—shaping interfaces, designing APIs, and figuring out how systems should actually behave once real users start using them.",
+    "I’m especially interested in the space where **AI meets practical software**, where tools move from demos into things people rely on every day. Outside of writing code, I spend a lot of time experimenting with **new frameworks, AI models**, and side projects. What keeps me motivated is the **process of building, learning, and slowly getting better** at solving problems that once looked impossible."
   ],
 };
 

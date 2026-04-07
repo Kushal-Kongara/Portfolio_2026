@@ -147,7 +147,84 @@ export default function Experience() {
           </p>
         </div>
 
-        {/* Bento Grid (Colorful Windowed) */}
+        {/* Chronological Timeline (Primary Horizontal View) */}
+        <div className="mb-32 relative">
+          <div className="flex items-center gap-4 mb-20 px-6 max-w-7xl mx-auto">
+            <div className="h-[2px] w-12 bg-black" />
+            <h3 className="text-xl font-black text-black tracking-tighter uppercase">CAREER_CHRONICLE</h3>
+            <div className="h-[2px] flex-1 bg-black/10" />
+            <span className="text-[10px] font-black text-black/30 tracking-[0.3em]">HORIZONTAL_TIMELINE_LOG</span>
+          </div>
+
+          {/* Timeline Backbone */}
+          <div className="absolute left-0 right-0 h-[4px] bg-black/10 top-[55%] -translate-y-1/2 z-0 hidden md:block" />
+
+          {/* Horizontal Scroll Container */}
+          <div className="overflow-x-auto pb-12 pt-4 px-6 no-scrollbar relative z-10">
+            <div className="flex gap-10 min-w-max md:px-24">
+                {experiences
+                .filter(exp => ["Oatmeal AI", "Saayam", "DispatchTrack"].includes(exp.company))
+                .map((exp, i) => {
+                    const colors = ["bg-[#ff007f]", "bg-[#0ea5e9]", "bg-[#facc15]"];
+                    const bgColor = colors[i % colors.length];
+                    
+                    return (
+                    <motion.div
+                        key={i}
+                        initial={{ opacity: 0, x: 50 }}
+                        whileInView={{ opacity: 1, x: 0 }}
+                        viewport={{ once: true }}
+                        transition={{ delay: i * 0.2, type: "spring", stiffness: 100 }}
+                        className="relative w-[320px] md:w-[400px] flex-shrink-0"
+                    >
+                        {/* Vertical Connector Dot */}
+                        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-4 h-4 bg-white border-[3px] border-black rounded-full z-20 hidden md:block" />
+
+                        {/* Content Card */}
+                        <div className={`${bgColor} border-[4px] border-black p-8 shadow-[12px_12px_0px_#000] hover:shadow-none hover:translate-x-[4px] hover:translate-y-[4px] transition-all group relative overflow-hidden h-full`}>
+                            <div className="flex justify-between items-start mb-6">
+                            <div className="bg-black text-white px-4 py-1.5 text-[10px] font-black uppercase tracking-[0.2em]">
+                                {exp.period}
+                            </div>
+                            <div className="flex gap-1.5">
+                                <div className="w-2.5 h-2.5 bg-black/20 rounded-xs" />
+                                <div className="w-2.5 h-2.5 bg-black/20 rounded-xs" />
+                            </div>
+                            </div>
+                            
+                            <h4 className={`text-4xl font-black uppercase tracking-tighter leading-none mb-2 ${i === 2 ? 'text-black' : 'text-white'}`}>
+                                {exp.company}
+                            </h4>
+                            <p className={`${i === 2 ? 'text-black/60' : 'text-white/70'} font-black text-[10px] uppercase tracking-[0.1em] mb-8 bg-black/5 inline-block px-2 py-0.5`}>
+                                {exp.role}
+                            </p>
+                            
+                            <div className="flex flex-wrap gap-2 mt-auto">
+                            {exp.skills.slice(0, 5).map((skill, j) => (
+                                <span key={j} className={`text-[9px] font-black border-[2px] px-2 py-1 uppercase tracking-wider ${i === 2 ? 'text-black/60 border-black/10' : 'text-white/60 border-white/20'}`}>
+                                {skill}
+                                </span>
+                            ))}
+                            </div>
+
+                            {/* Abstract background detail */}
+                            <div className={`absolute -bottom-6 -right-6 text-9xl font-black opacity-10 select-none pointer-events-none rotate-12 ${i === 2 ? 'text-black' : 'text-white'}`}>
+                                {i + 1}
+                            </div>
+                        </div>
+                    </motion.div>
+                    );
+                })}
+            </div>
+          </div>
+        </div>
+
+        {/* Bento Grid (Secondary Highlights) */}
+        <div className="flex items-center gap-4 mb-16 px-4">
+          <div className="h-[2px] w-12 bg-black" />
+          <h3 className="text-xl font-black text-black tracking-tighter uppercase">IMPACT_METRICS</h3>
+          <div className="h-[2px] flex-1 bg-black/10" />
+        </div>
         <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 gap-8 md:auto-rows-[180px]">
 
           {/* Tenure Window */}
@@ -263,6 +340,7 @@ export default function Experience() {
           </motion.div>
 
         </div>
+
       </div>
     </section>
   );

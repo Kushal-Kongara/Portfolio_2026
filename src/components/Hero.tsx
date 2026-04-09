@@ -7,13 +7,14 @@ import { useState, useEffect, useRef } from "react";
 import { FiGithub, FiLinkedin, FiInstagram } from "react-icons/fi";
 import Vapi from "@vapi-ai/web";
 import { getCalApi } from "@calcom/embed-react";
+import { useAudio } from "@/context/AudioContext";
 
 const COOLDOWN_MS = 3 * 60 * 1000; // 3 minutes
 const COOLDOWN_KEY = "vapi_cooldown_until";
 
 export default function Hero() {
+  const { isCallActive, setIsCallActive, volumeLevel, setVolumeLevel } = useAudio();
   const [imgError, setImgError] = useState(false);
-  const [isCallActive, setIsCallActive] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const [cooldownLeft, setCooldownLeft] = useState(0); // seconds remaining
   const vapiRef = useRef<any>(null);
@@ -130,6 +131,14 @@ export default function Hero() {
       console.error(e);
       setIsCallActive(false);
       setIsLoading(false);
+    });
+
+    vapiRef.current.on("volume-level", (level: number) => {
+      setVolumeLevel(level);
+    });
+
+    vapiRef.current.on("call-end", () => {
+      setVolumeLevel(0);
     });
 
     return () => {
@@ -335,8 +344,20 @@ export default function Hero() {
           ? { y: 0, opacity: 1, x: [0, -10, 12, -8, 6, -4, 0], rotate: [0, -3, 3, -2, 2, 0] }
           : { y: 0, opacity: 1 }
         }
-        style={{ y: charY, opacity: charOpacity, x: mouseCharX, rotateY: mouseCharX, rotateX: mouseCharY }}
-        transition={{ duration: easterEgg === 'poke' ? 0.5 : 0.8, delay: easterEgg === 'poke' ? 0 : 0.5, ease: "easeOut" }}
+        style={{ 
+          y: charY, 
+          opacity: charOpacity, 
+          x: mouseCharX, 
+          rotateY: mouseCharX, 
+          rotateX: mouseCharY,
+          filter: isCallActive ? `drop-shadow(0 0 ${20 + volumeLevel * 60}px rgba(255, 85, 0, ${0.4 + volumeLevel}))` : 'none'
+        }}
+        transition={{ 
+          duration: easterEgg === 'poke' ? 0.5 : 0.8, 
+          delay: easterEgg === 'poke' ? 0 : 0.5, 
+          ease: "easeOut",
+          filter: { type: "spring", stiffness: 300, damping: 20 }
+        }}
         onClick={handleCharacterClick}
         className="absolute bottom-0 right-0 z-20 w-full md:w-[80%] lg:w-[60%] h-[80%] pointer-events-auto flex items-end justify-end md:pr-4 lg:pr-8 cursor-pointer opacity-20 sm:opacity-50 md:opacity-100"
       >

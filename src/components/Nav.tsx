@@ -3,9 +3,11 @@
 import { motion, AnimatePresence } from "framer-motion";
 import { useState } from "react";
 import { navLinks } from "@/lib/constants";
+import { useAudio } from "@/context/AudioContext";
 
 export default function Nav() {
   const [isOpen, setIsOpen] = useState(false);
+  const { isCallActive } = useAudio();
 
   return (
     <motion.header
@@ -20,10 +22,26 @@ export default function Nav() {
           className="text-black font-bold text-lg tracking-tight hover:text-orange-base transition-colors flex items-center gap-2.5"
         >
           Portfolio
-          <span className="flex items-center gap-1.5 bg-green-50 border border-green-200 text-green-700 text-[9px] font-black uppercase tracking-widest px-2 py-0.5 rounded-full">
-            <span className="w-1.5 h-1.5 rounded-full bg-green-500 animate-pulse inline-block" />
-            Open to work
-          </span>
+          <div className="flex items-center gap-2">
+            <span className="flex items-center gap-1.5 bg-green-50 border border-green-200 text-green-700 text-[9px] font-black uppercase tracking-widest px-2 py-0.5 rounded-full">
+              <span className="w-1.5 h-1.5 rounded-full bg-green-500 animate-pulse inline-block" />
+              Open to work
+            </span>
+            
+            <AnimatePresence>
+              {isCallActive && (
+                <motion.span
+                  initial={{ opacity: 0, x: -10 }}
+                  animate={{ opacity: 1, x: 0 }}
+                  exit={{ opacity: 0, x: -10 }}
+                  className="flex items-center gap-1.5 bg-orange-50 border border-orange-200 text-[#ff5500] text-[9px] font-black uppercase tracking-widest px-2 py-0.5 rounded-full"
+                >
+                  <span className="w-1.5 h-1.5 rounded-full bg-[#ff5500] animate-ping inline-block" />
+                  AI Agent Active
+                </motion.span>
+              )}
+            </AnimatePresence>
+          </div>
         </a>
 
         {/* Desktop nav links */}

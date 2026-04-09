@@ -30,6 +30,8 @@ export const metadata: Metadata = {
   },
 };
 
+import { AudioProvider } from "@/context/AudioContext";
+
 export default function RootLayout({
   children,
 }: Readonly<{
@@ -38,10 +40,12 @@ export default function RootLayout({
   return (
     <html lang="en" className={`${dmSans.variable} ${caveat.variable}`}>
       <body className="min-h-screen bg-white font-sans antialiased">
-        <ScrollProgress />
-        <CommandPalette />
-        {children}
-        <Analytics />
+        <AudioProvider>
+          <ScrollProgress />
+          <CommandPalette />
+          {children}
+          <Analytics />
+        </AudioProvider>
       </body>
     </html>
   );

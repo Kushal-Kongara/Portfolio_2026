@@ -18,6 +18,7 @@ async function getAccessToken(): Promise<string> {
       grant_type: "refresh_token",
       refresh_token: REFRESH_TOKEN!,
     }),
+    cache: "no-store",
   });
   const data = await res.json();
   return data.access_token;
@@ -56,13 +57,33 @@ export async function GET() {
     }
 
     const data = await nowRes.json();
+
+    // If currently-playing returned 200 but no item, fall back to recently-played
+    if (!data.item) {
+      const recentRes = await fetch(
+        "https://api.spotify.com/v1/me/player/recently-played?limit=1",
+        { headers: { Authorization: `Bearer ${accessToken}` }, cache: "no-store" }
+      );
+      const recent = await recentRes.json();
+      const track = recent.items?.[0]?.track;
+      if (!track) return NextResponse.json({ configured: true, isPlaying: false });
+      return NextResponse.json({
+        configured: true,
+        isPlaying: false,
+        title: track.name,
+        artist: track.artists.map((a: any) => a.name).join(", "),
+        albumArt: track.album.images[0]?.url,
+        songUrl: track.external_urls.spotify,
+      });
+    }
+
     return NextResponse.json({
       configured: true,
       isPlaying: data.is_playing,
-      title: data.item?.name,
-      artist: data.item?.artists?.map((a: any) => a.name).join(", "),
-      albumArt: data.item?.album?.images?.[0]?.url,
-      songUrl: data.item?.external_urls?.spotify,
+      title: data.item.name,
+      artist: data.item.artists?.map((a: any) => a.name).join(", "),
+      albumArt: data.item.album?.images?.[0]?.url,
+      songUrl: data.item.external_urls?.spotify,
     });
   } catch {
     return NextResponse.json({ configured: true, isPlaying: false });

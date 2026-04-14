@@ -115,4 +115,4 @@ Integrated with `Cal.com` for immediate scheduling.
 - **Instagram**: [@kushal_kongara](https://www.instagram.com/kushal_kongara/)
 
 *Developed with ❤️ and a lot of caffeine | © 2026 Kushal Kongara*
-*Designed & Developed with ❤️ by Kushal Kongara.*
+*Designed & Developed with ❤️ by Kushal Kongara*

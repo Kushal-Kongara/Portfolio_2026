@@ -57,8 +57,6 @@ A dedicated space at `/bored` featuring interactive experiments and mini-games.
 ### 🎵 6. Real-time Live Sync
 The portfolio stays alive with real-time data integrations:
 - **Spotify Live**: Displays current playback status with live album art and track details.
-- **WakaTime Metrics**: Real-time coding statistics and productivity trends.
-- **GitHub Activity**: Live contribution graph and recent repository activity.
 
 ### 📅 7. Direct Sync Booking
 Integrated with `Cal.com` for immediate scheduling.

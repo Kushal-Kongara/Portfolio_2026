@@ -31,6 +31,7 @@ export const metadata: Metadata = {
 };
 
 import { AudioProvider } from "@/context/AudioContext";
+import LenisProvider from "@/components/LenisProvider";
 
 export default function RootLayout({
   children,
@@ -40,12 +41,14 @@ export default function RootLayout({
   return (
     <html lang="en" className={`${dmSans.variable} ${caveat.variable}`}>
       <body className="min-h-screen bg-white font-sans antialiased">
-        <AudioProvider>
-          <ScrollProgress />
-          <CommandPalette />
-          {children}
-          <Analytics />
-        </AudioProvider>
+        <LenisProvider>
+          <AudioProvider>
+            <ScrollProgress />
+            <CommandPalette />
+            {children}
+            <Analytics />
+          </AudioProvider>
+        </LenisProvider>
       </body>
     </html>
   );

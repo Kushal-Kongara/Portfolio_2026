@@ -78,7 +78,11 @@ export default function CustomCursor() {
     };
   }, [dotX, dotY, ringX, ringY, isVisible]);
 
-  if (!isVisible) return null;
+  const prefersReducedMotion =
+    typeof window !== "undefined" &&
+    window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+  if (!isVisible || prefersReducedMotion) return null;
 
   return (
     <>

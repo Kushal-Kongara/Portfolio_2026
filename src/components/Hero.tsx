@@ -17,7 +17,7 @@ export default function Hero() {
   const [imgError, setImgError] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const [cooldownLeft, setCooldownLeft] = useState(0); // seconds remaining
-  const vapiRef = useRef<any>(null);
+  const vapiRef = useRef<Vapi | null>(null);
   const cooldownIntervalRef = useRef<ReturnType<typeof setInterval> | null>(null);
 
   // Easter egg state
@@ -112,7 +112,7 @@ export default function Hero() {
   }, []);
 
   useEffect(() => {
-    vapiRef.current = new Vapi("5e00c6e3-fb53-423d-9c61-125dfd4ca769");
+    vapiRef.current = new Vapi(process.env.NEXT_PUBLIC_VAPI_PUBLIC_KEY!);
 
     vapiRef.current.on("call-start", () => {
       setIsCallActive(true);
@@ -127,8 +127,7 @@ export default function Hero() {
       startCooldownTimer(until);
     });
 
-    vapiRef.current.on("error", (e: any) => {
-      console.error(e);
+    vapiRef.current.on("error", () => {
       setIsCallActive(false);
       setIsLoading(false);
     });
@@ -169,9 +168,8 @@ export default function Hero() {
     } else {
       setIsLoading(true);
       try {
-        await vapiRef.current?.start("b5df2867-8970-46d9-bb7f-5c97ef0b192a");
-      } catch (err) {
-        console.error(err);
+        await vapiRef.current?.start(process.env.NEXT_PUBLIC_VAPI_ASSISTANT_ID!);
+      } catch {
         setIsLoading(false);
       }
     }
@@ -313,6 +311,7 @@ export default function Hero() {
         <button
           onClick={toggleCall}
           disabled={cooldownLeft > 0}
+          aria-label={isCallActive ? "Stop AI voice agent" : "Start AI voice agent"}
           className={`p-2 md:p-4 rounded-2xl text-[10px] md:text-xs font-black relative transition-all duration-300 max-w-[120px] md:max-w-[170px] flex items-center justify-center text-center leading-snug border-[3px]
             ${cooldownLeft > 0 ? "bg-gray-100 text-gray-400 border-gray-300 shadow-[4px_4px_0px_#ccc] cursor-not-allowed" :
               isCallActive ? "bg-white text-green-600 border-green-600 shadow-[4px_4px_0px_#16a34a] cursor-pointer hover:scale-105" :

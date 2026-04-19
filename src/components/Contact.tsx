@@ -1,6 +1,6 @@
 "use client";
 
-import { motion } from "framer-motion";
+import { motion, AnimatePresence } from "framer-motion";
 import { useRef, useState, useEffect } from "react";
 import emailjs from "@emailjs/browser";
 import { getCalApi } from "@calcom/embed-react";
@@ -14,7 +14,7 @@ export default function Contact() {
     (async function () {
       const cal = await getCalApi({ namespace: "30min" });
       cal("ui", {
-        styles: { branding: { brandColor: "#FFC107" } },
+        styles: { branding: { brandColor: "#ff5500" } },
         hideEventTypeDetails: false,
         layout: "month_view",
       });
@@ -34,7 +34,6 @@ export default function Contact() {
     const publicKey = process.env.NEXT_PUBLIC_EMAILJS_PUBLIC_KEY || "";
 
     if (!serviceId || !templateId || !publicKey) {
-      console.error("EmailJS credentials missing. Please check your .env.local file.");
       setStatus({ type: 'error', message: "EmailJS configuration missing. Please check .env.local." });
       setIsSending(false);
       return;
@@ -46,12 +45,10 @@ export default function Contact() {
       form.current,
       publicKey
     )
-      .then((result) => {
-        console.log(result.text);
+      .then(() => {
         setStatus({ type: 'success', message: "Message sent! I'll get back to you soon." });
         form.current?.reset();
-      }, (error) => {
-        console.log(error.text);
+      }, () => {
         setStatus({ type: 'error', message: "Oops! Something went wrong. Please try again." });
       })
       .finally(() => {
@@ -160,18 +157,27 @@ export default function Contact() {
                 />
               </div>
 
-              {status.type && (
-                <p className={`text-[10px] font-black tracking-widest uppercase ${status.type === 'success' ? 'text-green-400' : 'text-red-400'}`}>
-                  STATUS: {status.message}
-                </p>
-              )}
+              <AnimatePresence>
+                {status.type && (
+                  <motion.p
+                    key={status.message}
+                    initial={{ opacity: 0, y: -6 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    exit={{ opacity: 0, y: -6 }}
+                    transition={{ duration: 0.25 }}
+                    className={`text-[10px] font-black tracking-widest uppercase ${status.type === 'success' ? 'text-green-400' : 'text-red-400'}`}
+                  >
+                    {status.type === 'success' ? '✓ ' : '✗ '}{status.message}
+                  </motion.p>
+                )}
+              </AnimatePresence>
 
               <div className="pt-2">
                 <button
-                  type="submit" disabled={isSending}
+                  type="submit" disabled={isSending || status.type === 'success'}
                   className="bg-white text-black text-[11px] font-black tracking-widest px-10 py-4 border-[2.5px] border-black shadow-[8px_8px_0px_#ffff00] hover:shadow-none hover:translate-x-[3px] hover:translate-y-[3px] transition-all uppercase w-full sm:w-auto disabled:opacity-50"
                 >
-                  {isSending ? 'Sending...' : 'Transmit_Message'}
+                  {isSending ? 'Sending...' : status.type === 'success' ? 'Sent ✓' : 'Transmit_Message'}
                 </button>
               </div>
 

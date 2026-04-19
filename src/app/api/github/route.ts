@@ -1,5 +1,12 @@
 import { NextResponse } from "next/server";
 
+interface GitHubPushEvent {
+  type: string;
+  repo: { name: string };
+  payload: { commits?: { message: string }[] };
+  created_at: string;
+}
+
 export async function GET() {
   try {
     const res = await fetch(
@@ -20,15 +27,13 @@ export async function GET() {
 
     const data = await res.json();
 
-    const events = (data as any[])
+    const events = (data as GitHubPushEvent[])
       .filter((e) => e.type === "PushEvent")
       .slice(0, 5)
       .map((e) => ({
-        repo: (e.repo.name as string).replace("Kushal-Kongara/", ""),
-        message:
-          (e.payload.commits?.[0]?.message as string)?.split("\n")[0] ||
-          "committed changes",
-        date: e.created_at as string,
+        repo: e.repo.name.replace("Kushal-Kongara/", ""),
+        message: e.payload.commits?.[0]?.message?.split("\n")[0] || "committed changes",
+        date: e.created_at,
       }));
 
     return NextResponse.json({ events });

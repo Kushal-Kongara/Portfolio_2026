@@ -12,6 +12,7 @@ export const navLinks = [
   { href: "#hero", label: "Home" },
   { href: "#about", label: "About" },
   { href: "#experience", label: "Experience" },
+  { href: "#game-hub", label: "Games" },
   { href: "#projects", label: "Projects" },
   { href: "#contact", label: "Contact" },
 ];
@@ -121,17 +122,17 @@ export const experiences: ExperienceItem[] = [
 
 export const projects = [
   {
-    title: "Game Intro",
-    impact: "Interactive 3D narrative experience with physics-based interactions.",
-    metric: "10k+ unique users within 48 hours of launch",
-    tech: ["React", "Three.js", "Framer Motion", "GSAP"],
-    link: "https://stellular-empanada-b4b90a.netlify.app/",
-    code: "https://github.com/Kushal-Kongara/Game",
+    title: "AI Voice Portfolio",
+    impact: "Built this portfolio as a live AI product. Cloned my voice with ElevenLabs, deployed as a Vapi voice agent — visitors have a real conversation with my AI twin, not a chatbot.",
+    metric: "Voice clone live — you're already talking to it",
+    tech: ["Next.js", "Vapi", "ElevenLabs", "Framer Motion", "Tailwind CSS"],
+    link: "#hero",
+    code: "https://github.com/Kushal-Kongara/Portfolio_2026",
     image: "/projects/project-01.png",
   },
   {
     title: "LexFill",
-    impact: "AI-driven automated document generation for legal professionals.",
+    impact: "Lawyers spend 40% of their time on boilerplate. LexFill takes a 60-second intake form and generates complete legal documents with GPT-4 — reviewed and ready to send.",
     metric: "80% reduction in document processing time",
     tech: ["Next.js", "OpenAI API", "Tailwind CSS", "Prisma"],
     link: "https://lexfill.vercel.app/",
@@ -139,30 +140,30 @@ export const projects = [
     image: "/projects/lexfill.png",
   },
   {
-    title: "FitMate",
-    impact: "Data-dense fitness analytics dashboard with real-time tracking.",
-    metric: "30% faster API response times via Redis caching",
-    tech: ["React", "Node.js", "Redis", "PostgreSQL"],
-    link: "#",
-    code: "https://github.com/Kushal-Kongara/fitmate-demo",
-    image: "/projects/project-02.png",
-  },
-  {
     title: "AI Sales Agent",
-    impact: "Autonomous voice agent for handling outbound small-business sales.",
+    impact: "Autonomous voice agent that handles outbound sales calls for small businesses — books meetings, answers objections, and qualifies leads without a human on the line.",
     metric: "45% increase in lead conversion rate",
     tech: ["Python", "VAPI", "HuggingFace", "FastAPI"],
     link: "#",
     code: "#",
     image: "/projects/project-07.png",
   },
+  {
+    title: "FitMate",
+    impact: "Fitness analytics dashboard with real-time tracking. Built a Redis caching layer to handle burst workout-log writes without hammering the Postgres primary under load.",
+    metric: "30% faster API response times via Redis caching",
+    tech: ["React", "Node.js", "Redis", "PostgreSQL"],
+    link: "#",
+    code: "https://github.com/Kushal-Kongara/fitmate-demo",
+    image: "/projects/project-02.png",
+  },
 ];
 
 // About section: intro + events/hackathons + photo stories
 export const about = {
   intro: [
-    "I’m a **software engineer** who enjoys **turning vague ideas into real products**. Most of my time is spent **building across the stack**—shaping interfaces, designing APIs, and figuring out how systems should actually behave once real users start using them.",
-    "I’m especially interested in the space where **AI meets practical software**, where tools move from demos into things people rely on every day. Outside of writing code, I spend a lot of time experimenting with **new frameworks, AI models**, and side projects. What keeps me motivated is the **process of building, learning, and slowly getting better** at solving problems that once looked impossible."
+    "I build **AI products** — voice agents, interactive tools, and systems designed for real use. This portfolio runs one of them: there’s a **cloned version of my voice** you can actually talk to, powered by ElevenLabs and Vapi.",
+    "Most of my time goes into the edge where **AI meets real-world software** — not demos, but things people depend on. I’ve shipped voice agents for sales calls, AI legal doc generators, and interactive builds across **25+ hackathons**. I like problems that look impossible until they’re not."
   ],
 };
 
@@ -238,7 +239,7 @@ export const photoStories: PhotoStory[] = [
     image: "/about/Photo7.jpg",
     imageAlt: "Group picture",
     title: "Product demo at VAPI",
-    context: "Git invited to VAPI for our product demo",
+    context: "Got invited to VAPI HQ for our product demo",
   },
   {
     image: "",

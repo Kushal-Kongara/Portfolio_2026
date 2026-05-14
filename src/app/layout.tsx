@@ -19,8 +19,8 @@ const caveat = Caveat({
 });
 
 export const metadata: Metadata = {
-  title: "Kushal Kongara | Portfolio",
-  description: "Product Designer & Frontend Engineer",
+  title: "Kushal Kongara | AI Builder",
+  description: "I build AI products — voice agents, interactive tools, and full-stack systems. This portfolio has a cloned version of my voice you can talk to.",
   icons: {
     icon: [
       { url: "/k-letter.png?v=4" },

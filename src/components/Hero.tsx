@@ -17,6 +17,7 @@ export default function Hero() {
   const [imgError, setImgError] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const [cooldownLeft, setCooldownLeft] = useState(0); // seconds remaining
+  const [vapiError, setVapiError] = useState<string | null>(null);
   const vapiRef = useRef<Vapi | null>(null);
   const cooldownIntervalRef = useRef<ReturnType<typeof setInterval> | null>(null);
 
@@ -117,27 +118,36 @@ export default function Hero() {
     vapiRef.current.on("call-start", () => {
       setIsCallActive(true);
       setIsLoading(false);
+      setVapiError(null);
     });
 
     vapiRef.current.on("call-end", () => {
       setIsCallActive(false);
       setIsLoading(false);
+      setVolumeLevel(0);
       const until = Date.now() + COOLDOWN_MS;
       localStorage.setItem(COOLDOWN_KEY, String(until));
       startCooldownTimer(until);
     });
 
-    vapiRef.current.on("error", () => {
+    vapiRef.current.on("error", (err) => {
+      console.error("[Vapi] error:", err);
       setIsCallActive(false);
       setIsLoading(false);
+      setVapiError(typeof err === "string" ? err : err?.message ?? "Unknown error");
+      setTimeout(() => setVapiError(null), 4000);
+    });
+
+    vapiRef.current.on("call-start-failed", (event) => {
+      console.error("[Vapi] call-start-failed:", event);
+      setIsCallActive(false);
+      setIsLoading(false);
+      setVapiError(`Failed at: ${event.stage} — ${event.error}`);
+      setTimeout(() => setVapiError(null), 5000);
     });
 
     vapiRef.current.on("volume-level", (level: number) => {
       setVolumeLevel(level);
-    });
-
-    vapiRef.current.on("call-end", () => {
-      setVolumeLevel(0);
     });
 
     return () => {
@@ -167,10 +177,20 @@ export default function Hero() {
       vapiRef.current?.stop();
     } else {
       setIsLoading(true);
+      setVapiError(null);
       try {
-        await vapiRef.current?.start(process.env.NEXT_PUBLIC_VAPI_ASSISTANT_ID!);
-      } catch {
+        const result = await vapiRef.current?.start(process.env.NEXT_PUBLIC_VAPI_ASSISTANT_ID!);
+        if (result === null) {
+          console.error("[Vapi] start() returned null — check assistant ID and public key");
+          setIsLoading(false);
+          setVapiError("Call failed to start. Check console.");
+          setTimeout(() => setVapiError(null), 4000);
+        }
+      } catch (err) {
+        console.error("[Vapi] start() threw:", err);
         setIsLoading(false);
+        setVapiError(err instanceof Error ? err.message : "Failed to start call");
+        setTimeout(() => setVapiError(null), 4000);
       }
     }
   };
@@ -242,9 +262,9 @@ export default function Hero() {
           transition={{ duration: 0.6, delay: 0.2 }}
           className="flex justify-between w-full max-w-[85%] md:max-w-[75%] lg:max-w-[65%] z-20 relative text-[#ff5500] font-black tracking-widest text-[10px] sm:text-xs md:text-sm lg:text-base uppercase mb-2 md:mb-6"
         >
-          <span>Software Engineer</span>
-          <span>Full Stack Developer</span>
-          <span>AI Engineer</span>
+          <span>AI Builder</span>
+          <span>Voice Agents</span>
+          <span>Interactive Builds</span>
         </motion.div>
 
         <motion.h1
@@ -308,14 +328,19 @@ export default function Hero() {
         transition={{ type: "spring", stiffness: 200, delay: 0.8 }}
         className="absolute top-[28%] md:top-[35%] right-[2%] md:right-[3%] lg:right-[5%] z-40 pointer-events-auto"
       >
+        {vapiError && (
+          <div className="absolute -top-12 left-0 right-0 bg-red-100 border-[2px] border-red-500 text-red-700 text-[9px] font-bold px-2 py-1 rounded-lg text-center">
+            {vapiError}
+          </div>
+        )}
         <button
           onClick={toggleCall}
-          disabled={cooldownLeft > 0}
+          disabled={cooldownLeft > 0 || isLoading}
           aria-label={isCallActive ? "Stop AI voice agent" : "Start AI voice agent"}
           className={`p-2 md:p-4 rounded-2xl text-[10px] md:text-xs font-black relative transition-all duration-300 max-w-[120px] md:max-w-[170px] flex items-center justify-center text-center leading-snug border-[3px]
             ${cooldownLeft > 0 ? "bg-gray-100 text-gray-400 border-gray-300 shadow-[4px_4px_0px_#ccc] cursor-not-allowed" :
               isCallActive ? "bg-white text-green-600 border-green-600 shadow-[4px_4px_0px_#16a34a] cursor-pointer hover:scale-105" :
-              isLoading ? "bg-white text-orange-500 border-black shadow-[4px_4px_0px_#000] cursor-pointer" :
+              isLoading ? "bg-white text-orange-500 border-black shadow-[4px_4px_0px_#000] cursor-not-allowed opacity-80" :
                 hasScrolled ? "bg-black text-white border-white shadow-[4px_4px_0px_#fff] cursor-pointer hover:scale-105" :
                   "bg-white text-black border-black shadow-[4px_4px_0px_#000] hover:bg-gray-50 cursor-pointer hover:scale-105"
             }`}
@@ -324,8 +349,8 @@ export default function Hero() {
             ? `Cooldown: ${Math.floor(cooldownLeft / 60)}:${String(cooldownLeft % 60).padStart(2, "0")}`
             : isLoading ? "Connecting..."
             : isCallActive ? "Stop AI Agent"
-            : hasScrolled ? `Hey.... don't scroll. Talk to me.`
-            : "Click on me to Activate the voice agent."}
+            : hasScrolled ? "Stop scrolling. Talk to me."
+            : "I cloned my voice. Talk to my AI twin →"}
 
           {/* Bubble tail pointing left towards character */}
           <div className={`absolute top-1/2 -left-[14px] -translate-y-1/2 w-0 h-0 border-y-[10px] border-y-transparent border-r-[14px] transition-colors duration-300
@@ -418,14 +443,14 @@ export default function Hero() {
               { Icon: FiLinkedin, href: "https://www.linkedin.com/in/kushalkongara/", label: "LinkedIn", color: "#0A66C2" },
               { Icon: FiGithub, href: "https://github.com/Kushal-Kongara", label: "GitHub", color: "#333333" },
               { Icon: FiInstagram, href: "https://www.instagram.com/kushal_kongara/", label: "Instagram", color: "#E4405F" },
-            ].map(({ Icon, href, label, color }) => (
+            ].map(({ Icon, href, label, color }, idx) => (
               <motion.a
                 key={label}
                 href={href}
                 target="_blank"
                 rel="noreferrer"
                 aria-label={label}
-                initial={{ rotate: Math.random() * 8 - 4 }}
+                initial={{ rotate: [-4, 3, -2][idx] ?? 0 }}
                 whileHover={{
                   scale: 1.15,
                   rotate: [null, -10, 10, -5, 5, 0],

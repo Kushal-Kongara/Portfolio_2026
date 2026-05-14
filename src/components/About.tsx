@@ -795,9 +795,9 @@ export default function About() {
                 {/* Professional DNA Grid */}
                 <div className="grid grid-cols-1 md:grid-cols-3 gap-4 pt-2">
                     {[
-                        { title: "ARCHITECT", desc: "System Lead" },
-                        { title: "PRODUCT", desc: "User First" },
-                        { title: "AI AGENT", desc: "LLM Systems" }
+                        { title: "AI BUILDER", desc: "Voice + LLMs" },
+                        { title: "FULL STACK", desc: "End to End" },
+                        { title: "PRODUCT", desc: "Ships Fast" }
                     ].map((pill, i) => (
                         <div key={i} className="border-[2px] border-black p-3 bg-gray-50 flex flex-col justify-between shadow-[3px_3px_0px_#0cae67]">
                             <span className="text-[8px] font-black text-[#0cae67] uppercase mb-0.5 tracking-widest">{pill.title}</span>
